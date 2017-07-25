@@ -1,0 +1,667 @@
+/*样式重置*/
+
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+body {
+    min-width: 1300px;
+    font-size: 14px;
+    min-height: 950px;
+}
+
+body,
+input {
+    padding: 0;
+    font-family: "micsrosft yahei", "微软雅黑";
+    ;
+    margin: 0;
+    font-size: 125%;
+}
+
+input {
+    font: 12px/1.5 Tahoma, Arial, sans-serif;
+}
+
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+textarea,
+code,
+form,
+button,
+p,
+blockquote,
+address span a {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+ol li,
+ul li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    border: 0;
+}
+
+
+/*背景*/
+
+.control_bg {
+    height: 10%;
+    background: #ccc;
+}
+
+.content_bg {
+    height: 90%;
+    background: #ccc;
+}
+
+
+/*头部*/
+
+.header {
+    width: 100%;
+    height: 65px;
+    background: #4677c7;
+}
+
+.navbar-esb {
+    clear: both;
+    border-color: transparent;
+    border-bottom: 1px solid transparent;
+}
+
+.crumbs {
+    margin-bottom: 10px;
+    font-size: 12px;
+    font-size: .85714rem;
+}
+
+.crumbs li {
+    margin-right: 10px;
+    display: inline-block;
+    color: #217ac0;
+    font-size: 15px;
+}
+
+.crumbs a:after {
+    margin-left: 4px!important;
+    content: '>';
+    display: inline-block;
+    font-weight: bolder;
+    font-family: FontAwesome;
+    text-decoration: none;
+    color: #c1c2c4;
+    font-size: 70%;
+}
+
+.esb_logo {
+    width: 250px;
+    height: 50px;
+    font: 32px/50px "microsoft yahei";
+    text-align: center;
+    color: #000;
+    float: left;
+    font-family: cursive;
+}
+
+.esb_sub_logo {
+    width: 300px;
+    float: left;
+    margin-left: 5%;
+    color: #000;
+    font: 0.9em/50px 'micsroft yahei';
+}
+
+.header_time {
+    width: 20%;
+    color: #000;
+    float: left;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 5.5%;
+    border: 1px solid #eee;
+    height: 45px;
+    background: #fff;
+    margin-top: 2px;
+}
+
+.header_time i {
+    display: inline-block;
+    vertical-align: top;
+    width: 40px;
+    height: 45px;
+    float: left;
+}
+
+.header_time p {
+    text-align: left;
+}
+
+.time_date {
+    font: 14px/25px 'micsroft yahei';
+}
+
+.time_temps {
+    font: 12px/25px 'micsroft yahei';
+}
+
+.header_nav {
+    width: 30%;
+    float: left;
+    margin-left: 5%;
+    color: #fff;
+    font: 0.9em/80px 'micsroft yahei';
+}
+
+.header_nav li {
+    width: 20%;
+    height: 55px;
+    margin-top: 10px;
+    margin-right: 5%;
+    float: left;
+    display: inline-block;
+    font: 16px/70px "microsoft yahei";
+    vertical-align: top;
+    text-align: center;
+    cursor: pointer;
+    white-space: normal;
+    overflow: hidden;
+    border-radius: 5px 5px 0 0;
+}
+
+.header_nav li a {
+    color: #fff;
+}
+
+.header_nav li a:hover {
+    color: #333;
+    background: #fff;
+}
+
+.active {
+    color: #333;
+    background: #e7e7e7;
+}
+
+.header_sreach {
+    width: 15%;
+    float: left;
+    margin-left: 8%;
+    position: relative;
+}
+
+.center_plan {
+    min-height: 850px;
+}
+
+.user_infor {
+    float: right;
+    width: 360px;
+    height: 30px;
+}
+
+.user_infor ul li {
+    width: 70px;
+    height: 30px;
+    display: inline-block;
+    vertical-align: top;
+    font: 12px/30px "microsoft yehei";
+    text-align: center;
+    color: #FFF;
+    cursor: pointer;
+}
+
+.user_infor .uesr_aco {
+    width: 140px;
+    margin-left: 20px;
+}
+
+.uesr_aco p {
+    text-align: right;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.uesr_aco span {
+    text-align: left;
+    display: inline-block;
+    width: 70px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sreach_img {
+    width: 0.9em;
+    height: 0.9em;
+    background: transparent url("../img/control_sreach.png") no-repeat center;
+    position: absolute;
+    top: 1.23em;
+    left: 0.5em;
+}
+
+.tigger {
+    float: right;
+    height: 4.064em;
+    font: 0.8em/4.064em 'micsroft yahei';
+    color: #fff;
+    text-align: right;
+    cursor: pointer;
+    margin-right: 2%;
+}
+
+.tigger p {
+    display: inline-block;
+}
+
+.tigger_img {
+    display: inline-block;
+    width: 1.25em;
+    height: 1.25em;
+    background: transparent url("../img/control_tigger.png") no-repeat center;
+    position: relative;
+    top: 0.314em;
+    left: 0.064em;
+}
+
+
+/*二级导航*/
+
+.sub_nav {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    background: #eee;
+}
+
+body {
+    background-color: #ddd;
+}
+
+
+/*内容*/
+
+.left_center {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.left_d {
+    margin: 0px;
+    padding: 15px;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+    background-color: #fff;
+}
+
+.siftings {
+    margin-bottom: 10px;
+    font-size: 14px;
+    width: 100%;
+    background: #fff;
+    padding: 15px;
+}
+
+.left_d .table tr th {
+    text-align: center;
+}
+
+.left_d .table tr {
+    text-align: center;
+}
+
+.left_d .table {
+    border: 1px solid #ddd;
+}
+
+.serch_cio {
+    background: url(../img/search.png) no-repeat;
+    background-size: 100% 100%;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    top: 4px;
+}
+
+tr td .btn_b {
+    color: #4678c9;
+    margin-left: 15px;
+}
+
+.left_d .table tr:nth-child(odd) {
+    background: #f6f9fe;
+}
+
+.left_dd {
+    width: 100%;
+    height: 300px;
+    margin: 0px;
+    padding: 15px;
+    border-right: 1px solid #ddd;
+    font-size: 14px;
+    display: inline-block;
+}
+
+
+/*.do_d{*/
+
+
+/*float: right;*/
+
+
+/*margin-right: 6%;*/
+
+
+/*}*/
+
+.do_d select {
+    height: 25px;
+    width: 300px;
+}
+
+.do_d .serc {
+    width: 300px;
+    height: 25px;
+    padding-left: 20px;
+    background: url("../img/search.png") no-repeat left center;
+    border: 1px solid #ddd;
+    margin-left: 4%;
+}
+
+.btn_time {
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+.btn_time button {
+    margin-left: 10px;
+    color: #000;
+    background-color: #ddd;
+}
+
+.btn_time .q_brn {
+    background-color: #fff;
+}
+
+.left_d .btn_time .b_wra {
+    float: right;
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+
+.left_d .btn_time .b_wra2 {
+    float: right;
+    color: #fff;
+    background-color: #eea236;
+    border-color: #eea236;
+}
+
+.left_d .btn_time .b_wra3 {
+    float: right;
+    color: #fff;
+    background-color: #33cc00;
+    border-color: #33cc00;
+}
+
+.ser_btn {
+    float: right;
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #5bc0de;
+    margin-right: 2%;
+}
+
+
+/*.soue{*/
+
+
+/*display: inline-block;*/
+
+
+/*width: 130px;*/
+
+
+/*line-height: 20px;*/
+
+
+/*margin-top: 15px;*/
+
+
+/*}*/
+
+.men_drop {
+    width: 300px;
+    position: relative;
+    top: -4px;
+    left: 38px;
+    background: #fff;
+    border: 1px solid #ccc;
+    z-index: 99999;
+    line-height: 18px;
+    display: none;
+}
+
+.men_drop .lisr {
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.men_drop .lisr span {
+    display: inline-block;
+    cursor: pointer;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.datetimepicker2 {
+    margin-left: 20px;
+    width: 105px;
+    border: 1px solid #ddd;
+}
+
+.left_center .siftings .lsit_sif {
+    border-bottom: 1px solid #dddddd;
+    min-height: 35px;
+    line-height: 35px;
+}
+
+.left_center .siftings .lsit_tit {
+    border-bottom: 1px solid #dddddd;
+    line-height: 35px;
+}
+
+.name_le {
+    float: left;
+    width: 10%;
+}
+
+.text_a,
+.text_a1 {
+    display: inline-block;
+    width: 80%;
+}
+
+.text_le,
+.text_le1 {
+    display: inline-block;
+    width: 10%;
+    color: #005aa0;
+    text-align: center;
+    cursor: pointer;
+}
+
+.tie {
+    padding-left: 3%;
+}
+
+.que_time {
+    margin-left: 20px;
+}
+
+.choes,
+.choes1 {
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    background: #f3f3f3;
+    border: 1px solid #dddddd;
+    color: #000;
+    margin-right: 10px;
+}
+
+.choes span,
+.choes1 span {
+    color: #000;
+}
+
+.i_img,
+.i_img1 {
+    background: url("../img/close2.png") no-repeat;
+    background-size: 100% 100%;
+    width: 9px;
+    height: 9px;
+    float: right;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.more_list {
+    float: right;
+    width: 6%;
+}
+
+.more_list button {
+    width: 80%;
+}
+
+.btn_ico {
+    background: url("../img/more_ico.png") no-repeat;
+    background-size: 100% 100%;
+    width: 14px;
+    height: 9px;
+    float: right;
+    margin-top: 4px;
+}
+
+.mm {
+    height: 35px;
+    overflow: hidden;
+}
+
+.tex {
+    color: #4778c7!important;
+}
+
+.left_d .table {
+    margin-bottom: 0px;
+}
+
+.left_d nav {
+    text-align: center;
+}
+
+.left_d nav ul li a {
+    margin: 0 5px;
+}
+
+.log_tab tr td .mess {
+    text-decoration: underline;
+}
+
+.pageuu {
+    cursor: pointer;
+}
+
+.pageuu .focus {
+    border: none;
+    cursor: pointer;
+}
+
+.pageuu2 {
+    cursor: pointer;
+}
+
+.pagecc {
+    border: none!important;
+}
+
+.pagecc2 {
+    border: 1px solid #ddd!important;
+}
+
+.serc {
+    width: 300px;
+    height: 25px;
+    padding-left: 20px;
+    background: url(../img/search.png) no-repeat left center;
+    border: 1px solid #ddd;
+    margin-left: 4%;
+}
+
+.cellbox {
+    width: 23%;
+    background-color: #4677c7;
+    cursor: pointer;
+    margin: 0.3%;
+    text-align: center;
+    /* font-family: fantasy; */
+    font-size: 21px;
+    margin-left: 0.3%;
+    color: #fff;
+}
+
+.chartbox {
+    float: left;
+}
+
+.cellbox_font {
+    margin-top: 17%;
+}
+
+.esb_calender {
+    border: 1px solid #999;
+}
+
+.glyphicon-calendar_a:after {
+    content: "\e109";
+    float: right;
+    margin-top: -10px;
+    margin-right: 4px;
+}

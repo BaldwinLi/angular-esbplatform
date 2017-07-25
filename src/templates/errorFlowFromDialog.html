@@ -1,0 +1,28 @@
+<div class="popover_content">
+    <form [formGroup]="ErrorFlowForm" novalidate>
+        <div class="mian_test">
+            <!-- <p class="lab_p">步骤编号：</p>
+            <input type="text" class="number" formControlName="err_step_no"> -->
+
+            <p class="lab_p">名称：</p>
+            <input type="text" class="number" formControlName="err_step_name">
+
+            <p class="lab_p">操作结果：</p>
+            <!-- <select class="number" formControlName="op_result">
+                <option value="成功">成功</option>
+                <option value="失败">失败</option>
+            </select> -->
+            <input type='text' class="number" formControlName="op_result">
+
+            <p class="lab_p area_p">步骤详情：</p>
+            <textarea type="text" class="area this_txt" rows="5" formControlName="err_step_desc"></textarea>
+        </div>
+        <nav>
+            <div class="iconing_alert_btn">
+                <button class="iconing_btn_ok" (click)="err_post()">保 存</button>
+                <button *ngIf="error_step && error_step.err_log_id" class="iconing_btn_ok" style='background: #d9534f' (click)="err_del()">删 除</button>
+                <button class="iconing_btn_cancel" (click)="close()">关 闭</button>
+            </div>
+        </nav>
+    </form>
+</div>

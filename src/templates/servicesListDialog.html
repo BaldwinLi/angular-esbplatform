@@ -1,0 +1,37 @@
+<div class="left_center">
+    <div class="left_d" style="max-height: 800px; overflow-y: scroll;">
+        <datatable [tableConfig]='tableConfig'></datatable>
+        <!--<table class="table table-hover table-condensed">
+                <tr>
+                    <th>错误ID</th>
+                    <th>服务名</th>
+                    <th>源系统</th>
+                    <th>目标系统</th>
+                    <th>故障类别</th>
+                    <th>故障信息</th>
+                    <th>错误状态</th>
+                    <th>故障严重性</th>
+                    <th>修改时间</th>
+                    <th>操作</th>
+                </tr>
+                <tr *ngFor="let erro of errors">
+                    <td class="errId" style="display: none">{{erro.err_id||""}}</td>
+                    <td style="background: yellow; font-weight: bolder;"><a style="cursor: pointer;" (click)="selectServiceById(erro.err_id||'')">{{erro.err_id||"testid"}}</a></td>
+                    <td style="color: red; background: yellow; font-weight: bolder;">{{erro.service_name||""}}</td>
+                    <td style="color: red; background: yellow; font-weight: bolder;">{{erro.src_sys||""}}</td>
+                    <td style="color: red; background: yellow; font-weight: bolder;">{{erro.dest_sys||""}}</td>
+                    <td style="color: red; background: yellow; font-weight: bolder;">{{erro.err_type_code||""}}</td>
+                    <td style="color: red; background: yellow; font-weight: bolder;">{{erro.err_msg||""}}</td>
+                    <td style="color: red; background: yellow; font-weight: bolder;">{{erro.err_status||""}}</td>
+                    <td style="color: red; background: yellow; font-weight: bolder;">{{erro.err_level||""}}</td>
+                    <td style="color: red; background: yellow; font-weight: bolder;">{{erro.last_upd_ts||""}}</td>
+                </tr>
+            </table>-->
+    </div>
+    <nav>
+        <div class="iconing_alert_btn">
+            <button class="iconing_btn_ok" (click)="ok()">确 认</button>
+            <button class="iconing_btn_cancel" (click)="close()">取 消</button>
+        </div>
+    </nav>
+</div>

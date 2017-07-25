@@ -1,0 +1,44 @@
+<div class="content_tab">
+    <div class="item_tab">
+        <div class="tob_header">
+            <div class="left_tab">
+                <i class="icon_stab"></i>
+                <p>用户权限配置</p>
+            </div>
+            <div class="clear_both"></div>
+        </div>
+        <div class="left_d tab">
+            <div class="tab_top btn_time">
+                <input placeholder="请输入用户名" type="text" class="sys_name serc" [(ngModel)]='userId' (keypress)="search($event)">
+                <button class="btn btn-sm btn-default b_wra2" style="float: left; margin-left: 5px;margin-top: 10px" (click)="search()">查询</button>
+                <div class="clear_both"></div>
+            </div>
+            <div class="tab_content users_tab">
+                <datatable [tableConfig]='tableConfig'></datatable>
+                <!--<table border="1" cellpadding="0" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="users_b">用户名</th>
+                            <th class="users_c">姓名</th>
+                            <th class="users_d">是否为管理员</th>
+                            <th class="users_f">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let users of persons">
+                            <td class="users_b">{{users.user_code}}</td>
+                            <td class="users_c">{{users.user_name}}</td>
+                            <td class="users_d">{{users.is_admin}}</td>
+                            <td class="users_f">
+                                <input type="text" ng-model="$parent.conf[$index]"/> -->
+                <!--<i class="esbconfigs_edits_icon" (click)="users_put(users)"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>-->
+                <esb-pagination [totalRows]="rowsCount" (outputPageNow)="getPageNow($event)" (outputPageTol)="getPageTol($event)"></esb-pagination>
+            </div>
+            <div class="clear_both"></div>
+        </div>
+    </div>
+</div>

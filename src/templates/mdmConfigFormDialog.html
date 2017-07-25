@@ -1,0 +1,95 @@
+<div class="popover_content">
+    <form [formGroup]="mdmConfigForm" novalidate>
+        <ul>
+            <li>
+                <div class="left_det">
+                    <p>ID:</p>
+                </div>
+                <div class="right_det">
+                    <input type="text" value="" formControlName="uuid">
+                </div>
+                <div class="left_det">
+                    <p>主题:</p>
+                </div>
+                <div class="right_det">
+                    <input type="text" formControlName="mdm_topic">
+                </div>
+                <div class="left_det">
+                    <p>消费者:</p>
+                </div>
+                <div class="right_det">
+                    <input type="text" formControlName="consumer">
+                </div>
+            </li>
+            <li>
+                <div class="left_det">
+                    <p>服务类型:</p>
+                </div>
+                <div class="right_det">
+                    <input formControlName="svc_type" type="text" />
+                </div>
+                <div class="left_det">
+                    <p>服务状态:</p>
+                </div>
+                <div class="right_det">
+                    <select formControlName="is_enabled">
+                        <option value=''>请选择</option>
+          			    <option *ngFor="let state of svc_states" [value]="state.id">{{state.value}}</option>
+      			    </select>
+                </div>
+                <div class="left_det">
+                    <p>订阅版本:</p>
+                </div>
+                <div class="right_det">
+                    <input type="text" formControlName="svc_version">
+                </div>
+            </li>
+            <li>
+                <div class="left_det">
+                    <p>认证类型:</p>
+                </div>
+                <div class="right_det">
+                    <select formControlName="auth_type">
+                        <option value=''>请选择</option>
+          			    <option *ngFor="let type of auth_types" [value]="type.id">{{type.value}}</option>
+      			    </select>
+                </div>
+                <div class="left_det">
+                    <p>http_basic:</p>
+                </div>
+                <div class="right_det">
+                    <input type="text" formControlName="http_basic">
+                </div>
+                <div class="left_det">
+                    <p>oauth_token:</p>
+                </div>
+                <div class="right_det">
+                    <input type="text" formControlName="oauth_token">
+                </div>
+            </li>
+            <li>
+                <div class="left_det">
+                    <p>user_agent:</p>
+                </div>
+                <div class="right_det">
+                    <input type="text" formControlName="user_agent">
+                </div>
+            </li>
+            <li>
+                <div class="left_det">
+                    <p>消费者URL:</p>
+                </div>
+                <div class="right_det">
+                    <textarea name="" formControlName="consumer_uri"></textarea>
+                </div>
+            </li>
+        </ul>
+        <div class="clear_both"></div>
+        <nav>
+            <div class="iconing_alert_btn">
+                <button class="iconing_btn_ok" (click)="mdm_consumers_post()">保 存</button>
+                <button class="iconing_btn_cancel" (click)="close()">关 闭</button>
+            </div>
+        </nav>
+    </form>
+</div>

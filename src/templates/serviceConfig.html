@@ -1,0 +1,61 @@
+<div class="content_tab">
+    <div class="system_tab">
+        <div class="tob_header">
+            <div class="left_tab">
+                <i class="icon_stab"></i>
+                <p>服务配置</p>
+            </div>
+            <div class="right_tab">
+                <div style="float: right" (click)="refreshData()">
+                    <ul class="esbconfigs_resh">
+                        <li class="resh"></li>
+                        <li style="margin-left: 0px;width: 35px;font-size: 16px; line-height: 13px;">刷新</li>
+                    </ul>
+                </div>
+                <div style="float: right" (click)="esbconfigs_add()">
+                    <ul class="esbconfigs_add">
+                        <li class="add"></li>
+                        <li style="margin-left: 0px;width: 35px;font-size: 16px; line-height: 13px;">新增</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="clear_both"></div>
+        </div>
+        <div class="left_d tab">
+            <div class="tab_top btn_time">
+                <input placeholder="请输入服务编号" type="text" class="sys_name serc" [(ngModel)]='svc_no' (keypress)='search($event)'>
+                <button class="btn btn-sm btn-default b_wra2" style="float: left; margin-left: 5px;margin-top: 10px" (click)="search()">查询</button>
+                <div class="clear_both"></div>
+            </div>
+            <div class="tab_content">
+                <datatable [tableConfig]='tableConfig'></datatable>
+                <!--<table border="1" cellpadding="0" cellspacing="0" class="">
+                    <thead>
+                        <tr>
+                            <th class="esbconfigs_b">服务名</th>
+                            <th class="esbconfigs_c">服务ID</th>
+                            <th class="esbconfigs_d">项目名称</th>
+                            <th class="esbconfigs_e">服务状态</th>
+                            <th class="esbconfigs_f">项目描述</th>
+                            <th class="esbconfigs_g">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let esbconfigs of persons">-->
+                             <!--<tr *ngFor="let esbconfigs of persons | filter:'test'">-->
+                            <!--<td class="esbconfigs_b">{{esbconfigs.svc_name}}</td>
+                            <td class="esbconfigs_c">{{esbconfigs.svc_id}}</td>
+                            <td class="esbconfigs_d">{{esbconfigs.project_name}}</td>
+                            <td class="esbconfigs_e">{{esbconfigs.svc_state}}</td>
+                            <td class="esbconfigs_f">{{esbconfigs.svc_desc}}</td>
+                            <td class="esbconfigs_g"><i class="esbconfigs_edits_icon" (click)="esbconfigs_edit($index)"></i> <i class="delete_icon"
+                                    (click)="esbconfigs_delete(esbconfigs.svc_no)"></i></td>
+                        </tr>
+                    </tbody>
+                </table>-->
+                <esb-pagination [totalRows]="rowsCount" (outputPageNow)="getPageNow($event)" (outputPageTol)="getPageTol($event)"></esb-pagination>
+            </div>
+            <div class="clear_both"></div>
+        </div>
+    </div>
+</div>

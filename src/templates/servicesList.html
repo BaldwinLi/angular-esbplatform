@@ -1,0 +1,48 @@
+<div class="center_plan" id="service_control">
+    <div class="left_center">
+        <div class="left_d">
+            <div class="btn_time">
+                <!-- <button *ngIf='resendable' class="btn btn-sm btn-danger b_wra" style="background: #22bac4;" (click)="resend($event)">重发信息列表</button> -->
+                <button *ngIf='resendable' class="btn btn-sm btn-danger b_wra" (click)="resend($event)">重发</button>
+                <button *ngIf='resendable' class="btn btn-sm btn-warning b_wra2" (click)="ignore()">忽略</button>
+                <button class="btn btn-sm btn-default btn_t" [ngClass]="{'q_brn': searchBy=='all'}" (click)="queryAll()">全部</button>
+                <button class="btn btn-sm btn-default btn_t" [ngClass]="{'q_brn': searchBy=='day'}" (click)="today()">今日</button>
+                <button class="btn btn-sm btn-default btn_t" [ngClass]="{'q_brn': searchBy=='week'}" (click)="weeks()">本周</button>
+                <button class="btn btn-sm btn-default btn_t" [ngClass]="{'q_brn': searchBy=='month'}" (click)="mouths()">本月</button>
+            </div>
+            <div>
+                <h2 style="margin: 15px; font-weight: bolder; color: #eea236;">{{errors[0] && errors[0].service_name}}</h2>
+            </div>
+            <datatable [tableConfig]='tableConfig' (selectedItems)="getSelectedItems($event)"></datatable>
+            <!--<table class="table table-hover table-condensed">
+                <tr>
+                    <th><input class="CheckAll" type="checkbox" (change)="onMasterCheckbox($event)" [(ngModel)]='isCheckAll'></th>
+                    <th>错误ID</th>
+                    <th>服务名</th>
+                    <th>源系统</th>
+                    <th>目标系统</th>
+                    <th>故障类别</th>
+                    <th>故障信息</th>
+                    <th>错误状态</th>
+                    <th>故障严重性</th>
+                    <th>修改时间</th>
+                    <th>操作</th>
+                </tr>
+                <tr *ngFor="let erro of errors">
+                    <td><input class="subBox" type="checkbox" [(ngModel)]="erro.isChecked" (change)="onCheckbox(erro.isChecked)"></td>
+                    <td class="errId" style="display: none">{{erro.err_id||""}}</td>
+                    <td style="background: yellow; font-weight: bolder;"><a style="cursor: pointer;" (click)="selectServiceById(erro.err_id||'')">{{erro.err_id||"testid"}}</a></td>
+                    <td style="color: red; background: yellow; font-weight: bolder;">{{erro.service_name||""}}</td>
+                    <td style="color: red; background: yellow; font-weight: bolder;">{{erro.src_sys||""}}</td>
+                    <td style="color: red; background: yellow; font-weight: bolder;">{{erro.dest_sys||""}}</td>
+                    <td style="color: red; background: yellow; font-weight: bolder;">{{erro.err_type_code||""}}</td>
+                    <td style="color: red; background: yellow; font-weight: bolder;">{{erro.err_msg||""}}</td>
+                    <td style="color: red; background: yellow; font-weight: bolder;">{{erro.err_status||""}}</td>
+                    <td style="color: red; background: yellow; font-weight: bolder;">{{erro.err_level||""}}</td>
+                    <td style="color: red; background: yellow; font-weight: bolder;">{{erro.last_upd_ts||""}}</td>
+                </tr>
+            </table>-->
+            <esb-pagination [totalRows]="rowsCount" [pageNow]="pageNow" [pageTol]="pageTol" (outputPageNow)="getPageNow($event)" (outputPageTol)="getPageTol($event)"></esb-pagination>
+        </div>
+    </div>
+</div>

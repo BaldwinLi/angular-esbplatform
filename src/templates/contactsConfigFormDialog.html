@@ -1,0 +1,41 @@
+<div class="popover_content">
+    <form [formGroup]="contactsConfigForm" novalidate>
+        <ul>
+            <li>
+                <div class="left_det">
+                    <p>联系人名字:</p>
+                </div>
+                <div class="right_det">
+                    <input type="text" value="" formControlName="name">
+                </div>
+                <div class="left_det">
+                    <p>联系电话:</p>
+                </div>
+                <div class="right_det">
+                    <input type="text" formControlName="phone">
+                </div>
+                <div class="left_det">
+                    <p>邮箱:</p>
+                </div>
+                <div class="right_det">
+                    <input type="text" formControlName="email">
+                </div>
+            </li>
+            <li>
+                <div class="left_det">
+                    <p>备注:</p>
+                </div>
+                <div class="right_det">
+                    <textarea name="" formControlName="memo"></textarea>
+                </div>
+            </li>
+        </ul>
+        <div class="clear_both"></div>
+        <nav>
+            <div class="iconing_alert_btn">
+                <button class="iconing_btn_ok" (click)="sys_contacts_post()">保 存</button>
+                <button class="iconing_btn_cancel" (click)="close()">关 闭</button>
+            </div>
+        </nav>
+    </form>
+</div>

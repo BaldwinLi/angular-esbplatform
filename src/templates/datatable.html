@@ -1,0 +1,61 @@
+<table class="table table-hover table-condensed">
+    <thead>
+        <tr>
+            <th *ngFor="let column of tableConfig.columns;index as i" [ngStyle]="{width: column.width+'px'}">
+                <input *ngIf="column=='$checkbox'" class="CheckAll" type="checkbox" (change)="onMasterCheckbox($event)" [(ngModel)]='isCheckAll'>
+                <div style="width: 100%">
+                    <p *ngIf="column!='$checkbox'" style="display: inline-block;">
+                        {{column.header}}
+                    </p>
+                    <p *ngIf="!!column.sort" (click)="sort(i)" [ngClass]="{uparrow: !column.isDesc, downarrow: column.isDesc}"></p>
+                </div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of tableConfig.data; index as i">
+            <td *ngFor="let column of tableConfig.columns" class="{{column.class||'' + ' ' + row.class||''}}">
+                <input *ngIf="column=='$checkbox'" class="subBox" type="checkbox" [(ngModel)]="row.isChecked" (change)="onCheckbox(row.isChecked)">
+                <input *ngIf="column=='$radio'" class="subBox" type="radio" value="{{i}}" name="selectedRadio" [(ngModel)]="checkRadioIndex" (change)="onRadio()">
+                <div *ngIf="column=='$index'">{{i+1}}</div>
+                <div *ngIf="column.type=='text'">{{row[column.id]}}</div>
+                <div *ngIf="column.type=='date'">{{row[column.id] | formatdate: column.format}}</div>
+                <div *ngIf="column.type=='mapping'">
+                    {{row[column.id] | lookup: column.options}}
+                </div>
+                <div *ngIf="column.type=='input'">
+                    <input *ngIf="column.inputType=='text'" type="{{column.inputType}}" [(ngModel)]="row[column.id]" />
+                    <select *ngIf="column.inputType=='select'" [(ngModel)]="row[column.id]">
+                        <option value=''>请选择</option>
+          			    <option *ngFor="let option of column.options" [value]="option.id">{{option.value}}</option>
+      			    </select>
+                </div>
+                <div *ngIf="column.type=='template'">
+                    <p *ngIf="column.template.type=='html'" beTemplate [childElement]="column.template.tempBuilder(row, columns)" [click]="column.template.on && column.template.on.click" [mouseleave]="column.template.on && column.template.on.mouseleave" [mouseover]="column.template.on && column.template.on.mouseover"
+                        [row]="row"></p>
+                    <div *ngIf="column.template.type == 'link'">
+                        <ng-container *ngTemplateOutlet="link; context: { row: row, headers: columns, template: column.template}"></ng-container>
+                    </div>
+                    <div *ngIf="column.template.type == 'eventHandler'">
+                        <ng-container *ngTemplateOutlet="eventHandler; context: { row: row, headers: columns, template: column.template}"></ng-container>
+                    </div>
+                </div>
+                <div *ngIf="column.type=='array'">
+                    <!-- <ng-container *ngTemplateOutlet="array; context: { list: row[column.id], displayField: column.displayField}"></ng-container> -->
+                    <p class='serc' style="border: 0; cursor: pointer" (click)="openArrList(column.columns, row[column.id], column.header)">{{getArrToStr(row[column.id], column.displayField)}}</p>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+    <ng-template #link let-link='template.link' let-row="row" let-headers="headers" let-template="template.context" let-target='template.target'>
+        <a style="color:#00f" href='{{link(row, headers)}}' target="{{target}}">{{template(row, headers)}}</a>
+    </ng-template>
+    <ng-template #eventHandler let-link='template.link' let-row="row" let-headers="headers" let-template="template.context" let-handler="template.handler" let-event="template.event">
+        <a style="color:#00f" *ngIf="event=='click'" (click)='handler(row, headers)'>{{template(row, headers)}}</a>
+        <a style="color:#00f" *ngIf="event=='mouseleave'" (mouseleave)='handler(row, headers)'>{{template(row, headers)}}</a>
+        <a style="color:#00f" *ngIf="event=='mouseover'" (mouseover)='handler(row, headers)'>{{template(row, headers)}}</a>
+    </ng-template>
+    <ng-template #array let-list="list" let-displayField="displayField">
+        <p *ngFor="let cell of list">{{displayField?cell[displayField]:cell}}</p>
+    </ng-template>
+</table>

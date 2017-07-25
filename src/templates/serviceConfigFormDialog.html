@@ -1,0 +1,171 @@
+<!--<div class="esbconfigs_popover popover_cc">-->
+<!--<div class="popover_header">-->
+<!--                             <h3>服务配置</h3> -->
+<!--<p class="popover_close" ng-click="close_pop()">X</p>
+	</div>-->
+<div class="popover_content">
+    <form [formGroup]="serviceConfigForm" novalidate>
+        <ul>
+            <li>
+                <div class="left_det">
+                    <p>服务代码:</p>
+                </div>
+                <div class="right_det">
+                    <input type="text" formControlName="svc_no">
+                </div>
+                <div class="left_det">
+                    <p>服务名:</p>
+                </div>
+                <div class="right_det">
+                    <input type="text" formControlName="svc_name">
+                </div>
+                <div class="left_det">
+                    <p>服务ID:</p>
+                </div>
+                <div class="right_det">
+                    <input type="text" formControlName="svc_id">
+                </div>
+            </li>
+            <li>
+                <div class="left_det">
+                    <p>服务名称:</p>
+                </div>
+                <div class="right_det">
+                    <input type="text" formControlName="project_name">
+                </div>
+                <div class="left_det">
+                    <p>服务状态:</p>
+                </div>
+                <div class="right_det">
+                    <select formControlName="svc_state">
+						<option value=''>请选择</option>
+          				<option *ngFor="let state of svc_states" [value]="state.id">{{state.value}}</option>
+      				</select>
+                </div>
+            </li>
+            <li>
+                <div class="left_det">
+                    <p>服务描述:</p>
+                </div>
+                <div class="right_det">
+                    <textarea formControlName="svc_desc"></textarea>
+                </div>
+            </li>
+            <li>
+                <div class="left_det">
+                    <p>目标协议:</p>
+                </div>
+                <div class="right_det">
+                    <input type="text" formControlName="dest_protocol">
+                </div>
+                <div class="left_det">
+                    <p>目标系统:</p>
+                </div>
+                <div class="right_det">
+                    <input type="text" formControlName="dest_sys">
+                </div>
+                <div class="left_det">
+                    <p>源协议:</p>
+                </div>
+                <div class="right_det">
+                    <input type="text" formControlName="src_protocol">
+                </div>
+            </li>
+            <li>
+
+                <div class="left_det">
+                    <p>源系统:</p>
+                </div>
+                <div class="right_det">
+                    <input type="text" formControlName="src_sys">
+                </div>
+                <div class="left_det">
+                    <p>内部编号:</p>
+                </div>
+                <div class="right_det">
+                    <input type="text" formControlName="inner_code">
+                </div>
+                <div class="left_det">
+                    <p>服务模式:</p>
+                </div>
+                <div class="right_det">
+                    <select formControlName="pattern">
+						<option value=''>请选择</option>
+          				<option *ngFor="let pattern of patterns" [value]="pattern.id">{{pattern.value}}</option>
+      				</select>
+                </div>
+            </li>
+            <li>
+                <div class="left_det">
+                    <p>日志1:</p>
+                </div>
+                <div class="right_det">
+                    <select formControlName="log1">
+						<option value=''>请选择</option>
+          				<option *ngFor="let bool of isEnable" [value]="bool.id">{{bool.value}}</option>
+      				</select>
+                </div>
+                <div class="left_det">
+                    <p>日志2:</p>
+                </div>
+                <div class="right_det">
+                    <select formControlName="log2">
+						<option value=''>请选择</option>
+          				<option *ngFor="let bool of isEnable" [value]="bool.id">{{bool.value}}</option>
+      				</select>
+                </div>
+                <div class="left_det">
+                    <p>日志3:</p>
+                </div>
+                <div class="right_det">
+                    <select formControlName="log3">
+						<option value=''>请选择</option>
+          				<option *ngFor="let bool of isEnable" [value]="bool.id">{{bool.value}}</option>
+      				</select>
+                </div>
+            </li>
+            <li>
+                <div class="left_det">
+                    <p>日志4:</p>
+                </div>
+                <div class="right_det">
+                    <select formControlName="log4">
+						<option value=''>请选择</option>
+          				<option *ngFor="let bool of isEnable" [value]="bool.id">{{bool.value}}</option>
+      				</select>
+                </div>
+                <div class="left_det">
+                    <p>esb_id:</p>
+                </div>
+                <div class="right_det">
+                    <input type="text" formControlName="esb_id" />
+                </div>
+                <div class="left_det">
+                    <p>日志级别:</p>
+                </div>
+                <div class="right_det">
+                    <select formControlName="event_level">
+						<option value=''>请选择</option>
+          				<option *ngFor="let level of event_levels" [value]="level.id">{{level.value}}</option>
+      				</select>
+                </div>
+            </li>
+            <li>
+                <div class="left_det">
+                    <p>日志数量:</p>
+                </div>
+                <div class="right_det">
+                    <input type="text" formControlName="log_cnt">
+                </div>
+            </li>
+        </ul>
+        <div class="clear_both"></div>
+        <nav>
+            <div class="iconing_alert_btn">
+                <button class="iconing_btn_ok" (click)="esbconfigs_post()">保 存</button>
+                <button class="iconing_btn_cancel" (click)="close()">关 闭</button>
+            </div>
+        </nav>
+    </form>
+</div>
+<!--</div>	-->

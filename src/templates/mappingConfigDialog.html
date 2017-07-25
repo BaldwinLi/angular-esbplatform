@@ -1,0 +1,33 @@
+<div class="popover_content left_d">
+    <div class="tab_top btn_time">
+        <input style="width: 190px;margin-bottom:5px;margin-left:0;" placeholder="请输入服务编号进行查询" type="text" class="sys_name serc" [(ngModel)]='svcNo' (keypress)="search($event)" (change)="search($event)">
+        <button class="btn btn-sm btn-default b_wra2" style="float: left; margin-left: 5px;margin-top: 10px" (click)="search()">查询</button>
+        <div class="clear_both"></div>
+    </div>
+    <span>
+        <div style="float: left;max-height:400px;">
+            服务列表
+            <div style="overflow-y: scroll;max-height: inherit;">
+                <datatable [tableConfig]='allSvcTableConfig' (selectedItems)="getLeftSelectedItems($event)"></datatable>
+            </div>
+           
+        </div>
+        <div class="iconing_alert_btn" style="float: left;width: 8%;;margin: 1%;margin-top: 22%;">
+            <button class="iconing_btn_ok" style="margin-bottom: 5px;margin-right: 0;" (click)="addSvc()">添加</button>
+            <button class="iconing_btn_ok" style="margin-bottom: 5px;margin-right: 0;" (click)="removeSvc()">移除</button>
+        </div>
+        <div style="float: left;max-height:400px;">
+            已选服务
+            <div style="overflow-y: scroll;max-height: inherit;">
+                <datatable [tableConfig]='selectedSvcTableConfig' (selectedItems)="getRightSelectedItems($event)"></datatable>
+            </div>
+        </div>
+    </span>
+    <div class="clear_both"></div>
+</div>
+<nav>
+    <div class="iconing_alert_btn">
+        <button class="iconing_btn_ok" (click)="user_post()">保 存</button>
+        <button class="iconing_btn_cancel" (click)="close()">关 闭</button>
+    </div>
+</nav>

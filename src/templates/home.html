@@ -1,0 +1,74 @@
+<div class="control_bg">
+	<nav class="navbar navbar-esb" role="navigation" style="height:72%">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<h1 class="esb_logo">ESB运维平台</h1>
+			</div>
+			<div class="navbar-header">
+				<h3 class="esb_sub_logo" style="margin-left: 20px;">{{userName}} 欢迎您！</h3>
+			</div>
+			<div class="collapse navbar-collapse" style="margin-right:5%">
+				<ul class="nav navbar-nav navbar-right">
+					<li style="cursor: pointer;" routerLink="/monitor" routerLinkActive="active"><a>ESB运维平台首页</a></li>
+					<li style="cursor: pointer;" routerLink="/transactionhome" routerLinkActive="active"><a>服务交易状态查询</a></li>
+					<li style="cursor: pointer;" routerLink="/confighome" routerLinkActive="active"><a>平台配置管理</a></li>
+					<li style="cursor: pointer;"><a (click)="logout()">退出</a></li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+	<nav class="navbar navbar-default" role="navigation" style="min-height:5px; height:28%; width: 100%;">
+		<ol class="crumbs" style="float: left; margin-left: 2%; margin-top: 10px">
+			<li routerLink="/monitor/monitorhome">
+				<a *ngIf="routeName!='monitorhome'" style="cursor: pointer;">首页</a>
+				<p *ngIf="routeName=='monitorhome'" style="color: #3b3c40;">首页</p>
+			</li>
+			<li *ngIf="routeName=='serviceslist'||routeName=='servicedetail'" (click)="onSelectBreadcrumb('serviceslist')">
+				<a *ngIf="routeName!='serviceslist'" style="cursor: pointer;">错误列表</a>
+				<p *ngIf="routeName=='serviceslist'" style="color: #3b3c40;">错误列表</p>
+			</li>
+			<li *ngIf="routeName=='servicedetail'" (click)="onSelectBreadcrumb('servicedetail')">
+				<a *ngIf="routeName!='servicedetail'" style="cursor: pointer;">错误处理流程</a>
+				<p *ngIf="routeName=='servicedetail'" style="color: #3b3c40;">错误处理流程</p>
+			</li>
+			<li *ngIf="routeName=='transactionslist'||routeName=='transactiondetail'" routerLink="/transactionhome/transactionslist">
+				<a *ngIf="routeName!='transactionslist'" style="cursor: pointer;">交易状态列表</a>
+				<p *ngIf="routeName=='transactionslist'" style="color: #3b3c40;">交易状态列表</p>
+			</li>
+			<li *ngIf="routeName=='transactiondetail'" routerLink="/transactionhome/transactiondetail">
+				<a *ngIf="routeName!='transactiondetail'" style="cursor: pointer;">交易状态详细信息</a>
+				<p *ngIf="routeName=='transactiondetail'" style="color: #3b3c40;">交易状态详细信息</p>
+			</li>
+			<li *ngIf="routeName=='mappingconfig'" routerLink="/confighome/mappingconfig">
+				<a *ngIf="routeName!='mappingconfig'" style="cursor: pointer;">用户权限配置</a>
+				<p *ngIf="routeName=='mappingconfig'" style="color: #3b3c40;">用户权限配置</p>
+			</li>
+			<li *ngIf="routeName=='serviceconfig'" routerLink="/confighome/serviceconfig">
+				<a *ngIf="routeName!='serviceconfig'" style="cursor: pointer;">服务配置</a>
+				<p *ngIf="routeName=='serviceconfig'" style="color: #3b3c40;">服务配置</p>
+			</li>
+			<li *ngIf="routeName=='mdmconfig'" routerLink="/confighome/mdmconfig">
+				<a *ngIf="routeName!='mdmconfig'" style="cursor: pointer;">MDM下发服务消费者配置</a>
+				<p *ngIf="routeName=='mdmconfig'" style="color: #3b3c40;">MDM下发服务消费者配置</p>
+			</li>
+			<li *ngIf="routeName=='systemconfig'" routerLink="/confighome/systemconfig">
+				<a *ngIf="routeName!='systemconfig'" style="cursor: pointer;">系统表</a>
+				<p *ngIf="routeName=='systemconfig'" style="color: #3b3c40;">系统表</p>
+			</li>
+			<li *ngIf="routeName=='contactsconfig'" routerLink="/confighome/contactsconfig">
+				<a *ngIf="routeName!='contactsconfig'" style="cursor: pointer;">系统联系方配置</a>
+				<p *ngIf="routeName=='contactsconfig'" style="color: #3b3c40;">系统联系方配置</p>
+			</li>
+			<li *ngIf="routeName=='myshare'" routerLink="/confighome/myshare">
+				<a *ngIf="routeName!='myshare'" style="cursor: pointer;">我的分享</a>
+				<p style="color: #3b3c40;">我的分享</p>
+			</li>
+		</ol>
+	</nav>
+</div>
+<div class="content_bg">
+	<router-outlet></router-outlet>
+</div>

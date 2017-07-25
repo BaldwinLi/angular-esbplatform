@@ -1,0 +1,950 @@
+/*样式重置*/
+body, html, div, blockquote, img, label, p, h1, h2, h3, h4, h5, h6, pre, ul, ol,
+li, dl, dt, dd, form, a, fieldset, input, th, td
+{margin: 0; padding: 0; border: 0; outline: none;}
+body{line-height: 1;position: relative;background: #f5f5f5;}
+h1, h2, h3, h4, h5, h6{font-size: 100%;}
+ul, ol{list-style: none;}
+a{color: inherit;text-decoration: none;}
+a:hover
+{text-decoration: none;}
+.clear_both {
+    clear: both;
+}
+
+/*头部*/
+.header {
+    width: 100%;
+    height: 80px;
+    background: #4678c7;
+}
+.esb_logo {
+    width: 250px;
+    height: 80px;
+    font: 32px/80px "microsoft yahei";
+    text-align: center;
+    color: #fff;
+    float: left;
+}
+.esb-nav {
+    width: 600px;
+    height: 80px;
+    float: left;
+}
+.esb-nav ul li {
+    display: inline-block;
+    vertical-align: bottom;
+    width: 100px;
+    height: 70px;
+    float: left;
+    margin-top: 10px;
+    margin-left: 20px;
+    border-radius: 2px 2px 0 0;
+    background: #fff;
+    text-align: center;
+    font: 16px/70px "microsoft yahei";
+    cursor: pointer;
+}
+.esb-nav ul li:first-child {
+    margin-left: 200px;
+}
+.user_infor {
+    float: right;
+    width: 300px;
+    height: 30px;
+}
+.user_infor ul li {
+    width: 70px;
+    height: 30px;
+    display: inline-block;
+    vertical-align: top;
+    font:12px/30px "microsoft yehei";
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+}
+.user_infor .uesr_aco {
+    width: 100px;
+    margin-left: 20px;
+}
+.uesr_aco p {
+    text-align: right;
+    display: inline-block;
+    vertical-align: top;
+}
+.uesr_aco span {
+    text-align: left;
+}
+
+/*侧边栏*/
+.esb_center {
+/*     margin-top: 20px; */
+}
+.sidebar {
+    width: 15%;
+    border-top: 2px solid #4678c7;
+    border-right: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    float: left;
+    margin-top: 28px;
+    background: #fff;
+    margin-left: 2%;
+}
+.sidebar_top {
+    height: 30px;
+}
+.sidebar_top i {
+    display: block;
+    width: 16px;
+    height: 16px;
+    background-size: 100% 100%;
+    float: right;
+    margin: 7px;
+    cursor: pointer;
+}
+.minus {
+    background: transparent url("../img/minus.png") no-repeat center;
+}
+.plus {
+    background: transparent url("../img/plus.png") no-repeat center;
+}
+.sidebar_top,.sidebar_headers {
+    width: 100%;
+    border-bottom: 1px solid #eee;
+}
+.sidebar_headers {
+    text-align: left;
+    text-indent: 20px;
+    font:14px/30px "microsoft yahei";
+    color: #000;
+    cursor: pointer;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    position: relative;
+}
+
+.header_active {
+    border-left: 2px solid #4678c7;
+}
+
+.sidebar_headers:hover {
+    border-left: 2px solid #4678c7;
+}
+.sidebar_headers i {
+    width: 16px;
+    height: 16px;
+    display: block;
+    float: left;
+    margin: 7px 0 0 10px;
+}
+.access i {
+    background: transparent url("../img/access.png") no-repeat center;
+}
+.system i {
+    background: transparent url("../img/system.png") no-repeat center;
+}
+.cah i {
+    background: transparent url("../img/cah.png") no-repeat center;
+}
+.error i {
+    background: transparent url("../img/error.png") no-repeat center;
+}
+.sidebar_list {
+    display: block;
+}
+.sidebar_list ul li {
+    width: 80%;
+    float: left;
+    margin-left: 20%;
+    font:12px/30px "microsoft yahei";
+    color: #000;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    padding-left: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis
+}
+.sidebar_list ul li:hover {
+    color: #4678c7;
+}
+.cur {
+    border-left: 2px solid #4678c7;
+}
+.sidebar_list .active {
+    color: #4678c7;
+}
+
+/*内容*/
+.content_tab {
+    float: left;
+    margin-left: 2%;
+    width: 79%;
+    margin-top: 28px;
+}
+.system_tab {
+    float: left;
+    width: 100%;
+}
+.tob_header {
+    font: 12px/30px "microsoft yahei";
+    color: #000;
+    border-top: 2px solid #4678c7;
+    font-weight: bold;
+    height: 30px;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+}
+.tob_headers {
+    font: 12px/30px "microsoft yahei";
+    color: #000;
+    border-bottom: 2px solid #4678c7;
+    font-weight: bold;
+    height: 30px;
+    background: #fff;
+}
+.left_tab {
+    float: left;
+}
+.left_tab p {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 5px;
+}
+.right_tab {
+    float: right;
+}
+.tab {
+   /* margin-top: 10px;*/
+   /* border: 1px solid #ffb552;*/
+    background: #fff;
+}
+/*.tab_top {
+    margin-top: 10px;
+}*/
+.tab_top input {
+    border: 1px solid #ddd;
+    height: 30px;
+    margin-left: 35px;
+    text-indent: 10px;
+    float: left;
+    margin-top: 10px;
+}
+.ipt_checked {
+    margin-left: 10px;
+}
+.sys_name {
+    width: 20%;
+    margin-left: 30px;
+}
+.sys_descri {
+    width: 25%;
+}
+.sys_short {
+    width: 20%;
+}
+.tab_content {
+    width: 100%;
+    margin-top: 5px;
+}
+.tab_content table {
+    width: 98%;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+    border-radius: 5px;
+    table-layout: fixed;
+}
+.tab_content table tr th {
+    height: 30px;
+    font: 12px/30px "microsoft yahei";
+/*     border-bottom: 1px solid #ddd; */
+    border-right: 1px solid #ddd;
+    font-weight: bold;
+    text-align: center;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    padding: 0;
+    vertical-align: middle;
+/*     color: #777; */
+}
+.tab_content table tr td {
+    height: 30px;
+    text-align: center;
+    font: 12px/30px "microsoft yahei";
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    padding: 0;
+    vertical-align: middle;
+        padding: 0 2px 0 2px;
+}
+.tab_content table tr td input {
+    height: 25px;
+    font:12px/30px "microsoft yahei";
+    outline: none;
+    background: inherit;
+}
+tbody tr:nth-child(2n-1) {
+    background: #fff;
+}
+tbody tr:nth-child(2n) {
+    background: #f5f8fd;
+}
+thead tr {
+    background: #d8e2f1;
+    width: 100%;
+}
+tbody tr:hover {
+    background: #f5f8fd;
+}
+.page-list ul li span {
+    margin-right: 5px;
+}
+.item_tab {
+    width: 100%;
+}
+.error_tab {
+    width: 100%;
+    border: 1px solid #eee;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+}
+.error_top {
+    width: 100%;
+    height: 30px;
+    border-bottom: 1px solid #eee;
+    background: #ddd;
+}
+.error_top h3 {
+    width: 50%;
+    float: left;
+    font:16px/30px 'microsoft yahei';
+    color: #000;
+    font-weight: bold;
+    margin: 0;
+    padding-left: 20px;
+}
+.error_top ul {
+    width: 170px;
+    float: right;
+    text-align: center;
+    margin: 0;
+}
+.error_top ul li {
+    float: left;
+    vertical-align: top;
+    width: 20px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    cursor: pointer;
+    margin-left: 20px;
+}
+.right_icon {
+    width: 100px;
+    height: 30px;
+    float: right;
+    cursor: pointer;
+}
+.right_icon p {
+    margin-right: 20px;
+    line-height:30px;
+    font-size: 14px;
+    font-family: 'microsoft yahei';
+}
+/*用户信息表格*/
+.users_a {
+    width: 5%;
+}
+.users_b {
+    width: 35%;
+}
+.users_c {
+    width: 18%;
+}
+.users_d {
+    width: 25%;
+}
+.users_f {
+    width: 20%;
+}
+.users_f .delete_icon {
+    margin-left: 55px;
+}
+
+/*右边按钮*/
+.right_tab ul {
+    width: 150px;
+    height: 25px;
+    margin-top: 7px;
+}
+.right_tab ul li {
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin-left: 15px;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+.add {
+    background: transparent url("../img/add.png") no-repeat center;
+}
+.resh {
+    background: transparent url("../img/refresh.png") no-repeat center;
+}
+.icon_stab {
+    display: block;
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin-top: 8px;
+    background: transparent url("../img/details.png") no-repeat center;
+    background-size: 100% 100%;
+    margin-left: 15px;
+}
+
+/*弹出框*/
+.esbconfigs_popover,.demo_popover,.consumers_popover,.contacts_popover,.caches_popover,.error_popover,.errorstep_popover {
+    width: 1000px;
+    border: 1px solid #999;
+    padding-bottom: 20px;
+    background: #fff;
+    position: absolute;
+    top:10px;
+    left: 150px;
+    z-index: 2;
+    display: none;
+}
+.esbconfigs_popover_edit {
+    width: 1000px;
+    border: 1px solid #999;
+    padding-bottom: 20px;
+    background: #fff;
+    position: absolute;
+    top:10px;
+    left: 150px;
+    z-index: 2;
+}
+.demo_popover_edit {    width: 1000px;
+    border: 1px solid #999;
+    padding-bottom: 20px;
+    background: #fff;
+    position: absolute;
+    top:10px;
+    left: 150px;
+    z-index: 2;
+}
+.consumers_popover_edit{    width: 1000px;
+    border: 1px solid #999;
+    padding-bottom: 20px;
+    background: #fff;
+    position: absolute;
+    top:10px;
+    left: 150px;
+    z-index: 2;
+}
+.contacts_popover_edit{    width: 1000px;
+    border: 1px solid #999;
+    padding-bottom: 20px;
+    background: #fff;
+    position: absolute;
+    top:10px;
+    left: 150px;
+    z-index: 2;
+}
+.caches_popover_edit{    width: 1000px;
+    border: 1px solid #999;
+    padding-bottom: 20px;
+    background: #fff;
+    position: absolute;
+    top:10px;
+    left: 150px;
+    z-index: 2;
+}
+.error_popover_edit {    width: 1000px;
+    border: 1px solid #999;
+    padding-bottom: 20px;
+    background: #fff;
+    position: absolute;
+    top:10px;
+    left: 150px;
+    z-index: 2;
+}
+.errorstep_popover_edit {    width: 1000px;
+    border: 1px solid #999;
+    padding-bottom: 20px;
+    background: #fff;
+    position: absolute;
+    top:10px;
+    left: 150px;
+    z-index: 2;
+}
+.popover_header {
+    width: 100%;
+    height: 30px;
+    background: #4678c7;
+}
+.popover_header h3 {
+    float: left;
+    font:16px/30px "microsoft yahei";
+    color: #fff;
+    margin-left: 10px;
+}
+.popover_header p {
+    width: 30px;
+    height: 30px;
+    font:14px/30px "microsoft yahei";
+    float: right;
+    color: #fff;
+    cursor: pointer;
+}
+.popover_content {
+    width: 100%;
+    margin: 0 auto;
+}
+.popover_content ul li {
+    width: auto;
+    margin-left: 20px;
+    margin-right: 30px;
+    font:16px/50px "microsoft yahei";
+    color: #666;
+    clear: both;
+}
+.left_det {
+    width: 150px;
+    height: 50px;
+    float: left;
+}
+.left_det p {
+    margin-left: 10px;
+    display: inline-block;
+    vertical-align: top;
+}
+.right_det {
+    width: 200px;
+    float: left;
+}
+.popover_content ul li input {
+    width: 200px;
+    height: 30px;
+    border: 1px solid #999;
+    text-indent: 10px;
+}
+.popover_content ul li textarea {
+    width: 900px;
+    height: 80px;
+    border: 1px solid #999;
+    outline: none;
+    font:12px/20px "microsoft yahei";
+    resize: none;
+}
+.popover_content ul li select {
+    width: 200px;
+    height: 30px;
+    border: 1px solid #999;
+    text-indent: 10px;
+}
+.save_btn {
+    display: block;
+    width: 12px;
+    height: 12px;
+    float: left;
+    margin-top: 10px;
+    background: transparent url("../img/save.png") no-repeat center;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+.save_tab {
+    float: right;
+}
+.save_tab button {
+    background: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font:12px/24px "microsoft yahei";
+    color: #666;
+    padding: 0 4px;
+}
+.business_edits_icon {
+    display: block;
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin-top: 5px;
+    margin-left: 47%;
+    background: transparent url("../img/edit.png") no-repeat center;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+.esbconfigs_edits_icon {
+    display: block;
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin-top: 5px;
+    margin-left: 47%;
+    background: transparent url("../img/edit.png") no-repeat center;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+.uesr_edits_icon {
+    display: block;
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin-top: 5px;
+    margin-left: 47%;
+    background: transparent url("../img/edit.png") no-repeat center;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+.consumers_edits_icon {
+    display: block;
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin-top: 5px;
+    margin-left: 47%;
+    background: transparent url("../img/edit.png") no-repeat center;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+.contacts_edits_icon {
+    display: block;
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin-top: 5px;
+    margin-left: 47%;
+    background: transparent url("../img/edit.png") no-repeat center;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+.caches_edits_icon {
+    display: block;
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin-top: 5px;
+    margin-left: 47%;
+    background: transparent url("../img/edit.png") no-repeat center;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+.error_edits_icon {
+    display: block;
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin-top: 5px;
+    margin-left: 47%;
+    background: transparent url("../img/edit.png") no-repeat center;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+.delete_icon {
+    display: block;
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin-top: 5px;
+    margin-left: 47%;
+    background: transparent url("../img/close.png") no-repeat center;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+.error_top .reflah {
+    display: block;
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin-top: 7px;
+    margin-left: 5px;
+    background: transparent url("../img/refresh.png") no-repeat center;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+
+/*服务配置表格*/
+.esbconfigs_b {
+    width: 15%;
+}
+.esbconfigs_c {
+    width: 10%;
+}
+.esbconfigs_d {
+    width: 15%;
+}
+.esbconfigs_e {
+    width: 5%;
+}
+.esbconfigs_f {
+    width: 15%;
+}
+.esbconfigs_g {
+    width: 5%;
+}
+.demo_a{
+	 width: 10%;
+	 table-layout: fixed;
+}
+.demo_b{
+	 width: 15%;
+	 table-layout: fixed;
+}
+/*缓存表格*/
+.caches_a {
+    width: 40%;
+}
+.caches_b {
+    width: 40%;
+/*     display: inline-block; */
+}
+.caches_c {
+    width: 20%;
+}
+.tggle_tf {
+    width: 50px;
+    color: #4678c7;
+}
+.dital {
+    float: left;
+    margin-left: 10px;
+}
+.bottom_tip {
+    margin-top:-15px;
+}
+.dital p {
+    font:12px/30px 'microsoft yahei';
+}
+.dital p span {
+    color: #f00;
+    font-size:14px;
+}
+.popover_cc {
+    display: none;
+}
+#ckan{
+    width: 16px;
+    height: 16px;
+    display: block;
+    position: absolute;
+    top:8px;
+    right: 10px;
+}
+.clktran {
+    width: 16px;
+    height: 16px;
+    display: block;
+    position: absolute;
+    top:8px;
+    right: 10px;
+    background: transparent url("../img/right.png") no-repeat center;
+}
+.clktran_down {
+    background: transparent url("../img/down.png") no-repeat center;
+}
+.shrink p {
+    background: #67a2ff;
+    width: 16px;
+    height: 16px;
+    color: #fff;
+    font:24px/12px 'microsoft yahei';
+    margin-top: 7px;
+    font-weight: 900;
+}
+.closes i {
+    display: block;
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin-top: 8px;
+    background: transparent url("../img/closes.png") no-repeat center;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+
+.do_d .serc {
+    width: 300px;
+    height: 25px;
+    padding-left: 20px;
+    background: url(../img/search.png) no-repeat left center;
+    border: 1px solid #ddd;
+    margin-left: 4%;
+}
+
+.do_d1 .serc {
+    width: 300px;
+    height: 25px;
+    padding-left: 20px;
+    background: url(../img/search.png) no-repeat left center;
+    border: 1px solid #ddd;
+    margin-left: 2%;
+}
+.ser_btn{
+    float: right;
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #5bc0de;
+    margin-right: 2%;
+
+}
+
+/*.soue{*/
+    /*display: inline-block;*/
+    /*width: 130px;*/
+    /*line-height: 20px;*/
+    /*margin-top: 15px;*/
+/*}*/
+
+.men_drop{
+    width: 300px;
+    position: relative;
+  top: -13px;
+    left: 8px;
+    background: #fff;
+    border: 1px solid #ccc;
+    z-index: 99999;
+    line-height: 18px;
+    display: none;
+}
+.men_drop1{
+    width: 300px;
+    position: relative;
+  top: -13px;
+    left: 8px;
+    background: #fff;
+    border: 1px solid #ccc;
+    z-index: 99999;
+    line-height: 18px;
+    display: none;
+}
+.men_drop .lisr{
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+}
+
+.men_drop .lisr span{
+    display: inline-block;
+    cursor: pointer;
+    width: 100%;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+}
+.men_drop1 .lisr{
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+}
+
+.men_drop1 .lisr span{
+    display: inline-block;
+    cursor: pointer;
+    width: 100%;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+}
+.choes, .choes1{
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    background: #f3f3f3;
+    border: 1px solid #dddddd;
+    color: #000;
+    margin-right: 10px;
+}
+
+.choes span,.choes1 span{
+    color: #000;
+}
+
+.i_img,.i_img1{
+    background: url("../img/close2.png") no-repeat;
+    background-size: 100% 100%;
+    width: 9px;
+    height: 9px;
+    float: right;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.more_list{
+    float: right;
+    width: 6%;
+}
+
+.more_list button{
+    width: 80%;
+}
+.tob_header1 {
+    font: 12px/30px "microsoft yahei";
+    color: #000;
+/*     border-top: 2px solid #4678c7; */
+    font-weight: bold;
+    height: 30px;
+/*     background: #fff; */
+/*     border-bottom: 1px solid #eee; */
+}
+.table_error {
+    color: red; 
+    background: yellow; 
+    font-weight: bolder;
+}
+.table_error_isread {
+    color: red; 
+    font-weight: bolder;
+}
+.table_normal {
+    color: gray; 
+    background: #fff
+}
+.table_warning {
+    color: red; 
+    background: #fff
+}
+.table_notwarning {
+    color: blue; 
+    background: #fff
+}
+.table_good {
+    color: green; 
+    background: #fff
+}
+.table_warning {
+    color: red; 
+    background: #fff
+}
+.table_trac_warning {
+    color: red; 
+    background: #fff
+}
+
+.uparrow {
+    cursor: pointer;
+    background: transparent url(../img/down.png) no-repeat center;
+    transform: rotate(180deg);
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+}
+
+.downarrow {
+    cursor: pointer;
+    background: transparent url(../img/down.png) no-repeat center;
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+}

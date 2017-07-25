@@ -1,0 +1,12 @@
+<div style="height:20%; width:100%; display: inline-block">
+    <div style="min-height: 130px; height: inherit; width: 14.8%;float: left;"></div>
+    <ul class="nav nav-pills" style="height: 100%; width: 67%; float: left;">
+        <li class="cellbox" *ngFor= "let svc of svcsData" style="min-height: 130px; height: inherit; width: 24.4%; margin-left: 0.3%">
+            <a style="min-height: 130px; height:inherit;" data-toggle="tooltip" data-placement="bottom" title="{{svc.svc_desc}}" (click)="onSelectService(svc.svc_no)">
+                <p style="margin-top: 17%;">{{svc.todayErrCnt}}/{{svc.totalErrCnt}}</p>
+                <p>{{svc.svc_name}}</p>
+            </a>
+        </li>
+    </ul>
+     <div style="min-height: 130px; height: inherit; width: 14.8%;float: left;"></div>
+<div>
