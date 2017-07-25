@@ -65,6 +65,10 @@ export class AppRequestService {
         return this.httpService.getRequestObservable(user_id ? `${appContextPath}users/${user_id}` : `${appContextPath}users`, "get", params || {});
     }
 
+    queryUsers_V2(user_id?: string, params?: any): Observable<any> {
+        return this.httpService.getRequestObservable(user_id ? `${appContextPath}users/v2/${user_id}` : `${appContextPath}users`, "get", params || {});
+    }
+
     updateUsers(params?: any): Observable<any> {
         return this.httpService.getRequestObservable(`${appContextPath}users`, "put", params || {});
     }
@@ -79,7 +83,7 @@ export class AppRequestService {
     }
 
     queryUsersServices(user_id?: string): Observable<any> {
-        return this.httpService.getRequestObservable(`${appContextPath}svclist${user_id?('/'+user_id):''}`, "get", {});
+        return this.httpService.getRequestObservable(`${appContextPath}svclist${user_id?('/'+user_id):''}`, "get", {}, isLocal ? { 'iv-user': window['currentUser'].user_code } : undefined);
     }
 
     queryEsbconfigs(svc_no?: string, params?: any): Observable<any> {

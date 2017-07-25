@@ -22,7 +22,6 @@ export class lineChartDirective {
             myChart.setOption({
                 title: {
                     text: '服务错误产生数量趋势',
-                    // subtext: '纯属虚构'
                 },
                 tooltip: {
                     trigger: 'axis'

@@ -79,10 +79,22 @@ export class TransactionsListComponent implements OnInit {
     for (const e in this.svcErrors) {
       if (this.svcErrors[e].svcid === this.params.svcid) {
         this.getSvcInfo(this.svcErrors[e].svc_no);
-        break;
+        this.refreshData();
+        return;
       }
     }
-    this.refreshData();
+    this.svcInfo = {
+      'svc_no': '',
+      'svc_id': '',
+      'svc_desc': '',
+      'project_name': '',
+      'src_protocol': '',
+      'src_sys': '',
+      'dest_protocol': '',
+      'dest_sys': ''
+    };
+    this.tableConfig.data = [];
+
   }
   // "svc_no": "I137",
   //     "svc_id": "SB995012",
@@ -186,9 +198,9 @@ export class TransactionsListComponent implements OnInit {
     this.changeParams();
   }
 
-  get getSvcNameById(){
+  get getSvcNameById() {
     for (let el of this.svcErrors) {
-      if(el['svcid'] == this.params.svcid){
+      if (el['svcid'] == this.params.svcid) {
         return el.svc_name;
       }
     }

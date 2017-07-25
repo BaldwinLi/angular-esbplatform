@@ -16,7 +16,10 @@
                                [displayField]="'svc_name'"  
                                [valueField]="'svc_no'"
                                [currVal]="getSvcNameById"
-                               (onSelect)="setTrendingSvcNo($event)"></combo-box>
+                               (onSelect)="setTrendingSvcNo($event)"
+                               (onBlur)="setTrendingSvcNo($event)"
+                               >
+                    </combo-box>
          </div>
     </span>
     <p style="display: inline-block; border-bottom: 1px dashed #000;margin-left:14.8%;width:67%"></p>

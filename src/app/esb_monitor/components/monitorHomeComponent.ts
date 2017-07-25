@@ -42,9 +42,12 @@ export class monitorHomeComponent {
     for (let el in this.svcErrorsTrending) {
       if (this.svcErrorsTrending[el].svc_no == this.trendingSvcNo) {
         this.selectedTrending = this.svcErrorsTrending[el];
-        break;
+        return;
       }
     }
+    this.selectedTrending = {
+      error_trend: []
+    };
   }
 
   private runCallBack(func: any): void { }
@@ -58,9 +61,9 @@ export class monitorHomeComponent {
     this.changeTrending();
   }
 
-  get getSvcNameById(){
+  get getSvcNameById() {
     for (let el of this.svcErrors) {
-      if(el['svc_no'] == this.trendingSvcNo){
+      if (el['svc_no'] == this.trendingSvcNo) {
         return el.svc_name;
       }
     }
