@@ -65,12 +65,16 @@ export class AppRequestService {
         return this.httpService.getRequestObservable(user_id ? `${appContextPath}users/${user_id}` : `${appContextPath}users`, "get", params || {});
     }
 
-    queryUsers_V2(user_id?: string, params?: any): Observable<any> {
-        return this.httpService.getRequestObservable(user_id ? `${appContextPath}users/v2/${user_id}` : `${appContextPath}users`, "get", params || {});
+    queryUsers_V2(params?: any): Observable<any> {
+        return this.httpService.getRequestObservable(`${appContextPath}users_v2`, "get", params || {}, isLocal ? { 'iv-user': window['currentUser'].user_code } : undefined);
     }
 
     updateUsers(params?: any): Observable<any> {
         return this.httpService.getRequestObservable(`${appContextPath}users`, "put", params || {});
+    }
+
+    updateUsers_V2(params?: any): Observable<any> {
+        return this.httpService.getRequestObservable(`${appContextPath}users_v2`, "put", params || {}, isLocal ? { 'iv-user': window['currentUser'].user_code } : undefined);
     }
 
     queryOverView(user_id: string): Observable<any> {

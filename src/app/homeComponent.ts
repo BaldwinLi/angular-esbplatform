@@ -23,7 +23,7 @@ export class homeComponent {
 
   constructor(private layer: NgLayer, private layerRef: NgLayerRef, private dataModel: DataModelService, private userSvc: UsersInfoService, private router: Router) {
     let obj = this;
-
+    
     window['esbLayer'] = (config: any) => {
       let overlay;
       if (!config) {

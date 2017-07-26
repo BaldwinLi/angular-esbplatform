@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { startsWith } from 'lodash';
 import { CommonService } from '../../services/common/CommonService';
 import { Router } from '@angular/router';
 import { MappingConfigDialogComponent } from './dialogComponents/MappingConfigDialogComponent';
@@ -15,7 +16,7 @@ export class mappingConfigComponent {
 
   }
   private persons: Array<any> = [];
-
+  private dataArr: Array<any> = [];
   private userId: string;
   private rowsCount: number = 0;
   private pageNow: number = 1;
@@ -41,21 +42,23 @@ export class mappingConfigComponent {
         options: 'ROLE'
       },
       {
-        id: 'services',
+        id: 'svclist',
         header: "授权服务",
         type: 'array',
-        displayField: "svc_name",
+        displayField: "usr_svcname",
         columns: [
           {
-            id: 'svc_no',
+            id: 'usr_svcno',
             header: '服务编号',
-            type: 'text'
+            type: 'text',
+            width: '100'
           },
           {
-            id: 'svc_name',
+            id: 'usr_svcname',
             header: '服务名',
-            type: 'text'
-          },
+            type: 'text',
+            width: '300'
+          }
         ]
       },
       {
@@ -79,9 +82,9 @@ export class mappingConfigComponent {
   private openServerList(row: any) {
     let obj = this;
     let data = {
-      persons: row.services || [],
+      persons: row || {},
       callback: () => {
-        obj.refreshData(obj.userId);
+        obj.refreshData();
       }
     };
     let dialog = window['esbLayer']({
@@ -94,7 +97,8 @@ export class mappingConfigComponent {
 
   private search(event): void {
     if (event && event.type == 'keypress' && event.charCode !== 13) return;
-    this.refreshData(this.userId);
+    this.refreshPageData();
+    // this.refreshData(this.userId);
   }
 
   private getPageNow(pageNow: number) {
@@ -107,29 +111,40 @@ export class mappingConfigComponent {
     this.refreshPageData();
   }
 
-  private refreshData(user_id?: string): void {
+  private refreshData(): void {
     let obj = this;
-    if (user_id) {
-      this.userSvc.queryUser(user_id).subscribe(
-        success => {
-          obj.persons = [success.body];
-          obj.refreshPageData();
-        },
-        error => window['esbLayer']({ type: 'error', message: error })
-      );
-    } else {
-      this.userSvc.queryUsersList().subscribe(
-        success => {
-          obj.persons = success.body || [];
-          obj.refreshPageData();
-        },
-        error => window['esbLayer']({ type: 'error', message: error })
-      );
-    }
+    // if (user_id) {
+    this.userSvc.queryUsersInfo_V2().subscribe(
+      success => {
+        obj.dataArr = obj.persons = (success.body && success.body.map(v => {
+          return {
+            user_code: v.user.user_code,
+            user_name: v.user.user_name,
+            is_admin: v.user.is_admin,
+            svclist: v.svclist
+          }
+        })) || [];
+        obj.refreshPageData();
+      },
+      error => window['esbLayer']({ type: 'error', message: error })
+    );
+    // } else {
+    //   this.userSvc.queryUsersList().subscribe(
+    //     success => {
+    //       obj.persons = success.body || [];
+    //       obj.refreshPageData();
+    //     },
+    //     error => window['esbLayer']({ type: 'error', message: error })
+    //   );
+    // }
   }
 
   private refreshPageData(): void {
-    let tableDataInfo = this.cmm.getPageData(this.persons, this.pageNow, this.pageTol);
+    let obj = this;
+    this.dataArr = this.persons.filter(e => {
+      return !!obj.userId ? startsWith(e.user_code, obj.userId) : true;
+    });
+    let tableDataInfo = this.cmm.getPageData(this.dataArr || this.persons, this.pageNow, this.pageTol);
     this.rowsCount = tableDataInfo.rowsCount;
     this.tableConfig.data = tableDataInfo.currentPageRows
   }

@@ -24,6 +24,14 @@ export class UsersInfoService {
     queryUsersServices(user_id?: string):  Observable<any> {
         return this.appRequest.queryUsersServices(user_id);
     };
+
+    queryUsersInfo_V2(): Observable<any> {
+        return this.appRequest.queryUsers_V2();
+    }
+
+    updateUsersInfo_V2(params: any): Observable<any> {
+        return this.appRequest.updateUsers_V2(params);
+    }
     // queryUserOverViewAsync(user_id?: string): Observable<any>{
     //     return this.appRequest.queryAsyncOverview();
     // }

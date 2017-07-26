@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { startsWith } from 'lodash';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { ROLE } from '../../../model/data-model';
 import { NgLayer, NgLayerRef, NgLayerComponent } from "angular2-layer/angular2-layer";
 import { DialogComponent } from "../../../common/components/DialogComponent";
 import { UsersInfoService } from '../../../services/UsersInfoService';
@@ -10,7 +12,9 @@ import { UsersInfoService } from '../../../services/UsersInfoService';
 })
 export class MappingConfigDialogComponent extends DialogComponent {
 
+    private mappingConfigForm;
     private persons: any = [];
+    private roles: Array<any> = ROLE;
     private svcList: Array<any> = [];
     private callback: any;
     private svcNo: string = '';
@@ -23,13 +27,14 @@ export class MappingConfigDialogComponent extends DialogComponent {
             {
                 id: 'usr_svcno',
                 header: "服务编号",
-                type: 'text'
+                type: 'text',
+                width: '100'
             },
             {
                 id: 'usr_svcname',
                 header: "服务名称",
                 type: 'text',
-                width: '400'
+                width: '300'
             },
         ],
         data: []
@@ -40,13 +45,14 @@ export class MappingConfigDialogComponent extends DialogComponent {
             {
                 id: 'usr_svcno',
                 header: "服务编号",
-                type: 'text'
+                type: 'text',
+                width: '100'
             },
             {
                 id: 'usr_svcname',
                 header: "服务名称",
                 type: 'text',
-                width: '400'
+                width: '300'
             },
         ],
         data: []
@@ -56,7 +62,8 @@ export class MappingConfigDialogComponent extends DialogComponent {
         protected layerRef: NgLayerRef,
         protected layer: NgLayer,
         protected layComp: NgLayerComponent,
-        private userSvc: UsersInfoService
+        private userSvc: UsersInfoService,
+        private mappingConfigFormBuilder: FormBuilder,
     ) {
         super(layerRef, layer, layComp);
     }
@@ -75,8 +82,20 @@ export class MappingConfigDialogComponent extends DialogComponent {
 
     ngOnInit() {
         let obj = this;
+        this.mappingConfigForm = this.mappingConfigFormBuilder.group({
+            user_code: '',
+            user_name: '',
+            is_admin: 0
+        });
         setTimeout(() => {
-            obj.selectedSvcTableConfig.data = obj.persons;
+            if (obj.persons) {
+                obj.mappingConfigForm = obj.mappingConfigFormBuilder.group({
+                    user_code: obj.persons.user_code,
+                    user_name: obj.persons.user_name,
+                    is_admin: obj.persons.is_admin
+                });
+                obj.selectedSvcTableConfig.data = obj.persons.svclist || [];
+            }
         });
         this.refreshData();
     }
@@ -106,7 +125,7 @@ export class MappingConfigDialogComponent extends DialogComponent {
                 return true;
             });
             this.allSvcTableConfig.data = this.selectedRightList.concat(this.allSvcTableConfig.data);
-            this.selectedLeftList= this.selectedRightList;
+            this.selectedLeftList = this.selectedRightList;
             this.selectedRightList = [];
         }
     }
@@ -118,7 +137,7 @@ export class MappingConfigDialogComponent extends DialogComponent {
             this.allSvcTableConfig.data = this.allSvcData.filter(e => {
                 return startsWith(e.usr_svcno.toLowerCase(), obj.svcNo.toLowerCase());
             });
-        }else{
+        } else {
             this.allSvcTableConfig.data = this.allSvcData;
         }
     }
@@ -127,7 +146,12 @@ export class MappingConfigDialogComponent extends DialogComponent {
         let obj = this;
         this.userSvc.queryUsersServices().subscribe(
             success => {
-                obj.allSvcTableConfig.data = obj.allSvcData = success.body || [];
+                obj.allSvcTableConfig.data = obj.allSvcData = (success.body && success.body.filter(e => {
+                    for (let el of obj.selectedSvcTableConfig.data) {
+                        if (el.usr_svcno == e.usr_svcno) return false;
+                    }
+                    return true;
+                })) || [];
             },
             error => window['esbLayer']({ type: 'error', message: error })
         );
@@ -135,14 +159,17 @@ export class MappingConfigDialogComponent extends DialogComponent {
 
     private user_post(): void {
         let obj = this;
-        this.userSvc.updateUser(this.selectedSvcTableConfig.data).subscribe(
+        this.userSvc.updateUsersInfo_V2([{
+            user: this.mappingConfigForm.value,
+            svclist: this.selectedSvcTableConfig.data
+        }]).subscribe(
             success => {
                 window['esbLayer']({ type: 'alert', message: "授权成功！" });
                 obj.callback && obj.callback();
                 obj.close();
             },
             error => window['esbLayer']({ type: 'error', message: error })
-        );
+            );
     }
 
     private getLeftSelectedItems(selectedItems: Array<any>): void {

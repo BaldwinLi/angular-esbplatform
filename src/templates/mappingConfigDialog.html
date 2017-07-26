@@ -1,4 +1,25 @@
 <div class="popover_content left_d">
+    <form style="display: block; height: 50px;" [formGroup]="mappingConfigForm" novalidate>
+        <ul>
+            <li>
+                <div class="left_det" style="width: 100px; margin-left:30px;">
+                    <p>姓 名:</p>
+                </div>
+                <div class="right_det">
+                    <input type="text" formControlName="user_name">
+                </div>
+                <div class="left_det" style="width: 100px; margin-left:30px;">
+                    <p>角 色:</p>
+                </div>
+                <div class="right_det">
+                    <select formControlName="is_admin">
+			            <option value=''>请选择</option>
+          	            <option *ngFor="let role of roles" [value]="role.id">{{role.value}}</option>
+      		        </select>
+                </div>
+            </li>
+        </ul>
+    </form>
     <div class="tab_top btn_time">
         <input style="width: 190px;margin-bottom:5px;margin-left:0;" placeholder="请输入服务编号进行查询" type="text" class="sys_name serc" [(ngModel)]='svcNo' (keypress)="search($event)" (change)="search($event)">
         <button class="btn btn-sm btn-default b_wra2" style="float: left; margin-left: 5px;margin-top: 10px" (click)="search()">查询</button>
