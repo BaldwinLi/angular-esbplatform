@@ -14,9 +14,9 @@
                                [localFilter]='true' 
                                [localFilterCaseSensitive]='false'
                                [listData]="svcErrors" 
-                               [displayField]="'svc_name'"  
+                               [displayField]="'usr_svcname'"  
                                [valueField]="'svcid'"
-                               [currVal]="getSvcNameById"
+                               [currVal]="svcName"
                                (onSelect)="setParamsSvcid($event)"
                                (onBlur)="setParamsSvcid($event)"
                                ></combo-box>
@@ -60,10 +60,13 @@
                 <label class="text_label">{{svcInfo.svc_id}}</label>
                 <p class="text_p3">项目名称：</p>
                 <label class="text_label">{{svcInfo.project_name}}</label>
-                <p class="text_p3">源协议：</p>
-                <label class="text_label">{{svcInfo.src_protocol}}</label>
+                <p class="text_p3">子系统：</p>
+                <label class="text_label">{{svcInfo.subsys}}</label>
+                
             </span>
             <span class="left_det" style="width: 100%;margin-left: 5%;">
+                <p class="text_p3">源协议：</p>
+                <label class="text_label">{{svcInfo.src_protocol}}</label>
                 <p class="text_p3">源系统：</p>
                 <label class="text_label">{{svcInfo.src_sys}}</label>
                 <p class="text_p3">目标协议：</p>

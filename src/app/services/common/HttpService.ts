@@ -4,7 +4,7 @@
  * 统一定义了Response失败回调函数handleError
  */
 import { Injectable } from '@angular/core';
-import { trim, isObject, endsWith } from 'lodash';
+import { trim, isObject, endsWith, assign } from 'lodash';
 import {
   Http,
   Response,
@@ -14,15 +14,12 @@ import {
   // URLSearchParams 
 } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { initUser, CommonService } from './CommonService';
+import { CommonService } from './CommonService';
 
 const isInitResponse = (url: string): boolean => {
-    const keysList = ['users', 'keylist'];
-    return keysList.some(e=>{ 
-      if(e==='users') return ((url.indexOf(e) > -1) && endsWith(url, initUser));
-      else return (url.indexOf(e) > -1);
-    });
-  }
+  const keysList = ['login', 'keylist'];
+  return keysList.some(e => (url.indexOf(e) > -1));
+}
 
 @Injectable()
 export class HttpService {
@@ -66,7 +63,7 @@ export class HttpService {
     if (options) {
       _options = new RequestOptions(options);
     } else {
-      _options = new RequestOptions({ headers: new Headers(headers || { 'Content-Type': 'application/json;charset=UTF-8' }) });
+      _options = new RequestOptions({ headers: new Headers(assign(headers, { 'Content-Type': 'application/json;charset=UTF-8' })) });
     }
     return _options;
   }
@@ -95,7 +92,7 @@ export class HttpService {
   }
 
   private extractData(res: Response | any) {
-    if(!isInitResponse(res.url)) window['loading'].finishLoading();
+    if (!isInitResponse(res.url)) window['loading'].finishLoading();
     let test = null;
     if (res._body.indexOf('System Login') > -1) {
       window.location.reload();
@@ -126,7 +123,7 @@ export class HttpService {
     try {
       let arr = JSON.parse(error._body);
       for (let e in arr) {
-        body += (arr[e]+'-');
+        body += (arr[e] + '-');
       }
     } catch (e) {
       body = error._body;
@@ -141,12 +138,12 @@ export class HttpService {
     if (params) {
       paramStr += "?";
       for (let e in params) {
-        if(!!params[e]) paramStr += (e + "=" + params[e] + "&");
+        if (!!params[e]) paramStr += (e + "=" + params[e] + "&");
       }
       paramStr = paramStr != "?" ? trim(paramStr, "&") : "";
     }
 
     return paramStr;
   }
-  
+
 }

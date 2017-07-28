@@ -10,6 +10,7 @@ import { AppRequestService } from '../../services/common/AppRequestService';
 })
 export class monitorHomeComponent {
   private trendingSvcNo: string;
+  private trendingSvcName: string;
   private svcErrors: Array<any> = [];
   private svcErrorsTrending: Array<any>;
   private selectedTrending: any;
@@ -32,6 +33,7 @@ export class monitorHomeComponent {
           obj.svcErrorsTrending = success.body.svc_errors_trend || [];
           obj.selectedTrending = success.body.svc_errors_trend && success.body.svc_errors_trend.length > 0 ? success.body.svc_errors_trend[0] : [];
           obj.trendingSvcNo = obj.selectedTrending.svc_no;
+          obj.trendingSvcName = obj.getSvcNameById;
         },
         error => window['esbLayer']({ type: 'error', message: error })
       );
@@ -57,7 +59,15 @@ export class monitorHomeComponent {
   }
 
   private setTrendingSvcNo(svc_obj: any) {
-    this.trendingSvcNo = (svc_obj && svc_obj.svc_no) || '';
+    if(svc_obj && svc_obj.constructor.name !== 'FocusEvent')
+      this.trendingSvcNo = (svc_obj && svc_obj.svc_no) || '';
+    else {
+      if(!!svc_obj) {
+        this.trendingSvcName = svc_obj.target.value;
+      }else{
+        this.trendingSvcName = this.getSvcNameById;
+      }
+    }
     this.changeTrending();
   }
 
@@ -67,7 +77,7 @@ export class monitorHomeComponent {
         return el.svc_name;
       }
     }
-    return ''
+    // return ''
   }
 
   ngOnInit() {

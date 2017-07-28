@@ -48,7 +48,7 @@
         <span>
         <!--<p class="text_p">错误链接：</p>
         <label class="text" id="errorurl" style="width: 700px;"><a href="http://universe.saic-gm.com/esbmon/error?err_id={{data2.err_id}}">http://universe.saic-gm.com/esbmon/error?err_id={{data2.err_id}}</a></label>-->
-        <p class="tit_p">交易日志详细记录<button *ngIf='resendable' style='margin-bottom: 5px;color: #fff;background-color:#d43f3a;' disabled="{{hasReplayEntry}}" class="btn btn-default btn-sm re_btn" (click)="reBtn()">重发</button></p>
+        <p class="tit_p">交易日志详细记录<button *ngIf='resendable && hasReplayEntry' style='margin-bottom: 5px;color: #fff;background-color:#d43f3a;' class="btn btn-default btn-sm re_btn" (click)="reBtn()">重发</button></p>
     </span>
         <!--<ul class="err_list" *ngFor="data3 in err_data">-->
         <!--<li><a href="{{data3.log_url}}">{{data3.tran_code}}</a></li>-->

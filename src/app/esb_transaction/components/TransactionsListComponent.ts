@@ -23,6 +23,7 @@ export class TransactionsListComponent implements OnInit {
   private pageNow: number = 1;
   private pageTol: number = 10;
   private svcErrors: Array<any> = [];
+  private svcName: string;
   private svcInfo: any = {
     'svc_no': '',
     'svc_id': '',
@@ -31,7 +32,8 @@ export class TransactionsListComponent implements OnInit {
     'src_protocol': '',
     'src_sys': '',
     'dest_protocol': '',
-    'dest_sys': ''
+    'dest_sys': '',
+    'subsys': ''
   };
 
   private params: any = {
@@ -48,10 +50,7 @@ export class TransactionsListComponent implements OnInit {
     private appSvc: AppRequestService,
     private userSvc: UsersInfoService,
     private configSvc: EsbConfigsService,
-    private router: Router) {
-  }
-
-
+    private router: Router) { }
 
   valueChanged(event: any) {
     this.params.start = this.cmm.formatISOToStr(this.start_date.toISOString());
@@ -78,7 +77,8 @@ export class TransactionsListComponent implements OnInit {
   private changeParams(): void {
     for (const e in this.svcErrors) {
       if (this.svcErrors[e].svcid === this.params.svcid) {
-        this.getSvcInfo(this.svcErrors[e].svc_no);
+        this.getSvcInfo(this.svcErrors[e].usr_svcno);
+        this.svcInfo.subsys = this.svcErrors[e].subsys;
         this.refreshData();
         return;
       }
@@ -111,6 +111,12 @@ export class TransactionsListComponent implements OnInit {
     this.configSvc.queryEsbConfigInfo(svc_no).subscribe(
       success => {
         obj.svcInfo = success.body || {};
+        for (let el of obj.svcErrors) {
+          if (el['usr_svcno'] == svc_no) {
+            obj.svcInfo.subsys = el.subsys;
+            break;
+          }
+        }
       },
       error => window['esbLayer']({ type: 'error', message: error })
     );
@@ -119,13 +125,21 @@ export class TransactionsListComponent implements OnInit {
   private initParams(): void {
     const obj = this;
     this.appSvc.afterInitCall(() => {
-      const user_id = window['currentUser']['user_code'];
-      obj.userSvc.queryUserOverView(user_id).subscribe(
+      // const user_id = window['currentUser']['user_code'];
+      obj.userSvc.queryUsersServices().subscribe(
         success => {
-          if (success.body.svc_errors && success.body.svc_errors.length > 0) {
-            obj.svcErrors = success.body.svc_errors;
-            obj.params.svcid = success.body.svc_errors && success.body.svc_errors[0].svcid;
-            obj.getSvcInfo(success.body.svc_errors[0].svc_no);
+          if (success.body && success.body.length > 0) {
+            obj.svcErrors = success.body;
+            obj.params.svcid = success.body && success.body[0].svcid;
+
+            // obj.params.svcid = 'S7066012';
+            // obj.svcErrors = success.body.map(v=>{
+            //   v.svcid = 'S7066012';
+            //   return v;
+            // });
+
+            obj.svcName = obj.getSvcNameById;
+            obj.getSvcInfo((success.body && success.body[0].usr_svcno) || '');
             obj.refreshData();
           }
         },
@@ -167,11 +181,11 @@ export class TransactionsListComponent implements OnInit {
   //   this.params.end = this.cmm.getFormatDateToStr(this.endTime);
   // }
   private selectServiceById(tran_uuid: string, ) {
-    const svcid = this.params.svcid;
-    let svc_desc;
-    for (const e in this.svcErrors) {
-      if (this.svcErrors[e].svcid === svcid) { svc_desc = this.svcErrors[e].svc_desc; }
-    }
+    // const svcid = this.params.svcid;
+    // let svc_desc;
+    // for (const e in this.svcErrors) {
+    //   if (this.svcErrors[e].svcid === svcid) { svc_desc = this.svcErrors[e].svc_desc; }
+    // }
     // this.svcInfo.tran_uuid=tran_uuid;
     this.router.navigate(['/transactionhome/transactiondetail', { tran_uuid }]);
   }
@@ -179,7 +193,7 @@ export class TransactionsListComponent implements OnInit {
   private getSort(column: any): void {
     this.params.sort = column.id;
     this.params.asc = column.isDesc ? 1 : 0;
-    console.log(this.params.sort + '  ' + this.params.asc);
+    // console.log(this.params.sort + '  ' + this.params.asc);
     this.refreshData();
   }
 
@@ -188,20 +202,27 @@ export class TransactionsListComponent implements OnInit {
       if (v.tran_status === 'E001') {
         v.class = 'table_trac_warning';
       }
-
       return v;
     });
   }
 
   private setParamsSvcid(svc_obj: any): void {
-    this.params.svcid = (svc_obj && svc_obj.svcid) || '';
+    if (svc_obj && svc_obj.constructor.name !== 'FocusEvent')
+      this.params.svcid = (svc_obj && svc_obj.svcid) || '';
+    else {
+      if (!!svc_obj) {
+        this.svcName = svc_obj.target.value;
+      } else {
+        this.svcName = this.getSvcNameById;
+      }
+    }
     this.changeParams();
   }
 
   get getSvcNameById() {
     for (let el of this.svcErrors) {
       if (el['svcid'] == this.params.svcid) {
-        return el.svc_name;
+        return el.usr_svcname;
       }
     }
     return ''

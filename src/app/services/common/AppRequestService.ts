@@ -6,6 +6,9 @@ import { keylistInitialized, keylistLoaded } from '../../model/data-model';
 import { HttpService } from './HttpService';
 
 export const isLocal = (window.location.hostname == "localhost" || window.location.hostname == "127.0.0.1");
+export const loginUser = (()=>(isLocal ? 'apptest05' : (window['currentUser'].user_code || '')));
+const userInfoHeader = (()=>(isLocal ? { 'iv-user': loginUser() } : undefined));
+
 export const appContextPath = (function (isOverview?: boolean) {
     if (isLocal) {
         return window.location.origin + "/dev/";
@@ -45,16 +48,20 @@ export class AppRequestService {
         paramArray: Array<any>,
         type?: string
     ): Observable<any> {
-        
+
         return this.httpService.getRequestObservable(
             // `${appContextPath}tranlog_replay/v1/${svc_id}/tran_uuid/${tran_uuid}`,
-            type == 'ignore'? `${appContextPath}tranlog_replay/v2/ignore`: `${appContextPath}tranlog_replay/v2`, 
+            type == 'ignore' ? `${appContextPath}tranlog_replay/v2/ignore` : `${appContextPath}tranlog_replay/v2`,
             // "get", 
             'post',
             // params || {}
             paramArray || [],
-            isLocal ? { 'iv-user': window['currentUser'].user_code } : undefined
+            userInfoHeader()
         );
+    }
+
+    userLogin(params?: any): Observable<any> {
+        return this.httpService.getRequestObservable(`${appContextPath}users_login`, "get", params || {}, userInfoHeader());
     }
 
     queryKeylist(params?: any): Observable<any> {
@@ -66,7 +73,7 @@ export class AppRequestService {
     }
 
     queryUsers_V2(params?: any): Observable<any> {
-        return this.httpService.getRequestObservable(`${appContextPath}users_v2`, "get", params || {}, isLocal ? { 'iv-user': window['currentUser'].user_code } : undefined);
+        return this.httpService.getRequestObservable(`${appContextPath}users_v2`, "get", params || {}, userInfoHeader());
     }
 
     updateUsers(params?: any): Observable<any> {
@@ -74,7 +81,11 @@ export class AppRequestService {
     }
 
     updateUsers_V2(params?: any): Observable<any> {
-        return this.httpService.getRequestObservable(`${appContextPath}users_v2`, "put", params || {}, isLocal ? { 'iv-user': window['currentUser'].user_code } : undefined);
+        return this.httpService.getRequestObservable(`${appContextPath}users_v2`, "put", params || {}, userInfoHeader());
+    }
+
+    deleteUser(user_id: string, params?: any): Observable<any> {
+        return this.httpService.getRequestObservable(`${appContextPath}users_v2/${user_id}`, "delete", params || {}, userInfoHeader());
     }
 
     queryOverView(user_id: string): Observable<any> {
@@ -87,7 +98,7 @@ export class AppRequestService {
     }
 
     queryUsersServices(user_id?: string): Observable<any> {
-        return this.httpService.getRequestObservable(`${appContextPath}svclist${user_id?('/'+user_id):''}`, "get", {}, isLocal ? { 'iv-user': window['currentUser'].user_code } : undefined);
+        return this.httpService.getRequestObservable(`${appContextPath}svclist${user_id ? ('/' + user_id) : ''}`, "get", {}, userInfoHeader());
     }
 
     queryEsbconfigs(svc_no?: string, params?: any): Observable<any> {
@@ -218,7 +229,7 @@ export class AppRequestService {
         } else if (begin_ts && end_ts) {
             params_str = `/${begin_ts}/${end_ts}`;
         }
-        return this.httpService.getRequestObservable(`${appContextPath}error_byid${params_str}`, "get", params || {}, isLocal ? { 'iv-user': window['currentUser'].user_code } : undefined);
+        return this.httpService.getRequestObservable(`${appContextPath}error_byid${params_str}`, "get", params || {}, userInfoHeader());
     }
 
     queryErrorflowsteps(step_id?: string, params?: any): Observable<any> {
@@ -262,15 +273,15 @@ export class AppRequestService {
     }
 
     queryTranlogbyUuid(uuid: string, params?: any): Observable<any> {
-        return this.httpService.getRequestObservable(`${appContextPath}tranlog_byuuid/${uuid}`, "get", params || {}, isLocal ? { 'iv-user': window['currentUser'].user_code } : undefined);
+        return this.httpService.getRequestObservable(`${appContextPath}tranlog_byuuid/${uuid}`, "get", params || {}, userInfoHeader());
     }
 
     queryTokens(access_token?: string, params?: any): Observable<any> {
-        return this.httpService.getRequestObservable(`${appContextPath}tokens` + (access_token ? `/${access_token}` : ''), "get", params || {}, isLocal ? { 'iv-user': window['currentUser'].user_code } : undefined);
+        return this.httpService.getRequestObservable(`${appContextPath}tokens` + (access_token ? `/${access_token}` : ''), "get", params || {}, userInfoHeader());
     }
 
     createToken(params?: any): Observable<any> {
-        return this.httpService.getRequestObservable(`${appContextPath}tokens`, "post", params || {}, isLocal ? { 'iv-user': window['currentUser'].user_code } : undefined);
+        return this.httpService.getRequestObservable(`${appContextPath}tokens`, "post", params || {}, userInfoHeader());
     }
 
     updateToken(params?: any): Observable<any> {

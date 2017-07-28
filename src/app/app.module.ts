@@ -33,6 +33,7 @@ import { barChartDirective } from './common/directives/barChartDirective';
 import { lineChartDirective } from './common/directives/lineChartDirective';
 import { PaginationComponent } from './common/components/PaginationComponent';
 import { DatatableComponent } from './common/components/DatatableComponent';
+import { MoveRowsDatatableComponent } from './common/components/MoveRowsDatatableComponent';
 import { ArrListDialogComponent } from './common/components/ArrListDialogComponent';
 // 服务错误相关依赖
 import { monitorHomeComponent } from './esb_monitor/components/monitorHomeComponent';
@@ -147,6 +148,7 @@ const appRoutes: Routes = [
     barChartDirective,
     lineChartDirective,
     DatatableComponent,
+    MoveRowsDatatableComponent,
     TemplateDirective,
     PaginationComponent,
     PageNotFoundComponent,

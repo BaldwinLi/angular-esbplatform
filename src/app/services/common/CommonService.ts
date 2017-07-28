@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { padStart, isObject, isArray } from 'lodash';
 
-export const initUser = (window.location.hostname == "localhost" || window.location.hostname == "127.0.0.1") ? 'apptest05' : 'x';
 @Injectable()
 export class CommonService {
 

@@ -42,27 +42,12 @@ export class mappingConfigComponent {
         options: 'ROLE'
       },
       {
-        id: 'svclist',
-        header: "授权服务",
-        type: 'array',
-        displayField: "usr_svcname",
-        columns: [
-          {
-            id: 'usr_svcno',
-            header: '服务编号',
-            type: 'text',
-            width: '100'
-          },
-          {
-            id: 'usr_svcname',
-            header: '服务名',
-            type: 'text',
-            width: '300'
-          }
-        ]
+        id: 'memo',
+        header: "用户描述",
+        type: 'text'
       },
       {
-        header: "操作",
+        header: "修改",
         type: 'template',
         width: '50',
         template: {
@@ -74,7 +59,23 @@ export class mappingConfigComponent {
             click: this.openServerList.bind(this)
           }
         }
+      }, 
+      {
+        header: "删除",
+        type: 'template',
+        width: '50',
+        template: {
+          type: "html",
+          tempBuilder: function (row, headers) {
+            return "<i class='delete_icon'></i>"
+          },
+          on: {
+            click: this.user_delete.bind(this)
+          }
+        }
       }
+
+
     ],
     data: this.persons
   };
@@ -95,10 +96,25 @@ export class mappingConfigComponent {
     });
   }
 
+  private user_delete(row: any): void {
+    let obj = this;
+    let confirmLayer = window['esbLayer']({ type: 'confirm', message: "是否确认删除？" }).ok(
+      () => {
+        obj.userSvc.deleteUser(row.user_code).subscribe(
+          success => {
+            window['esbLayer']({ type: 'alert', message: "删除成功！" });
+            obj.refreshData();
+          },
+          error => window['esbLayer']({ type: 'error', message: error })
+        );
+        confirmLayer.close();
+      }
+    );
+  }
+
   private search(event): void {
     if (event && event.type == 'keypress' && event.charCode !== 13) return;
     this.refreshPageData();
-    // this.refreshData(this.userId);
   }
 
   private getPageNow(pageNow: number) {
@@ -113,7 +129,6 @@ export class mappingConfigComponent {
 
   private refreshData(): void {
     let obj = this;
-    // if (user_id) {
     this.userSvc.queryUsersInfo_V2().subscribe(
       success => {
         obj.dataArr = obj.persons = (success.body && success.body.map(v => {
@@ -121,6 +136,7 @@ export class mappingConfigComponent {
             user_code: v.user.user_code,
             user_name: v.user.user_name,
             is_admin: v.user.is_admin,
+            memo: v.user.memo,
             svclist: v.svclist
           }
         })) || [];
@@ -128,15 +144,6 @@ export class mappingConfigComponent {
       },
       error => window['esbLayer']({ type: 'error', message: error })
     );
-    // } else {
-    //   this.userSvc.queryUsersList().subscribe(
-    //     success => {
-    //       obj.persons = success.body || [];
-    //       obj.refreshPageData();
-    //     },
-    //     error => window['esbLayer']({ type: 'error', message: error })
-    //   );
-    // }
   }
 
   private refreshPageData(): void {

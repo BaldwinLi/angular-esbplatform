@@ -9,6 +9,10 @@ export class UsersInfoService {
         return this.appRequest.queryUsers();
     }
 
+    UserLogin(): Observable<any> {
+        return this.appRequest.userLogin();
+    }
+
     queryUser(user_id: string): Observable<any> {
         return this.appRequest.queryUsers(user_id);
     }
@@ -31,6 +35,10 @@ export class UsersInfoService {
 
     updateUsersInfo_V2(params: any): Observable<any> {
         return this.appRequest.updateUsers_V2(params);
+    }
+
+    deleteUser(user_id: string): Observable<any> {
+        return this.appRequest.deleteUser(user_id);
     }
     // queryUserOverViewAsync(user_id?: string): Observable<any>{
     //     return this.appRequest.queryAsyncOverview();

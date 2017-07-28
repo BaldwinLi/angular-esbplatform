@@ -3,7 +3,7 @@ import { NgLayer, NgLayerRef } from "angular2-layer/angular2-layer";
 import { assign } from 'lodash';
 import { DataModelService } from './model/data-model';
 import { UsersInfoService } from './services/UsersInfoService';
-import { initUser } from './services/common/CommonService';
+// import { initUser } from './services/common/CommonService';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { isLocal } from './services/common/AppRequestService';
@@ -23,7 +23,7 @@ export class homeComponent {
 
   constructor(private layer: NgLayer, private layerRef: NgLayerRef, private dataModel: DataModelService, private userSvc: UsersInfoService, private router: Router) {
     let obj = this;
-    
+
     window['esbLayer'] = (config: any) => {
       let overlay;
       if (!config) {
@@ -127,7 +127,8 @@ export class homeComponent {
     let obj = this;
     // 获取当前登录用户信息
     userInitialized = this.userSvc
-      .queryUser(initUser);
+      .UserLogin();
+    // .queryUser('apptest05');
     userInitialized.subscribe(
       success => {
         window['currentUser'] = {
