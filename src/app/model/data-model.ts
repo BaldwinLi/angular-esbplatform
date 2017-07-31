@@ -173,8 +173,18 @@ export const RES_TYPE = [
     {
         id: 'tran',
         value: '交易页面'
+    },
+    {
+        id: 'errorovw',
+        value: '监控页面'
     }
 ];
+
+export const RES_TYPES = {
+  error: 'servicedetail',
+  tran: 'transactiondetail',
+  errorovw: 'errormonitor'
+};
 
 @Injectable()
 export class DataModelService {

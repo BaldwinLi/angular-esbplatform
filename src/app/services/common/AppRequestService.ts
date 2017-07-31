@@ -162,20 +162,20 @@ export class AppRequestService {
         return this.httpService.getRequestObservable(`${appContextPath}system_search/${sysnamelist}`, "get", {});
     }
 
-    querySyscontacts(contact_id?: string, params?: any): Observable<any> {
-        return this.httpService.getRequestObservable(contact_id ? `${appContextPath}sys_contacts/${contact_id}` : `${appContextPath}sys_contacts`, "get", params || {});
+    querySyscontacts(params?: any): Observable<any> {
+        return this.httpService.getRequestObservable(`${appContextPath}contacts_v2`, "get", params || {});
     }
 
     createSyscontacts(params?: any): Observable<any> {
-        return this.httpService.getRequestObservable(`${appContextPath}sys_contacts`, "post", params || {});
+        return this.httpService.getRequestObservable(`${appContextPath}contacts_v2`, "post", params || {});
     }
 
     updateSyscontacts(params?: any): Observable<any> {
-        return this.httpService.getRequestObservable(`${appContextPath}sys_contacts`, "put", params || {});
+        return this.httpService.getRequestObservable(`${appContextPath}contacts_v2`, "put", params || {});
     }
 
     deleteSyscontacts(contact_id: string, params?: any): Observable<any> {
-        return this.httpService.getRequestObservable(`${appContextPath}sys_contacts/${contact_id}`, "delete", params || {});
+        return this.httpService.getRequestObservable(`${appContextPath}contacts_v2/${contact_id}`, "delete", params || {});
     }
 
     queryCaches(key?: string, params?: any): Observable<any> {

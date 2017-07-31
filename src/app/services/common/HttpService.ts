@@ -138,7 +138,7 @@ export class HttpService {
     if (params) {
       paramStr += "?";
       for (let e in params) {
-        if (!!params[e]) paramStr += (e + "=" + params[e] + "&");
+        if (!!params[e] || params[e] === 0) paramStr += (e + "=" + params[e] + "&");
       }
       paramStr = paramStr != "?" ? trim(paramStr, "&") : "";
     }

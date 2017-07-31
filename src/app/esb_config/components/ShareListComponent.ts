@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AppRequestService } from '../../services/common/AppRequestService';
 import { CommonService } from '../../services/common/CommonService';
 import { TokenService } from '../../services/TokenService';
+import { RES_TYPES } from '../../model/data-model';
 
 @Component({
   selector: 'esb-share-list',
@@ -29,7 +30,7 @@ export class ShareListComponent {
         template: {
           type: "html",
           tempBuilder: function (row, headers) {
-            const url = `${window.location.origin}/esbmon_public/#/${row.res_type == 'error' ? 'servicedetail' : (row.res_type == 'tran' ? 'transactiondetail' : '')}?token=${row.token}`;
+            const url = `${window.location.origin}/esbmon_public/#/${RES_TYPES[row.res_type]}?token=${row.token}`;
             return `<a style='color: #00f;' href='${url}' target='_blank'>${row.token}</i>`
           }
         }

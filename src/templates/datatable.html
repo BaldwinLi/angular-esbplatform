@@ -18,14 +18,14 @@
                 <input *ngIf="column=='$checkbox'" class="subBox" type="checkbox" [(ngModel)]="row.isChecked" (change)="onCheckbox(row.isChecked)">
                 <input *ngIf="column=='$radio'" class="subBox" type="radio" value="{{i}}" name="selectedRadio" [(ngModel)]="checkRadioIndex" (change)="onRadio()">
                 <div *ngIf="column=='$index'">{{i+1}}</div>
-                <div *ngIf="column.type=='text'">{{row[column.id]}}</div>
-                <div *ngIf="column.type=='date'">{{row[column.id] | formatdate: column.format}}</div>
+                <div *ngIf="column.type=='text'">{{row[column.id] || (row[column.id] === 0 ? 0 : (column.value || ''))}}</div>
+                <div *ngIf="column.type=='date'">{{row[column.id] || (row[column.id] === 0 ? 0 : (column.value || '')) | formatdate: column.format}}</div>
                 <div *ngIf="column.type=='mapping'">
-                    {{row[column.id] | lookup: column.options}}
+                    {{row[column.id] || (row[column.id] === 0 ? 0 : (column.value || '')) | lookup: column.options}}
                 </div>
                 <div *ngIf="column.type=='input'">
-                    <input *ngIf="column.inputType=='text'" type="{{column.inputType}}" [(ngModel)]="row[column.id]" />
-                    <select *ngIf="column.inputType=='select'" [(ngModel)]="row[column.id]">
+                    <input *ngIf="column.inputType=='text'" type="{{column.inputType}}" [(ngModel)]="row[column.id]" value="column.value || ''" />
+                    <select *ngIf="column.inputType=='select'" [(ngModel)]="row[column.id]" value="column.value || ''">
                         <option value=''>请选择</option>
           			    <option *ngFor="let option of column.options" [value]="option.id">{{option.value}}</option>
       			    </select>
@@ -42,7 +42,7 @@
                 </div>
                 <div *ngIf="column.type=='array'">
                     <!-- <ng-container *ngTemplateOutlet="array; context: { list: row[column.id], displayField: column.displayField}"></ng-container> -->
-                    <p class='serc' style="border: 0; cursor: pointer" (click)="openArrList(column.columns, row[column.id], column.header)">{{getArrToStr(row[column.id], column.displayField)}}</p>
+                    <p class='serc' style="border: 0; cursor: pointer" (click)="openArrList(column.columns, row[column.id] || (row[column.id] === 0 ? 0 : (column.value || '')), column.header)">{{getArrToStr(row[column.id] || (row[column.id] === 0 ? 0 : (column.value || '')), column.displayField)}}</p>
                 </div>
             </td>
         </tr>

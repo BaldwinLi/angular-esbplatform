@@ -51,14 +51,14 @@ export class CommonService {
   // "start_ts": "2016-09-25 17:09:51",
   //   "end_ts": "2016-09-25 17:09:51"
   get getCurrentDayStartTime(): string {
-    let date = new Date();
+    let date = this.getCurrentLocalDate;
     let date_str = this.getFormatToDate(date.toISOString());
     // .split('-').map(v=>padStart(v.toString(), 2, '0')).join('-');
     return date_str + ' ' + '00:00:00';
   }
 
   get getCurrentWeekStartTime(): string {
-    let date = new Date();
+    let date = this.getCurrentLocalDate;
     date.setDate(date.getDate() - date.getDay());
     let date_str = this.getFormatToDate(date.toISOString());
     //  date.toLocaleDateString().split('-').map(v=>padStart(v.toString(), 2, '0')).join('-');
@@ -66,7 +66,7 @@ export class CommonService {
   }
 
   get getCurrentMonthStartTime(): string {
-    let date = new Date();
+    let date = this.getCurrentLocalDate;
     date.setDate(0);
     let date_str = this.getFormatToDate(date.toISOString());
     // date.toLocaleDateString().split('-').map(v=>padStart(v.toString(), 2, '0')).join('-');
@@ -74,7 +74,7 @@ export class CommonService {
   }
 
   get getCurrentTime(): string {
-    let date = new Date();
+    let date = this.getCurrentLocalDate;
     // let date_str = this.getFormatToDate(date.toISOString());
     // date.toLocaleDateString().split('-').map(v=>padStart(v.toString(), 2, '0')).join('-');
     let time_str = this.getFormatToTime(date.toISOString());
@@ -135,15 +135,25 @@ export class CommonService {
     if (isArray(object)) {
       object = object.map(v => {
         for (let e in v) {
-          if(v[e]!==0) v[e] = v[e] || ''
+          if (v[e] !== 0) v[e] = v[e] || '';
         }
         return v;
       });
     } else if (isObject(object)) {
       for (let e in object) {
-        if(object[e]!==0) object[e] = object[e] || ''
+        if (object[e] !== 0) object[e] = object[e] || '';
       }
     }
     return object;
+  }
+
+  get uuid() {
+    return Date.now().toString();
+  }
+
+  get getCurrentLocalDate() {
+    let date = new Date();
+    date.setHours(date.getHours() + 8);
+    return date;
   }
 }

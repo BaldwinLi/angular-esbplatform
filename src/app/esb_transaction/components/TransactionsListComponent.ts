@@ -40,8 +40,8 @@ export class TransactionsListComponent implements OnInit {
     start: this.cmm.getEsblastThreeMonthsTimeStr,
     end: this.cmm.getEsbCurrentTimeStr,
     trancode: '',
-    src: '',
-    dest: ''
+    // src: '',
+    // dest: ''
   };
   private tableConfig: any;
   constructor(
@@ -77,7 +77,7 @@ export class TransactionsListComponent implements OnInit {
   private changeParams(): void {
     for (const e in this.svcErrors) {
       if (this.svcErrors[e].svcid === this.params.svcid) {
-        this.getSvcInfo(this.svcErrors[e].usr_svcno);
+        this.getSvcInfo(this.svcErrors[e].svcno);
         this.svcInfo.subsys = this.svcErrors[e].subsys;
         this.refreshData();
         return;
@@ -139,7 +139,7 @@ export class TransactionsListComponent implements OnInit {
             // });
 
             obj.svcName = obj.getSvcNameById;
-            obj.getSvcInfo((success.body && success.body[0].usr_svcno) || '');
+            obj.getSvcInfo((success.body && success.body[0].svcno) || '');
             obj.refreshData();
           }
         },
@@ -192,7 +192,7 @@ export class TransactionsListComponent implements OnInit {
 
   private getSort(column: any): void {
     this.params.sort = column.id;
-    this.params.asc = column.isDesc ? 1 : 0;
+    this.params.asc = column.isDesc ? 0 : 1;
     // console.log(this.params.sort + '  ' + this.params.asc);
     this.refreshData();
   }
@@ -258,7 +258,8 @@ export class TransactionsListComponent implements OnInit {
           header: '时间',
           type: 'date',
           format: 'toTime',
-          sort: 'server'
+          sort: 'server',
+          isDesc: true
         },
         {
           id: 'tran_status',

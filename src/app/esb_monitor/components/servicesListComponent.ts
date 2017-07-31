@@ -189,16 +189,26 @@ export class servicesListComponent {
     });
   }
 
+  private getSort(column: any): void {
+    this.params.sort = column.id;
+    this.params.asc = column.isDesc ? 0 : 1;
+    // console.log(this.params.sort + '  ' + this.params.asc);
+    this.refreshData();
+  }
+
   ngOnInit() {
     let obj = this;
     if (!!window['svcListParams'] && (this.route.params['_value']['svc_no'] == window['svcListParams'].params.svc_no)) {
       this.params = window['svcListParams'].params;
     } else {
-      this.params.svc_no = this.route.params['_value']['svc_no'];
+      this.params = {
+        svc_no: this.route.params['_value']['svc_no'],
+        // asc: 0
+      }
       this.pageNow = 1;
       this.pageTol = 10;
     }
-    this.refreshData();
+    // this.refreshData();
     this.appSvc.afterInitCall(() => {
       obj.resendable = (window['currentUser'].is_admin != '0');
     });
@@ -267,7 +277,9 @@ export class servicesListComponent {
           id: "last_upd_ts",
           header: "修改时间",
           type: 'date',
-          format: 'toTime'
+          format: 'toTime',
+          sort: 'server',
+          isDesc: true
         }
       ],
       data: this.errors

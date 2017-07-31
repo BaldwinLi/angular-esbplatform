@@ -3,6 +3,7 @@ import { NgLayer, NgLayerRef, NgLayerComponent } from "angular2-layer/angular2-l
 import { DialogComponent } from "../../../common/components/DialogComponent";
 // import { CommonService } from '../../../services/common/CommonService';
 import { TokenService } from '../../../services/TokenService';
+import { RES_TYPES } from '../../../model/data-model';
 
 //enable
 enableProdMode();
@@ -51,7 +52,7 @@ export class ServicesListSharingDialogComponent extends DialogComponent {
         this.tokenSvc.createToken(params).subscribe(
             success => {
                 obj.shareSuccess = true;
-                obj.shareLink = `${window.location.origin}/esbmon_public/#/${obj.shareType == 'error' ? 'servicedetail' : (obj.shareType == 'tran' ? 'transactiondetail' : '')}?token=${success.body && success.body[0] && success.body[0].token}`;
+                obj.shareLink = `${window.location.origin}/esbmon_public/#/${RES_TYPES[obj.shareType]}?token=${success.body && success.body[0] && success.body[0].token}`;
                 obj.title('分享成功！');
                 obj.shareSuccessText = '分享成功！您分享的链接为：';
             },
@@ -110,7 +111,7 @@ export class ServicesListSharingDialogComponent extends DialogComponent {
                                 return "<input id='" + row.token + '_url' + "' " +
                                     "readonly style='border: 1px solid #999; width: 100%; float: left;' " +
                                     "type='text' value='" + window.location.origin + '/esbmon_public/#/' +
-                                    (obj.shareType == 'error' ? 'servicedetail' : (obj.shareType == 'tran' ? 'transactiondetail' : '')) +
+                                    (RES_TYPES[obj.shareType]) +
                                     '?token=' + row.token + "'>";
                             },
                             on: {

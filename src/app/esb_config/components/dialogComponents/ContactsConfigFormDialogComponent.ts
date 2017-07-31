@@ -26,9 +26,10 @@ export class ContactsConfigFormDialogComponent extends DialogComponent {
   ngOnInit(){
     this.contactsConfigForm = this.contactsConfigFormBuilder.group({
       name: "",
-      phone: "",
+      mobile: "",
       email: "",
-      memo: ""
+      memo: "",
+      company: ""
     });
     setTimeout(() => {
       if (this.persons) {

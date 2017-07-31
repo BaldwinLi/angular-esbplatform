@@ -54,8 +54,9 @@ export class DatatableComponent {
         this.selectedItems.emit(this.outputRow);
     }
 
-    private sort(index): void {
-        this.tableConfig.columns[index].isDesc = !this.tableConfig.columns[index].isDesc;
+    private sort(index, sortKey?: boolean): void {
+        if (typeof sortKey !== 'undefined') this.tableConfig.columns[index].isDesc = sortKey;
+        else this.tableConfig.columns[index].isDesc = !this.tableConfig.columns[index].isDesc;
         switch (this.tableConfig.columns[index].sort) {
             case 'server':
                 this.sortEmit.emit(this.tableConfig.columns[index]);
@@ -136,8 +137,8 @@ export class DatatableComponent {
                 obj.sorted = false;
                 this.tableConfig.columns = this.tableConfig.columns.map((e, i) => {
                     if (!!e.sort && !obj.sorted) {
-                        e.isDesc = false;
-                        obj.sort(i);
+                        e.isDesc = e.isDesc || false;
+                        obj.sort(i, e.isDesc);
                         obj.sorted = true;
                     }
                     return e;
@@ -155,8 +156,8 @@ export class DatatableComponent {
         if (this.hasServerSort) {
             this.tableConfig.columns = this.tableConfig.columns.map((e, i) => {
                 if (!!e.sort && !obj.sorted) {
-                    e.isDesc = false;
-                    obj.sort(i);
+                    e.isDesc = e.isDesc || false;
+                    obj.sort(i, e.isDesc);
                     obj.sorted = true;
                 }
                 return e;

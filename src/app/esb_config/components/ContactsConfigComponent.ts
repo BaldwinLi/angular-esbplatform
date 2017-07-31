@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { startsWith } from 'lodash';
 import { Router } from '@angular/router';
 import { ContactsConfigFormDialogComponent } from './dialogComponents/ContactsConfigFormDialogComponent';
 import { CommonService } from '../../services/common/CommonService';
@@ -20,6 +21,7 @@ export class ContactsConfigComponent {
   private pageNow: number = 1;
   private pageTol: number = 10;
   private isSuperAdmin: boolean;
+  private dataArr: Array<any> = [];
   private tableConfig: any = {
     columns: [],
     data: []
@@ -27,14 +29,14 @@ export class ContactsConfigComponent {
 
   private search(event): void {
     if (event && event.type == 'keypress' && event.charCode !== 13) return;
-    this.refreshData(this.contact_id);
+    this.refreshPageData();
   }
 
   private contacts_add(): void {
     let obj = this;
     let data = {
       callback: () => {
-        obj.refreshData(obj.contact_id);
+        obj.refreshData();
       }
     };
     let dialog = window['esbLayer']({
@@ -50,7 +52,7 @@ export class ContactsConfigComponent {
     let data = {
       persons: row,
       callback: () => {
-        obj.refreshData(obj.contact_id);
+        obj.refreshData();
       }
     };
     let dialog = window['esbLayer']({
@@ -68,7 +70,7 @@ export class ContactsConfigComponent {
         obj.contactSvc.deleteSysContact(row.contact_id).subscribe(
           success => {
             window['esbLayer']({ type: 'alert', message: "删除成功！" });
-            obj.refreshData(obj.contact_id);
+            obj.refreshData();
           },
           error => window['esbLayer']({ type: 'error', message: error })
         );
@@ -87,31 +89,25 @@ export class ContactsConfigComponent {
     this.refreshPageData();
   }
 
-  private refreshPageData(): void {
-    let tableDataInfo = this.cmm.getPageData(this.persons, this.pageNow, this.pageTol);
-    this.rowsCount = tableDataInfo.rowsCount;
-    this.tableConfig.data = tableDataInfo.currentPageRows
+  private refreshData(): void {
+    let obj = this;
+      this.contactSvc.querySysContact().subscribe(
+        success => {
+          obj.persons = success.body||[];
+          obj.refreshPageData();
+        },
+        error => window['esbLayer']({ type: 'error', message: error })
+      );
   }
 
-  private refreshData(contact_id?: string): void {
+  private refreshPageData(): void {
     let obj = this;
-    if (contact_id) {
-      this.contactSvc.querySysContact(contact_id).subscribe(
-        success => {
-          obj.persons = [success.body];
-          obj.refreshPageData();
-        },
-        error => window['esbLayer']({ type: 'error', message: error })
-      );
-    } else {
-      this.contactSvc.querySysContactsList().subscribe(
-        success => {
-          obj.persons = success.body || [];
-          obj.refreshPageData();
-        },
-        error => window['esbLayer']({ type: 'error', message: error })
-      );
-    }
+    this.dataArr = this.persons.filter(e => {
+      return !!obj.contact_id ? startsWith(e.user_code, obj.contact_id) : true;
+    });
+    let tableDataInfo = this.cmm.getPageData(this.dataArr || this.persons, this.pageNow, this.pageTol);
+    this.rowsCount = tableDataInfo.rowsCount;
+    this.tableConfig.data = tableDataInfo.currentPageRows
   }
 
   ngOnInit() {
@@ -134,13 +130,23 @@ export class ContactsConfigComponent {
               type: 'text'
             },
             {
-              id: 'phone',
+              id: 'company',
+              header: "公司",
+              type: 'text'
+            },
+            {
+              id: 'mobile',
               header: "联系电话",
               type: 'text'
             },
             {
               id: 'email',
               header: "邮箱",
+              type: 'text'
+            },
+            {
+              id: 'memo',
+              header: "备注",
               type: 'text'
             },
             {

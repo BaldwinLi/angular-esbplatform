@@ -10,8 +10,8 @@ export class SysContactsService {
         return this.appRequest.querySyscontacts();
     }
 
-    querySysContact(contact_id: string): Observable<any>{
-        return this.appRequest.querySyscontacts(contact_id);
+    querySysContact(params?: any): Observable<any>{
+        return this.appRequest.querySyscontacts(params);
     }
 
     createSysContact(params: any): Observable<any>{
