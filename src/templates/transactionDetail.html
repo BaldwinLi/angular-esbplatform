@@ -3,54 +3,35 @@
         <button class="btn btn-sm btn-default b_wra3" (click)="share()">分享</button>
     </div>
     <div class="center" id="service_control" style="margin-top:30px;width:80%;">
-        <span>
+        <div class="div_block">
+            <span>
             <p class="text_p">服务ID：</p>
             <label class="text">{{svcInfo.svc_id}}</label>
             <p class="text_p">服务编号：</p>
             <label class="text">{{svcInfo.svc_no}}</label>
         </span>
-        <span>
+            <span>
             <p class="text_p">服务描述：</p>
             <label class="text">{{svcInfo.svc_desc}}</label>
             <p class="text_p">项目名称：</p>
             <label class="text">{{svcInfo.project_name}}</label>
         </span>
-        <span>
+            <span>
             <p class="text_p">源协议：</p>
             <label class="text">{{svcInfo.src_protocol}}</label>
             <p class="text_p">源系统：</p>
             <label class="text">{{svcInfo.src_sys}}</label>
         </span>
-        <span>
+            <span>
             <p class="text_p">目标协议：</p>
             <label class="text">{{svcInfo.dest_protocol}}</label>
             <p class="text_p">目标系统：</p>
             <label class="text">{{svcInfo.dest_sys}}</label>
         </span>
-        <span>
-        <!--<p class="text_p">错误链接：</p>
-        <label class="text" id="errorurl" style="width: 700px;"><a href="http://universe.saic-gm.com/esbmon/error?err_id={{data2.err_id}}">http://universe.saic-gm.com/esbmon/error?err_id={{data2.err_id}}</a></label>-->
-        <p class="tit_p">交易日志详细记录</p>
+            <span>
+                <p class="tit_p">交易日志详细记录</p>
     </span>
-        <!--<ul class="err_list" *ngFor="data3 in err_data">-->
-        <!--<li><a href="{{data3.log_url}}">{{data3.tran_code}}</a></li>-->
-        <!--</ul>-->
-
-
-        <!--<table class="table log_tab table-bordered table-condensed table-hover">
-            <tr>
-                <th>交易代码</th>
-                <th>交易UUID</th>
-                <th>时间</th>
-                <th>详细信息</th>
-            </tr>
-            <tr *ngFor="let data3 of err_data">
-                <td>{{data3.tran_code}}</td>
-                <td>{{data3.tran_uuid}}</td>
-                <td>{{data3.log_crt_ts}}</td>
-                <td><a href="{{data3.log_url}}" target="_blank" class="mess">查看</a></td>
-            </tr>
-        </table>-->
+        </div>
         <datatable [tableConfig]='tableConfig' (selectedItems)="getSelectedItems($event)"></datatable>
         <!--<esb-pagination [totalRows]="rowsCount" (outputPageNow)="getPageNow($event)" (outputPageTol)="getPageTol($event)"></esb-pagination>-->
     </div>

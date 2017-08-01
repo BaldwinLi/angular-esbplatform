@@ -4,23 +4,23 @@
         <button class="btn btn-sm btn-default b_wra2" style="float: left; margin-left: 5px;margin-top: 10px" (click)="search()">查询</button>
         <div class="clear_both"></div>
     </div>
-    <span>
-        <div style="float: left;max-height:400px;">
+    <div style="max-height:400px;">
+        <div style="float: left;height:400px;width:46%;">
             {{config.beSelectedTableTitle}}
-            <div style="overflow-y: scroll;max-height: inherit;">
+            <div style="overflow-y: scroll;max-height: 400px;">
                 <datatable [tableConfig]='config.beSeletedDatatable' (selectedItems)="getLeftSelectedItems($event)"></datatable>
             </div>
-           
+
         </div>
-        <div class="iconing_alert_btn" style="float: left;width: 8%;;margin: 1%;margin-top: 22%;">
-            <button class="iconing_btn_ok" style="margin-bottom: 5px;margin-right: 0;" (click)="addSvc()">添加</button>
-            <button class="iconing_btn_ok" style="margin-bottom: 5px;margin-right: 0;" (click)="removeSvc()">移除</button>
+        <div class="iconing_alert_btn" style="float: left;height:400px;margin: 1%;width:6%;">
+            <button class="iconing_btn_ok" style="margin-top: 200%;width: 100%;" (click)="addSvc()">添加</button>
+            <button class="iconing_btn_ok" style="margin-top: 5px;width: 100%;" (click)="removeSvc()">移除</button>
         </div>
-        <div style="float: left;max-height:400px;">
+        <div style="float: left;height:400px;width:46%;">
             {{config.selectedTableTitle}}
-            <div style="overflow-y: scroll;max-height: inherit;">
+            <div style="overflow-y: scroll;max-height: 400px;">
                 <datatable [tableConfig]='config.seletedDatatable' (selectedItems)="getRightSelectedItems($event)"></datatable>
             </div>
         </div>
-    </span>
+    </div>
 </div>

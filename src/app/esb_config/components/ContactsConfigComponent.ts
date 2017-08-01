@@ -103,7 +103,7 @@ export class ContactsConfigComponent {
   private refreshPageData(): void {
     let obj = this;
     this.dataArr = this.persons.filter(e => {
-      return !!obj.contact_id ? startsWith(e.user_code, obj.contact_id) : true;
+      return !!obj.contact_id ? (startsWith(e.name, obj.contact_id) || startsWith(e.email, obj.contact_id)): true;
     });
     let tableDataInfo = this.cmm.getPageData(this.dataArr || this.persons, this.pageNow, this.pageTol);
     this.rowsCount = tableDataInfo.rowsCount;
@@ -119,11 +119,11 @@ export class ContactsConfigComponent {
         obj.refreshData();
         obj.tableConfig = {
           columns: [
-            {
-              id: 'contact_id',
-              header: "ID",
-              type: 'text'
-            },
+            // {
+            //   id: 'contact_id',
+            //   header: "ID",
+            //   type: 'text'
+            // },
             {
               id: 'name',
               header: "联系人姓名",

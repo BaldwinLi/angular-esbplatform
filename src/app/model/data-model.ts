@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { KeyListService } from '../services/KeyListService';
-import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 /**
  * 数据模型配置文件

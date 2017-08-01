@@ -5,7 +5,6 @@ import { DataModelService } from './model/data-model';
 import { UsersInfoService } from './services/UsersInfoService';
 // import { initUser } from './services/common/CommonService';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
 import { isLocal } from './services/common/AppRequestService';
 import { DialogComponent } from './common/components/DialogComponent';
 // import { dates } from '..//lib/locales/i18n';

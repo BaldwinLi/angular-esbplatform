@@ -16,11 +16,6 @@
             <div class="clear_both"></div>
         </div>
         <div class="left_d tab">
-            <!-- <div class="tab_top btn_time">
-                <input placeholder="请输入分享ID" type="text" class="sys_name serc" [(ngModel)]='shareId' (keypress)='search($event)'>
-                <button class="btn btn-sm btn-default b_wra2" style="float: left; margin-left: 5px;margin-top: 10px" (click)="search()">查询</button>
-                <div class="clear_both"></div>
-            </div> -->
             <div class="tab_content">
                 <datatable [tableConfig]='tableConfig'></datatable>
                 <esb-pagination [totalRows]="rowsCount" (outputPageNow)="getPageNow($event)" (outputPageTol)="getPageTol($event)"></esb-pagination>

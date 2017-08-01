@@ -6,6 +6,8 @@ export class CommonService {
 
   constructor() { }
 
+  private preTimeTamps: Array<String> = [];
+
   get getEsblastThreeMonthsTimeStr(): string {
     let date: Date = new Date();
     date.setMonth(date.getMonth() - 3);
@@ -148,7 +150,22 @@ export class CommonService {
   }
 
   get uuid() {
-    return Date.now().toString();
+    let init_timestamp = Date.now().toString();
+    if (this.preTimeTamps.length === 0) {
+      this.preTimeTamps.push(init_timestamp);
+      return init_timestamp;
+    } else {
+      if (this.preTimeTamps.indexOf(init_timestamp) > -1) {
+        while (this.preTimeTamps.indexOf(init_timestamp) > -1){
+          init_timestamp = (parseInt(init_timestamp) + 1).toString();
+        } 
+        this.preTimeTamps.push(init_timestamp);
+        return init_timestamp;
+      } else {
+        this.preTimeTamps.push(init_timestamp);
+        return init_timestamp;
+      }
+    }
   }
 
   get getCurrentLocalDate() {

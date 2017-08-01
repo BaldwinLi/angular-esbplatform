@@ -1,8 +1,9 @@
 <div class="left_d" style="height:100%;width:100%">
-    <esb-bar-chart [barChatData]="svcErrors"></esb-bar-chart>
-    <p style="display: inline-block; border-bottom: 1px dashed #000;margin-left:14.8%;width:67%"></p>
-    <esb-line-chart [lineChartData]="selectedTrending"></esb-line-chart>
-    <span class="left_det" style="margin-left: 15%;width: 80%;line-height: 25px;">
+    <div class="div_block">
+        <esb-bar-chart [barChatData]="svcErrors"></esb-bar-chart>
+        <p style="display: inline-block; border-bottom: 1px dashed #000;margin-left:14.8%;width:67%"></p>
+        <esb-line-chart [lineChartData]="selectedTrending"></esb-line-chart>
+        <span class="left_det" style="margin-left: 15%;width: 80%;line-height: 25px;">
         <label style='float: left;'>切换服务：</label>
         <!-- <select style="border: 1px solid #999;float: left;" [(ngModel)]="trendingSvcNo" (change)="changeTrending()">
             <option *ngFor="let svc of svcErrors" [value]="svc.svc_no">{{svc.svc_name}}</option>
@@ -22,8 +23,8 @@
                     </combo-box>
          </div>
     </span>
-    <p style="display: inline-block; border-bottom: 1px dashed #000;margin-left:14.8%;width:67%"></p>
-    <span class="left_det" style="margin-left: 15%;margin-top: 10px;width: 80%;line-height: 25px;">
+        <p style="display: inline-block; border-bottom: 1px dashed #000;margin-left:14.8%;width:67%"></p>
+        <span class="left_det" style="margin-left: 15%;margin-top: 10px;width: 80%;line-height: 25px;">
         <label style='float: left;margin:10px;'><input type="radio" [(ngModel)]="showType" value="list">列表</label>
         <label style='float: left;margin:10px;'><input type="radio" [(ngModel)]="showType" value="flat">平铺</label>
         <!-- <select style="border: 1px solid #999;float: left;" [(ngModel)]="showType">
@@ -31,6 +32,7 @@
             <option value="flat">平铺</option>
       	</select> -->
     </span>
+    </div>
     <div *ngIf="showType=='list'" style="margin-left: 14.8%;width: 67%;">
         <datatable [tableConfig]='tableConfig' (selectedItems)="getSelectedItems($event)"></datatable>
     </div>

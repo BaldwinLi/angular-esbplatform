@@ -9,17 +9,17 @@ export const isLocal = (window.location.hostname == "localhost" || window.locati
 export const loginUser = (()=>(isLocal ? 'apptest05' : (window['currentUser'].user_code || '')));
 const userInfoHeader = (()=>(isLocal ? { 'iv-user': loginUser() } : undefined));
 
-export const appContextPath = (function (isOverview?: boolean) {
+export const appContextPath = (function () {
     if (isLocal) {
         return window.location.origin + "/dev/";
     } else {
-        return window.location.origin + "/esbmon/api/";
+        return window.location.origin + window.location.pathname + "api/";
     }
 })();
 
-const localOverviewContextPath = (function () {
-    return window.location.origin + "/dev_api/";
-})();
+// const localOverviewContextPath = (function () {
+//     return window.location.origin + "/dev_api/";
+// })();
 
 @Injectable()
 export class AppRequestService {
@@ -90,7 +90,6 @@ export class AppRequestService {
 
     queryOverView(user_id: string): Observable<any> {
         return this.httpService.getRequestObservable(
-            // isLocal ? (localOverviewContextPath+'users/overview') : (appContextPath+'users_overview'), 
             `${appContextPath}users_overview`,
             "get",
             {},

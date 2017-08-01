@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { CommonService } from '../../services/common/CommonService';
 import { isString, isNumber, trim } from 'lodash';
-import {ArrListDialogComponent} from './ArrListDialogComponent';
+import { ArrListDialogComponent } from './ArrListDialogComponent';
 
 /**
  * 表格公共组件
@@ -11,6 +12,11 @@ import {ArrListDialogComponent} from './ArrListDialogComponent';
 })
 export class DatatableComponent {
 
+    constructor(private cmm: CommonService) {
+        this.table_uuid = 'table_' + this.cmm.uuid;
+    }
+
+    private table_uuid: string;
     private isCheckAll;
     private sorted: boolean = false;
     private hasServerSort: boolean = false;
@@ -20,9 +26,14 @@ export class DatatableComponent {
 
     private checkRadioIndex: string = "0";
 
+    private _resizableColumns: boolean = true;
+    @Input() private set resizableColumns(isResizable: boolean){
+        this._resizableColumns = isResizable;
+    };
     @Input() private tableConfig: any = {
         columns: [],
-        data: []
+        data: [],
+
     };
 
     @Output() selectedItems: EventEmitter<any> = new EventEmitter<any>();
@@ -108,7 +119,7 @@ export class DatatableComponent {
 
     ngAfterViewChecked() {
         if (this.hasCheckbox) {
-            this.isCheckAll = this.tableConfig.data.length>0?this.tableConfig.data.every(e => e.isChecked):false;
+            this.isCheckAll = this.tableConfig.data.length > 0 ? this.tableConfig.data.every(e => e.isChecked) : false;
             this.tableConfig.data = this.tableConfig.data.map(v => {
                 if (typeof v.isChecked === 'undefined')
                     v.isChecked = false;
@@ -116,7 +127,7 @@ export class DatatableComponent {
                 return v;
             });
             if (this.isCheckAll) this.onMasterCheckbox();
-            
+
         }
 
         if (this.hasIndex) {
@@ -163,6 +174,12 @@ export class DatatableComponent {
                 return e;
             });
         }
+        if (this._resizableColumns) {
+            setTimeout(() => {
+                $("#" + obj.table_uuid)['resizableColumns']();
+            });
+        }
+
 
     }
 }

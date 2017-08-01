@@ -23,33 +23,12 @@
         </div>
         <div class="left_d tab">
             <div class="tab_top btn_time">
-                <input placeholder="请输入ID" type="text" class="sys_name serc" [(ngModel)]='contact_id' (keypress)='search($event)'>
+                <input placeholder="请输入姓名/邮箱进行查询" type="text" class="sys_name serc" [(ngModel)]='contact_id' (keypress)='search($event)'>
                 <button class="btn btn-sm btn-default b_wra2" style="float: left; margin-left: 5px;margin-top: 10px" (click)="search()">查询</button>
                 <div class="clear_both"></div>
             </div>
             <div class="tab_content">
                 <datatable [tableConfig]='tableConfig'></datatable>
-                <!--<table border="1" cellpadding="0" cellspacing="0" class="">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>联系人名字</th>
-                            <th>联系电话</th>
-                            <th>邮箱</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>-->
-                        <!--<tr ng-repeat="contacts in persons | filter:test3">-->
-                        <!--<tr *ngFor="let contacts of persons">
-                            <td>{{contacts.contact_id}}</td>
-                            <td>{{contacts.name}}</td>
-                            <td>{{contacts.phone}}</td>
-                            <td>{{contacts.email}}</td>
-                            <td><i class="contacts_edits_icon" (click)="contacts_edit($index)"></i> <i class="delete_icon" (click)="contacts_delete(contacts.contact_id)"></i></td>
-                        </tr>
-                    </tbody>
-                </table>-->
                 <esb-pagination [totalRows]="rowsCount" (outputPageNow)="getPageNow($event)" (outputPageTol)="getPageTol($event)"></esb-pagination>
             </div>
             <div class="clear_both"></div>

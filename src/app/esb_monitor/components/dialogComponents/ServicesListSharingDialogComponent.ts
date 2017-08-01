@@ -104,7 +104,7 @@ export class ServicesListSharingDialogComponent extends DialogComponent {
                     {
                         header: "链接",
                         type: 'template',
-                        width: '800',
+                        width: '300',
                         template: {
                             type: "html",
                             tempBuilder: function (row, headers) {
@@ -125,19 +125,19 @@ export class ServicesListSharingDialogComponent extends DialogComponent {
                         header: "创建日期",
                         type: 'date',
                         format: 'toDate',
-                        width: '200'
+                        width: '150'
                     },
                     {
                         id: 'expire_ts',
                         header: "失效日期",
                         type: 'date',
                         format: 'toDate',
-                        width: '200'
+                        width: '150'
                     },
                     {
                         header: "复制",
                         type: 'template',
-                        width: '50',
+                        width: '80',
                         template: {
                             type: "html",
                             tempBuilder: function (row, headers) {

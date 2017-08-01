@@ -29,33 +29,6 @@
             </div>
             <div class="tab_content">
                 <datatable [tableConfig]='tableConfig'></datatable>
-                <!--<table border="1" cellpadding="0" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th class="demo_a">ID</th>
-                            <th class="demo_a">主题</th>
-                            <th class="demo_a">消费者</th>
-                            <th class="demo_b">URL</th>
-                            <th class="demo_a">服务类型</th>
-                            <th class="demo_a">服务状态</th>
-                            <th class="demo_a">订阅版本</th>
-                            <th class="demo_a">操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let emp of persons">-->
-                        <!--<tr ng-repeat="emp in persons | filter:uuid | orderBy:order">-->
-                            <!--<td class="demo_a">{{emp.uuid}}</td>
-                            <td class="demo_a">{{emp.mdm_topic}}</td>
-                            <td class="demo_a">{{emp.consumer}}</td>
-                            <td class="demo_b">{{emp.consumer_uri}}</td>
-                            <td class="demo_a"><input type="text" [(ngModel)]="emp.auth_type"></td>
-                            <td class="demo_a"><input type="text" [(ngModel)]="emp.is_enableds"></td>
-                            <td class="demo_a"><input type="text" [(ngModel)]="emp.svc_version"></td>
-                            <td><i class="business_edits_icon" (click)="business_edit($index)"></i> <i class="delete_icon"  (click)="business_delete(emp.uuid)"></i></td>
-                        </tr>
-                    </tbody>-->
-                <!--</table>-->
                 <esb-pagination [totalRows]="rowsCount" (outputPageNow)="getPageNow($event)" (outputPageTol)="getPageTol($event)"></esb-pagination>
             </div>
             <div class="clear_both"></div>

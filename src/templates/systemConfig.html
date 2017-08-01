@@ -29,32 +29,6 @@
             </div>
             <div class="tab_content">
                 <datatable [tableConfig]='tableConfig'></datatable>
-                <!--<table border="1" cellpadding="0" cellspacing="0" class="">
-                    <thead>
-                        <tr>
-                            <th>系统简称</th>
-                            <th>系统代码</th>
-                            <th>系统描述</th>
-                            <th>系统联系人</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>-->
-                        <!--<tr *ngFor="let consumers of persons | filter:test2">-->
-                        <!--<tr *ngFor="let consumers of persons">
-                            <td>{{consumers.sys_name}}</td>
-                            <td>{{consumers.sys_no}}</td>
-                            <td>{{consumers.full_name}}</td>
-                            <td *ngIf="contact.contact_type=='1'">
-                                <p title="email:{{contact.email}}" *ngFor="let contact of consumers.contacts">
-                                    {{contact.name}}</p>
-                            </td>
-
-                            <td><i class="consumers_edits_icon" (click)="consumers_edit($index)"></i> <i class="delete_icon"
-                                    (click)="consumers_delete(consumers.sys_no)"></i></td>
-                        </tr>
-                    </tbody>-->
-                <!--</table>-->
                 <esb-pagination [totalRows]="rowsCount" (outputPageNow)="getPageNow($event)" (outputPageTol)="getPageTol($event)"></esb-pagination>
             </div>
             <div class="clear_both"></div>

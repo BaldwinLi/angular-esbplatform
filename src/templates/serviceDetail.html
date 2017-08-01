@@ -9,10 +9,6 @@
         <p class="text_p">故障类型：</p>
         <label class="text">{{data2.err_type_code}}</label>
     </span>
-        <!--<select class="text">-->
-        <!--<option value="G001">G001</option>-->
-        <!--<option value="">其他</option>-->
-        <!--</select>-->
         <span>
         <p class="text_p">出错时间：</p>
         <label class="text">{{data2.last_upd_ts | formatdate:'toTime'}}</label>
@@ -35,85 +31,39 @@
     </span>
         <span>
         <p class="text_p">故障原因：</p>
-        <!--<label class="text">{{data2.dest_sys}}</label>-->
-        <!--<p class="text_p area_p">故障信息：</p>-->
         <label style="background-color: white;word-break:break-word; height: 77px;" class="form-control tx_area">{{data2.err_reason||'N/A'}}</label>
-    <!--<span>
-    </span>-->
         <p class="text_p">故障信息：</p>
-        <!--<label class="text">{{data2.dest_sys}}</label>-->
-        <!--<p class="text_p area_p">故障信息：</p>-->
         <label style="background-color: white;word-break:break-word; height: 77px;" class="form-control tx_area">{{data2.err_msg||'N/A'}}</label>
         </span>
         <span>
-        <!--<p class="text_p">错误链接：</p>
-        <label class="text" id="errorurl" style="width: 700px;"><a href="http://universe.saic-gm.com/esbmon/error?err_id={{data2.err_id}}">http://universe.saic-gm.com/esbmon/error?err_id={{data2.err_id}}</a></label>-->
-        <p class="tit_p">交易日志详细记录<button *ngIf='resendable && hasReplayEntry' style='margin-bottom: 5px;color: #fff;background-color:#d43f3a;' class="btn btn-default btn-sm re_btn" (click)="reBtn()">重发</button></p>
+            <p class="tit_p">交易日志详细记录<button *ngIf='resendable && hasReplayEntry' style='margin-bottom: 5px;color: #fff;background-color:#d43f3a;' class="btn btn-default btn-sm re_btn" (click)="reBtn()">重发</button></p>
     </span>
-        <!--<ul class="err_list" *ngFor="data3 in err_data">-->
-        <!--<li><a href="{{data3.log_url}}">{{data3.tran_code}}</a></li>-->
-        <!--</ul>-->
-
-
-        <!--<table class="table log_tab table-bordered table-condensed table-hover">
-            <tr>
-                <th>交易代码</th>
-                <th>交易UUID</th>
-                <th>时间</th>
-                <th>详细信息</th>
-            </tr>
-            <tr *ngFor="let data3 of err_data">
-                <td>{{data3.tran_code}}</td>
-                <td>{{data3.tran_uuid}}</td>
-                <td>{{data3.log_crt_ts}}</td>
-                <td><a href="{{data3.log_url}}" target="_blank" class="mess">查看</a></td>
-            </tr>
-        </table>-->
         <div class="esb_box">
-            <datatable [tableConfig]='tableConfig' (selectedItems)="getSelectedItems($event)"></datatable>
-            <!--<esb-pagination [totalRows]="rowsCount" (outputPageNow)="getPageNow($event)" (outputPageTol)="getPageTol($event)"></esb-pagination>-->
-
+            <div class="tab_content">
+                <datatable [tableConfig]='tableConfig' (selectedItems)="getSelectedItems($event)"></datatable>
+            </div>
             <div class="clear_both"></div>
         </div>
         <div class="esb_box" style="margin-top: 40px;border-top: 1px dashed #ccc;">
-            <p class="box_left">源系统联系人({{src.sys_no}}/{{src.sys_name}})：</p>
+            <div>
+                <p class="box_left">源系统联系人({{src.sys_no}}/{{src.sys_name}})：</p>
+            </div>
             <datatable [tableConfig]='srcContactTableConfig'></datatable>
             <div class="clear_both"></div>
         </div>
         <div class="esb_box" style="margin-top: 40px;border-top: 1px dashed #ccc;">
-            <p class="box_left">目标系统联系人({{dest.sys_no}}/{{dest.sys_name}})：</p>
+            <div>
+                <p class="box_left">目标系统联系人({{dest.sys_no}}/{{dest.sys_name}})：</p>
+            </div>
             <datatable [tableConfig]='destContactTableConfig'></datatable>
             <div class="clear_both"></div>
         </div>
-        <!--         <p class="text_p">源系统：</p> -->
-        <!--         <label class="text"  style="width:900px"  value="ID: {{src.sys_no}}  "></label> -->
-        <!--           <p class="text_p"></p>  <label class="text"  style="width:900px"  value="name: {{src.sys_name}}"></label> -->
-
-        <!--         <p class="text_p"></p> <label class="text"  style="width:900px"  *ngFor="peo in src.contacts" value="name: {{peo1.name}}  mail: {{peo.email}}"></label> -->
-
-        <!-- 		<p class="text_p">目标系统：</p>	 -->
-
-        <!-- 		      <label class="text"  style="width:900px"  value="ID: {{dest.sys_no}}  "></label> -->
-        <!-- 		    <p class="text_p"></p>   <label class="text"  style="width:900px"  value="name: {{dest.sys_name}}"></label> -->
-        <!--        		 <p class="text_p"></p>  <label class="text"  style="width:900px"  *ngFor="peo1 in dest.contacts" value="name: {{peo1.name}}  mail: {{peo1.email}}"></label> -->
-
         <p class="tit_p" style="border-top: 1px dashed #ccc;">建议处理流程</p>
-        <!-- <div>
-            <div class="ts_list lis1" *ngFor="let step of errorflows">
-                <p title="{{step.err_step_desc}}" class="tet example" data-toggle="popover">{{step.err_step_name}}</p>
-                <div title="{{step.err_step_desc}}" class="ts1 step_id">{{step.err_step_no}} <button class="copy_btn" (click)="copy_post(step)">复制</button></div>
-                <p class="line"></p>
-            </div>
-            <div class="ts2 step_id tst" (click)="endStep()">结束</div>
-        </div> -->
-
         <div class="breadcrumb flat" style="width:100%;">
             <a *ngFor="let step of errorflows; index as i" (click)="copy_post(step)" style="width: 16.6%;margin-top: 5px;" title="{{step.err_step_desc}}" [ngClass]="{'crumb-cell-oringe': step.err_step_no==998, 'crumb-cell-red': step.err_step_no==999, 'crumb-cell-blue': (step.err_step_no!=999&&step.err_step_no!=998)}">
-                <!-- [ngStyle]="{background: data4.err_step_no==999?'#d9534f':(data4.err_step_name=='已修复'?'#33cc00':(data4.err_step_name=='已忽略'?'##eea236':'#205dbf'))}" -->
                 <div style="float:left;" class='step-no' *ngIf="step.err_step_no!=999&&step.err_step_no!=998">{{i+1}}</div>
                 <div style="float:left; margin-left:35px;text-align: center;">
                     <p style="line-height: 50px;">{{step.err_step_name}}</p>
-                    <!-- <p style="line-height: 25px;">{{data4.op_ts | formatdate:'toTime'}}</p> -->
                 </div>
             </a>
         </div>
@@ -122,24 +72,10 @@
 
 
         <p class="tit_p">实际处理流程
-            <!--<button class="btn_add btn btn-default btn-xs" (click)="endStep()">生成实际流程</button>-->
-            <!--<button class="btn_add btn btn-default btn-xs" (click)="err_add()">添加实际处理步骤</button>-->
             <button class="btn_add btn btn-default btn-xs" style="margin-right:0;border: 1px solid #999;color: #fff; background-color: #d9534f; border-color: #d9534f;" (click)="err_end()">结束处理流程</button>
             <button class="btn_add btn btn-default btn-xs" style="margin-right:10px;border: 1px solid #999;color: #fff; background-color: #eea236; border-color: #eea236;" (click)="err_add()">添加实际处理步骤</button>
 
         </p>
-
-        <!-- <div class="lis2 ts_list" *ngFor="let data4 of err_data4; index as i">
-            <p *ngIf="data4.err_step_name!=='结束'&&data4.err_step_name!='已修复'&&data4.err_step_name!='已忽略'" title="{{data4.err_step_desc}}" class="tet1 example" data-toggle="popover">{{data4.err_step_name}}</p>
-            <p class="tet3 example" style="font-size: 10px;">{{data4.op_ts | formatdate:'toTime'}}</p>
-            <div title="{{data4.err_step_desc}}" class="ts2 step_id" (click)="err_edit(data4, i)" *ngIf="data4.err_step_no==999">结束</div>
-            <div title="{{data4.err_step_desc}}" class="ts3 step_id tst" (click)="err_edit(data4, i)" *ngIf="data4.err_step_name=='已修复'" style="top:0">修复</div>
-            <div title="{{data4.err_step_desc}}" class="ts4 step_id tst" (click)="err_edit(data4, i)" *ngIf="data4.err_step_name=='已忽略'" style="top:0">忽略</div>
-            <div title="{{data4.err_step_desc}}" class="ts1 step_id" style="cursor: pointer;" (click)="err_edit(data4, i)" *ngIf="data4.err_step_no!==999&&data4.err_step_name!='已修复'&&data4.err_step_name!='已忽略'">{{data4.err_step_no}}</div>
-            <p class="line" *ngIf="data4.err_step_name!=='结束'"></p>
-            <i class="delete_btn delete_icon" style="float: none; margin-top: -8px; margin-left: 12px;" [ngStyle]="{top: data4.err_step_name=='结束'?'-15px':''}" (click)="del_err(data4.err_step_id, i)"></i>
-        </div> -->
-
         <div class="breadcrumb flat" style="width:100%;">
             <a *ngFor="let data4 of err_data4; index as i" style="width: 16.6%;margin-top: 5px;" (click)="err_edit(data4, i)" title="{{data4.err_step_desc}}" [ngClass]="{'crumb-cell-oringe': data4.err_step_no==998, 'crumb-cell-red': data4.err_step_no==999, 'crumb-cell-blue': (data4.err_step_no!=999&&data4.err_step_no!=998)}">
                 <!-- [ngStyle]="{background: data4.err_step_no==999?'#d9534f':(data4.err_step_name=='已修复'?'#33cc00':(data4.err_step_name=='已忽略'?'##eea236':'#205dbf'))}" -->

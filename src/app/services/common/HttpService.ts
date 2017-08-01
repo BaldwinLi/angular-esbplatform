@@ -3,6 +3,8 @@
  * 统一定义了成功回调处理函数extractData
  * 统一定义了Response失败回调函数handleError
  */
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
 import { Injectable } from '@angular/core';
 import { trim, isObject, endsWith, assign } from 'lodash';
 import {
@@ -69,6 +71,7 @@ export class HttpService {
   }
 
   getRequestObservable(url: string, method: string, params?: any, headers?: any, options?: any): Observable<any> {
+    // if(1==1) return Observable.create(() => {});
     let _params = params || {};
     window['loading'].startLoading();
     if (method == "get") {
