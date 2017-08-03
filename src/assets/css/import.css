@@ -1,0 +1,29 @@
+.file-box {
+    position: relative;
+    width: 340px
+}
+
+.import_txt {
+    height: 22px;
+    border: 1px solid #cdcdcd;
+    width: 180px;
+}
+
+.import_btn {
+    background-color: #FFF;
+    border: 1px solid #CDCDCD;
+    height: 24px;
+    width: 70px;
+    border-radius: 4px;
+}
+
+.file {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 80px;
+    height: 24px;
+    filter: alpha(opacity: 0);
+    opacity: 0;
+    width: 260px
+}

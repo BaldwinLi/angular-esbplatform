@@ -630,12 +630,14 @@ a:focus {
     width: 6%;
     margin-left: 5%;
     white-space: nowrap;
+    line-height: 35px;
 }
 
 .input_text {
     border: 1px solid #999;
     float: left;
     width: 10%;
+    border-radius: 4px;
 }
 
 .input_combo {

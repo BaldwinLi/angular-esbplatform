@@ -2,9 +2,9 @@
     <div class="left_d" style="width:100%">
         <div class="div_block">
             <span style="display: inline-block;line-height: 20px;width: 800px;" *ngIf="!shareSuccess">
-                <input placeholder="请输入分享描述。" type="text"
+                <input placeholder="请输入分享描述。" type="text" class="form-control"
                    [(ngModel)]="share_desc"
-                   style="border: 1px solid #999;width: 70%;float: left;height:30px;margin:5px;">
+                   style="width: 70%;float: left;height:30px;margin:5px;">
                 <button (click)="share()" style="margin: 5px;float: left;" class="btn btn-sm btn-danger b_wra">分享</button>
             </span>
             <span>
@@ -13,7 +13,7 @@
                 </p>
             </span>
             <span *ngIf='shareSuccess' style="line-height: 20px;width: 800px;display: block;">
-                <input id="sharing_url" type='text' readonly style="border: 1px solid #999; width: 70%; float: left;height: 31px;" value="{{shareLink}}">
+                <input id="sharing_url" type='text' readonly class="form-control" style="width: 70%; float: left;height: 31px;" value="{{shareLink}}">
                 <button id="copy_botton" 
                     style="margin-left:2px; float: left; height: 31px;" 
                     type="button" 

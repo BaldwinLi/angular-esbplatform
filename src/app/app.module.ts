@@ -32,6 +32,7 @@ import { PaginationComponent } from './common/components/PaginationComponent';
 import { DatatableComponent } from './common/components/DatatableComponent';
 import { MoveRowsDatatableComponent } from './common/components/MoveRowsDatatableComponent';
 import { ArrListDialogComponent } from './common/components/ArrListDialogComponent';
+import { ImportOperateDialogComponent } from './common/components/ImportOperateDialogComponent';
 // 服务错误相关依赖
 import { monitorHomeComponent } from './esb_monitor/components/monitorHomeComponent';
 import { serviceDetailComponent } from './esb_monitor/components/serviceDetailComponent';
@@ -129,6 +130,7 @@ const appRoutes: Routes = [
     NgLayerComponent,
     DialogComponent,
     ArrListDialogComponent,
+    ImportOperateDialogComponent,
     ServicesListDialogComponent,
     ServicesListSharingDialogComponent,
     ErrorFlowDialogComponent,
@@ -152,6 +154,7 @@ const appRoutes: Routes = [
     NgLayerComponent,
     DialogComponent,
     ArrListDialogComponent,
+    ImportOperateDialogComponent,
     ServicesListDialogComponent,
     ServicesListSharingDialogComponent,
     ErrorFlowDialogComponent,
@@ -186,7 +189,7 @@ const appRoutes: Routes = [
     JsonpModule,
     ReactiveFormsModule,
     NguiDatetimePickerModule,
-    
+
     RouterModule.forRoot(appRoutes, { useHash: true }),
     // ConfigModule,
     // TransactionModule,

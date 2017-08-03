@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { startsWith } from 'lodash';
 import { Router } from '@angular/router';
 import { SystemConfigFormDialogComponent } from './dialogComponents/SystemConfigFormDialogComponent';
 import { CommonService } from '../../services/common/CommonService';
-import { SystemsService } from '../../services/SystemsService';
+// import { SystemsService } from '../../services/SystemsService';
+import { SysContactsService } from '../../services/SysContactsService';
 import { AppRequestService } from '../../services/common/AppRequestService';
 
 @Component({
@@ -10,7 +12,7 @@ import { AppRequestService } from '../../services/common/AppRequestService';
   templateUrl: 'templates/systemConfig.html'
 })
 export class systemConfigComponent {
-  constructor(private route: Router, private cmm: CommonService, private sysSvc: SystemsService, private appSvc: AppRequestService) {
+  constructor(private route: Router, private cmm: CommonService, private sysContactSvc: SysContactsService, private appSvc: AppRequestService) {
 
   }
 
@@ -19,6 +21,7 @@ export class systemConfigComponent {
   private rowsCount: number = 0;
   private pageNow: number = 1;
   private pageTol: number = 10;
+  private dataArr: Array<any> = [];
   private isSuperAdmin: boolean;
   private tableConfig: any = {
     columns: [],
@@ -27,14 +30,14 @@ export class systemConfigComponent {
 
   private search(event): void {
     if (event && event.type == 'keypress' && event.charCode !== 13) return;
-    this.refreshData(this.sys_no);
+    this.refreshPageData();
   }
 
   private consumers_add(): void {
     let obj = this;
     let data = {
       callback: () => {
-        obj.refreshData(obj.sys_no);
+        obj.refreshData();
       }
     };
     let dialog = window['esbLayer']({
@@ -50,7 +53,7 @@ export class systemConfigComponent {
     let data = {
       persons: row,
       callback: () => {
-        obj.refreshData(obj.sys_no);
+        obj.refreshData();
       }
     };
     let dialog = window['esbLayer']({
@@ -61,21 +64,21 @@ export class systemConfigComponent {
     });
   }
 
-  private consumers_delete(row: any): void {
-    let obj = this;
-    let confirmLayer = window['esbLayer']({ type: 'confirm', message: "是否确认删除？" }).ok(
-      () => {
-        obj.sysSvc.deleteSystem(row.sys_no).subscribe(
-          success => {
-            window['esbLayer']({ type: 'alert', message: "删除成功！" });
-            obj.refreshData(obj.sys_no);
-          },
-          error => window['esbLayer']({ type: 'error', message: error })
-        );
-        confirmLayer.close();
-      }
-    );
-  }
+  // private consumers_delete(row: any): void {
+  //   let obj = this;
+  //   let confirmLayer = window['esbLayer']({ type: 'confirm', message: "是否确认删除？" }).ok(
+  //     () => {
+        // obj.sysSvc.deleteSystem(row.sys_no).subscribe(
+        //   success => {
+        //     window['esbLayer']({ type: 'alert', message: "删除成功！" });
+        //     obj.refreshData(obj.sys_no);
+        //   },
+        //   error => window['esbLayer']({ type: 'error', message: error })
+        // );
+  //       confirmLayer.close();
+  //     }
+  //   );
+  // }
 
   getPageNow(pageNow: number) {
     this.pageNow = pageNow;
@@ -88,30 +91,24 @@ export class systemConfigComponent {
   }
 
   private refreshPageData(): void {
-    let tableDataInfo = this.cmm.getPageData(this.persons, this.pageNow, this.pageTol);
+    let obj = this;
+    this.dataArr = this.persons.filter(e => {
+      return !!obj.sys_no ? (e.sys_name.toLowerCase().indexOf(obj.sys_no.toLowerCase())>-1 || e.sys_no.toLowerCase().indexOf(obj.sys_no.toLowerCase())>-1): true;
+    });
+    let tableDataInfo = this.cmm.getPageData(this.dataArr || this.persons, this.pageNow, this.pageTol);
     this.rowsCount = tableDataInfo.rowsCount;
     this.tableConfig.data = tableDataInfo.currentPageRows
   }
 
-  private refreshData(sys_no?: string): void {
+  private refreshData(): void {
     let obj = this;
-    if (sys_no) {
-      this.sysSvc.querySystem(sys_no).subscribe(
-        success => {
-          obj.persons = [success.body];
-          obj.refreshPageData();
-        },
-        error => window['esbLayer']({ type: 'error', message: error })
-      );
-    } else {
-      this.sysSvc.querySystemsList().subscribe(
+      this.sysContactSvc.querySystemsAndContactsList().subscribe(
         success => {
           obj.persons = success.body || [];
           obj.refreshPageData();
         },
         error => window['esbLayer']({ type: 'error', message: error })
       );
-    }
   }
 
   ngOnInit() {
@@ -123,26 +120,21 @@ export class systemConfigComponent {
         obj.refreshData();
         obj.tableConfig = {
           columns: [
-            {
-              id: 'sys_name',
-              header: "系统简称",
-              type: 'text'
-            },
+            
             {
               id: 'sys_no',
               header: "系统代码",
               type: 'text'
             },
             {
-              id: 'full_name',
-              header: "系统描述",
+              id: 'sys_name',
+              header: "系统简称",
               type: 'text'
             },
             {
-              id: 'contacts',
-              header: "系统联系人",
-              type: 'array',
-              displayField: "name"
+              id: 'full_name',
+              header: "系统描述",
+              type: 'text'
             },
             {
               id: 'memo',
@@ -162,21 +154,21 @@ export class systemConfigComponent {
                   click: obj.consumers_edit.bind(obj)
                 }
               }
-            },
-            {
-              header: "删除",
-              type: 'template',
-              width: '50',
-              template: {
-                type: "html",
-                tempBuilder: function (row, headers) {
-                  return "<i class='delete_icon'></i>"
-                },
-                on: {
-                  click: obj.consumers_delete.bind(obj)
-                }
-              }
             }
+            // {
+            //   header: "删除",
+            //   type: 'template',
+            //   width: '50',
+            //   template: {
+            //     type: "html",
+            //     tempBuilder: function (row, headers) {
+            //       return "<i class='delete_icon'></i>"
+            //     },
+            //     on: {
+            //       click: obj.consumers_delete.bind(obj)
+            //     }
+            //   }
+            // }
           ],
           data: obj.persons
         };

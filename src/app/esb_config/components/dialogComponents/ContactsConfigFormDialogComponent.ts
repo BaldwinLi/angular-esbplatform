@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgLayer, NgLayerRef, NgLayerComponent } from "angular2-layer/angular2-layer";
 import { DialogComponent } from "../../../common/components/DialogComponent";
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SysContactsService } from '../../../services/SysContactsService';
 
 @Component({
@@ -9,36 +9,37 @@ import { SysContactsService } from '../../../services/SysContactsService';
   templateUrl: 'templates/contactsConfigFormDialog.html'
 })
 export class ContactsConfigFormDialogComponent extends DialogComponent {
-  private contactsConfigForm;
+  private contactsConfigForm = this.contactsConfigFormBuilder.group({
+    name: ['', Validators.required],
+    mobile: ['', Validators.required],
+    email: ['', Validators.required],
+    memo: "",
+    company: ""
+  });;
   private persons: any;
   private callback: any;
 
   constructor(
-    protected layerRef:NgLayerRef, 
-    protected layer:NgLayer, 
-    protected layComp: NgLayerComponent, 
+    protected layerRef: NgLayerRef,
+    protected layer: NgLayer,
+    protected layComp: NgLayerComponent,
     private contactsConfigFormBuilder: FormBuilder,
     private contactSvc: SysContactsService
-    ){
+  ) {
     super(layerRef, layer, layComp);
   }
 
-  ngOnInit(){
-    this.contactsConfigForm = this.contactsConfigFormBuilder.group({
-      name: "",
-      mobile: "",
-      email: "",
-      memo: "",
-      company: ""
-    });
+  ngOnInit() {
+    let obj = this;
     setTimeout(() => {
-      if (this.persons) {
-        this.contactsConfigForm = this.contactsConfigFormBuilder.group(this.persons);
+      if (obj.persons) {
+        obj.contactsConfigForm.patchValue(obj.persons);
       }
     });
   }
 
   private sys_contacts_post(): void {
+    if(this.contactsConfigForm.status == 'INVALID') return;
     let obser;
     let obj = this;
     if (this.persons) {

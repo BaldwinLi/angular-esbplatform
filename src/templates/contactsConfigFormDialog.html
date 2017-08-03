@@ -1,24 +1,46 @@
 <div class="popover_content">
-    <form [formGroup]="contactsConfigForm" novalidate>
+    <form role="form" [formGroup]="contactsConfigForm" novalidate>
         <ul>
             <li>
                 <div class="left_det">
                     <p>联系人名字:</p>
                 </div>
-                <div class="right_det">
-                    <input type="text" value="" formControlName="name">
+                <div class="right_det required-field-block">
+                    <input type="text" class="form-control" [ngStyle]="{border: contactsConfigForm.get('name').errors && (contactsConfigForm.get('name').dirty || contactsConfigForm.get('name').touched) ? '2px solid red' : '1px solid #999'}" formControlName="name">
+                    <div *ngIf="contactsConfigForm.get('name').errors && (contactsConfigForm.get('name').dirty || contactsConfigForm.get('name').touched)">
+                        <p [hidden]="!contactsConfigForm.get('name').errors.required" class="invalid_field">联系人名字不能为空</p>
+                    </div>
+                    <div class="required-icon">
+                        <div class="text">*</div>
+                    </div>
                 </div>
                 <div class="left_det">
                     <p>联系电话:</p>
                 </div>
-                <div class="right_det">
-                    <input type="text" formControlName="mobile">
+                <div class="right_det required-field-block">
+                    <input type="text" class="form-control" [ngStyle]="{border: contactsConfigForm.get('mobile').errors && (contactsConfigForm.get('mobile').dirty || contactsConfigForm.get('mobile').touched) ? '2px solid red' : '1px solid #999'}" formControlName="mobile"
+                        [minlength]="7" [maxlength]="18" pattern="([0-9]|[\-])+">
+
+                    <div *ngIf="contactsConfigForm.get('mobile').errors && (contactsConfigForm.get('mobile').dirty || contactsConfigForm.get('mobile').touched)">
+                        <p [hidden]="!contactsConfigForm.get('mobile').errors.required" class="invalid_field">联系方式不能为空</p>
+                        <p [hidden]="contactsConfigForm.get('mobile').errors.required" class="invalid_field">请输入正确的联系方式</p>
+                    </div>
+                    <div class="required-icon">
+                        <div class="text">*</div>
+                    </div>
                 </div>
                 <div class="left_det">
                     <p>邮箱:</p>
                 </div>
-                <div class="right_det">
-                    <input type="text" formControlName="email">
+                <div class="right_det required-field-block">
+                    <input type="text" class="form-control" [ngStyle]="{border: contactsConfigForm.get('email').errors && (contactsConfigForm.get('email').dirty || contactsConfigForm.get('email').touched) ? '2px solid red' : '1px solid #999'}" formControlName="email" [email]="true">
+                    <div *ngIf="contactsConfigForm.get('email').errors && (contactsConfigForm.get('email').dirty || contactsConfigForm.get('email').touched)">
+                        <p [hidden]="!contactsConfigForm.get('email').errors.required" class="invalid_field">邮箱不能为空</p>
+                        <p *ngIf="!contactsConfigForm.get('email').errors.required" [hidden]="!contactsConfigForm.get('email').errors.email" class="invalid_field">请输入正确的邮箱地址</p>
+                    </div>
+                    <div class="required-icon">
+                        <div class="text">*</div>
+                    </div>
                 </div>
             </li>
             <li>
@@ -26,7 +48,7 @@
                     <p>公司名称:</p>
                 </div>
                 <div class="right_det">
-                    <input type="text" style="width:275%" formControlName="company">
+                    <input type="text" class="form-control" style="width:275%" formControlName="company">
                 </div>
             </li>
             <li>
@@ -34,7 +56,7 @@
                     <p>备注:</p>
                 </div>
                 <div class="right_det">
-                    <textarea name="" formControlName="memo"></textarea>
+                    <textarea name="" class="form-control" formControlName="memo"></textarea>
                 </div>
             </li>
         </ul>

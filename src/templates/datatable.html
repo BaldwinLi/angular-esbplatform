@@ -25,9 +25,9 @@
                         {{row[column.id] || (row[column.id] === 0 ? 0 : (column.value || '')) | lookup: column.options}}
                     </div>
                     <div *ngIf="column.type=='input'">
-                        <input *ngIf="column.inputType=='text'" type="{{column.inputType}}" [(ngModel)]="row[column.id]" value="column.value || ''" />
-                        <select *ngIf="column.inputType=='select'" [(ngModel)]="row[column.id]" value="column.value || ''">
-                        <option value=''>请选择</option>
+                        <input *ngIf="column.inputType=='text'" class="form-control" type="{{column.inputType}}" [(ngModel)]="row[column.id]" value="column.value || ''" />
+                        <select *ngIf="column.inputType=='select'" class="form-control" [(ngModel)]="row[column.id]" value="column.value || ''">
+                        <option *ngIf="column.hasDefaultOption" value=''>请选择</option>
           			    <option *ngFor="let option of column.options" [value]="option.id">{{option.value}}</option>
       			    </select>
                     </div>

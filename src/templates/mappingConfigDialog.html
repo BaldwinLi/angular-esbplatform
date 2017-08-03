@@ -1,40 +1,52 @@
 <div class="popover_content left_d" style="max-width: 1500px;">
     <fieldset form='true'>
         <legend>用户信息修改</legend>
-        <form style="display: block; height: 50px;" [formGroup]="mappingConfigForm" novalidate>
+        <form role="form" style="display: block; height: 50px;" [formGroup]="mappingConfigForm" novalidate>
             <ul>
                 <li>
                     <div class="left_det" style="width: 100px; margin-left:30px;">
                         <p>姓 名:</p>
                     </div>
-                    <div class="right_det">
-                        <input type="text" formControlName="user_name">
+                    <div class="right_det required-field-block">
+                        <input type="text" class="form-control" [ngStyle]="{border: mappingConfigForm.get('user_name').errors && (mappingConfigForm.get('user_name').dirty || mappingConfigForm.get('user_name').touched) ? '2px solid red' : '1px solid #999'}" formControlName="user_name">
+                        <div *ngIf="mappingConfigForm.get('user_name').errors && (mappingConfigForm.get('user_name').dirty || mappingConfigForm.get('user_name').touched)">
+                            <p [hidden]="!mappingConfigForm.get('user_name').errors.required" class="invalid_field">姓名不能为空</p>
+                        </div>
+                        <div class="required-icon">
+                            <div class="text">*</div>
+                        </div>
                     </div>
                     <div class="left_det" style="width: 100px; margin-left:30px;">
                         <p>角 色:</p>
                     </div>
-                    <div class="right_det">
-                        <select formControlName="is_admin">
-			            <option value=''>请选择</option>
-          	            <option *ngFor="let role of roles" [value]="role.id">{{role.value}}</option>
-      		        </select>
+                    <div class="right_det required-field-block">
+                        <select formControlName="is_admin" class="form-control" [ngStyle]="{border: mappingConfigForm.get('is_admin').errors && (mappingConfigForm.get('is_admin').dirty || mappingConfigForm.get('is_admin').touched) ? '2px solid red' : '1px solid #999'}">
+			                <option value=''>请选择</option>
+          	                <option *ngFor="let role of roles " [value]="role.id ">{{role.value}}</option>
+                        </select>
+                        <div *ngIf="mappingConfigForm.get('is_admin').errors && (mappingConfigForm.get('is_admin').dirty || mappingConfigForm.get('is_admin').touched)">
+                            <p [hidden]="!mappingConfigForm.get('is_admin').errors.required" class="invalid_field">角色不能为空</p>
+                        </div>
+                        <div class="required-icon ">
+                            <div class="text ">*</div>
+                        </div>
                     </div>
                 </li>
                 <li>
-                    <div class="left_det" style="width: 100px; margin-left:30px;">
+                    <div class="left_det " style="width: 100px; margin-left:30px; ">
                         <p>用户描述:</p>
                     </div>
-                    <textarea style="width: 80%; height:50px;" formControlName="memo"></textarea>
+                    <textarea style="width: 80%; height:50px; " class="form-control " formControlName="memo"></textarea>
                 </li>
             </ul>
         </form>
     </fieldset>
     <esb-moverows-datatable [config]='tableConfig' (selectedData)='setSelectedData($event)'></esb-moverows-datatable>
-    <div class="clear_both"></div>
+    <div class="clear_both "></div>
 </div>
 <nav>
-    <div class="iconing_alert_btn">
-        <button class="iconing_btn_ok" (click)="user_post()">保 存</button>
-        <button class="iconing_btn_cancel" (click)="close()">关 闭</button>
+    <div class="iconing_alert_btn ">
+        <button class="iconing_btn_ok " (click)="user_post() ">保 存</button>
+        <button class="iconing_btn_cancel " (click)="close() ">关 闭</button>
     </div>
 </nav>

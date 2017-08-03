@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { startsWith, assign } from 'lodash';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ROLE } from '../../../model/data-model';
 import { NgLayer, NgLayerRef, NgLayerComponent } from "angular2-layer/angular2-layer";
 import { DialogComponent } from "../../../common/components/DialogComponent";
@@ -12,7 +12,12 @@ import { UsersInfoService } from '../../../services/UsersInfoService';
 })
 export class MappingConfigDialogComponent extends DialogComponent {
 
-    private mappingConfigForm;
+    private mappingConfigForm = this.mappingConfigFormBuilder.group({
+        user_code: ['', Validators.required],
+        user_name: ['', Validators.required],
+        is_admin: [0, Validators.required],
+        memo: ''
+    });
     private persons: any = [];
     private roles: Array<any> = ROLE;
     private callback: any;
@@ -74,25 +79,31 @@ export class MappingConfigDialogComponent extends DialogComponent {
 
     ngOnInit() {
         let obj = this;
-        this.mappingConfigForm = this.mappingConfigFormBuilder.group({
-            user_code: '',
-            user_name: '',
-            is_admin: 0,
-            memo: ''
-        });
+        // this.mappingConfigForm = this.mappingConfigFormBuilder.group({
+        //     user_code: ['', Validators.required],
+        //     user_name: ['', Validators.required],
+        //     is_admin: [0, Validators.required],
+        //     memo: ''
+        // });
         setTimeout(() => {
             if (obj.persons) {
-                obj.mappingConfigForm = obj.mappingConfigFormBuilder.group({
-                    user_code: obj.persons.user_code,
-                    user_name: obj.persons.user_name,
-                    is_admin: obj.persons.is_admin,
-                    memo: obj.persons.memo
-                });
+                obj.mappingConfigForm.patchValue(obj.persons);
+                //  = obj.mappingConfigFormBuilder.group({
+                //     user_code: [obj.persons.user_code, Validators.required],
+                //     user_name: [obj.persons.user_name, Validators.required],
+                //     is_admin: [obj.persons.is_admin, Validators.required],
+                //     memo: obj.persons.memo
+                // });
                 obj.tableConfig.seletedDatatable.data = obj.persons.svclist || [];
             }
         });
         this.refreshData();
     }
+
+    // ngOnChanges() {
+    //     this.mappingConfigForm.setValue(this.persons);
+    //     this.tableConfig.seletedDatatable.data = this.persons.svclist || [];
+    // }
 
     private refreshData(): void {
         let obj = this;
@@ -110,6 +121,7 @@ export class MappingConfigDialogComponent extends DialogComponent {
     }
 
     private user_post(): void {
+        if (this.mappingConfigForm.status == 'INVALID') return;
         let obj = this;
         this.userSvc.updateUsersInfo_V2([{
             user: this.mappingConfigForm.value,

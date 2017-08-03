@@ -26,7 +26,7 @@ export class SysContactsService {
         return this.appRequest.deleteSyscontacts(contact_id);
     }
 
-    querySystemsAndContactsList(sys_name_list: Array<string>): Observable<any>{
+    querySystemsAndContactsList(sys_name_list?: Array<string>): Observable<any>{
         return this.appRequest.querySystemsAndContactsList(sys_name_list);
     }
 }

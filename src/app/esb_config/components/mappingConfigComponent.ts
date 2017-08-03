@@ -149,7 +149,7 @@ export class mappingConfigComponent {
   private refreshPageData(): void {
     let obj = this;
     this.dataArr = this.persons.filter(e => {
-      return !!obj.userId ? (startsWith(e.user_code, obj.userId)||startsWith(e.user_name, obj.userId)) : true;
+      return !!obj.userId ? (e.user_code.toLowerCase().indexOf(obj.userId.toLowerCase())>-1 || e.user_name.toLowerCase().indexOf(obj.userId.toLowerCase())>-1) : true;
     });
     let tableDataInfo = this.cmm.getPageData(this.dataArr || this.persons, this.pageNow, this.pageTol);
     this.rowsCount = tableDataInfo.rowsCount;

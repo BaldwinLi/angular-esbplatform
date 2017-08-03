@@ -1,80 +1,49 @@
-<div class="popover_content">
-    <form [formGroup]="systemConfigForm" novalidate>
-        <ul>
-            <li>
-                <div class="left_det">
-                    <p>系统简称:</p>
-                </div>
-                <div class="right_det">
-                    <input type="text" value="" formControlName="sys_name">
-                </div>
-                <div class="left_det">
-                    <p>系统代码:</p>
-                </div>
-                <div class="right_det">
-                    <input type="text" formControlName="sys_no">
-                </div>
-            </li>
-            <li>
-                <div class="left_det">
-                    <p>主要联系人:</p>
-                </div>
-                <div class="right_det">
-                    <div class="lsit_tit1"></div>
-                    <div class="text_a">
-                        <div class="do_d1">
-                            <div class="soue">
-                                <input class="serc" formControlName="contact_name">
-                                <div class="men_drop1">
-                                    <a class="lisr" (click)="searchNo(per)" *ngFor="let per of pers">{{per.name}}</a>
-                                </div>
-                            </div>
+<div class="popover_content left_d" style="max-width: 1500px;">
+    <fieldset form='true'>
+        <legend>系统信息修改</legend>
+        <form role="form" [formGroup]="systemConfigForm" novalidate>
+            <ul>
+                <li>
+                    <div class="left_det" style="width: 100px; margin-left:30px;">
+                        <p>系统简称:</p>
+                    </div>
+                    <div class="right_det required-field-block">
+                        <input type="text" class="form-control" [ngStyle]="{border: systemConfigForm.get('sys_name').errors && (systemConfigForm.get('sys_name').dirty || systemConfigForm.get('sys_name').touched) ? '2px solid red' : '1px solid #999'}" formControlName="sys_name">
+                        <div *ngIf="systemConfigForm.get('sys_name').errors && (systemConfigForm.get('sys_name').dirty || systemConfigForm.get('sys_name').touched)">
+                            <p [hidden]="!systemConfigForm.get('sys_name').errors.required" class="invalid_field">系统简称不能为空</p>
+                        </div>
+                        <div class="required-icon">
+                            <div class="text">*</div>
                         </div>
                     </div>
-                </div>
-            </li>
-
-            <li>
-                <div class="left_det">
-                    <p>次要联系人:</p>
-                </div>
-                <div class="right_det">
-                    <div class="lsit_tit1"></div>
-                    <div class="text_a">
-                        <div class="do_d1">
-                            <div class="soue">
-                                <input class="serc" formControlName="sub_contact_name">
-                                <div class="men_drop1">
-                                    <a class="lisr" (click)="searchNo1(per)" *ngFor="let per of pers">{{per.name}}</a>
-                                </div>
-                            </div>
+                    <div class="left_det" style="width: 100px; margin-left:30px;">
+                        <p>系统描述:</p>
+                    </div>
+                    <div class="right_det required-field-block">
+                        <input type="text" class="form-control" [ngStyle]="{border: systemConfigForm.get('full_name').errors && (systemConfigForm.get('full_name').dirty || systemConfigForm.get('full_name').touched) ? '2px solid red' : '1px solid #999'}" formControlName="full_name">
+                        <div *ngIf="systemConfigForm.get('full_name').errors && (systemConfigForm.get('full_name').dirty || systemConfigForm.get('full_name').touched)">
+                            <p [hidden]="!systemConfigForm.get('full_name').errors.required" class="invalid_field">系统描述不能为空</p>
+                        </div>
+                        <div class="required-icon">
+                            <div class="text">*</div>
                         </div>
                     </div>
-                </div>
-            </li>
-            <li>
-                <div class="left_det">
-                    <p>系统描述:</p>
-                </div>
-                <div class="right_det">
-                    <textarea name="" style="width:550px" formControlName="full_name"></textarea>
-                </div>
-            </li>
-            <li>
-                <div class="left_det">
-                    <p>备注:</p>
-                </div>
-                <div class="right_det">
-                    <textarea name="" style="width:550px" formControlName="memo"></textarea>
-                </div>
-            </li>
-        </ul>
-        <div class="clear_both"></div>
-        <nav>
-            <div class="iconing_alert_btn">
-                <button class="iconing_btn_ok" (click)="systems_post()">保 存</button>
-                <button class="iconing_btn_cancel" (click)="close()">关 闭</button>
-            </div>
-        </nav>
-    </form>
+                </li>
+                <li>
+                    <div class="left_det" style="width: 100px; margin-left:30px;">
+                        <p>备注:</p>
+                    </div>
+                    <textarea style="width: 80%; height:50px;" class="form-control" formControlName="memo"></textarea>
+                </li>
+            </ul>
+        </form>
+    </fieldset>
+    <esb-moverows-datatable [config]='tableConfig' (selectedData)='setSelectedData($event)'></esb-moverows-datatable>
+    <div class="clear_both"></div>
 </div>
+<nav>
+    <div class="iconing_alert_btn">
+        <button class="iconing_btn_ok" (click)="systems_post()">保 存</button>
+        <button class="iconing_btn_cancel" (click)="close()">关 闭</button>
+    </div>
+</nav>

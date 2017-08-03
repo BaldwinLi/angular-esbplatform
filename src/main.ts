@@ -6,11 +6,11 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 // import { InitLayerModule } from './app/common/init.layer.module';
 import { environment } from './environments/environment';
-import * as echarts from "echarts";
+import * as Echarts from "echarts";
 import * as Moment from "moment";
 // import * as SystemJS from 'systemjs';
 
-import {Promise as promise}  from 'es6-promise';
+import { Promise as promise } from 'es6-promise';
 
 import * as JQuery from 'jquery';
 window['$'] = window['jQuery'] = JQuery;
@@ -21,16 +21,16 @@ import './lib/bootstrap/datepicker/js/bootstrap-datetimepicker.min';
 // window['store'] = Store;
 // import 'angular2-layer/css/dialog.css';
 
-window['echarts'] = echarts || {};
+window['echarts'] = Echarts || {};
 
 window['moment'] = Moment || {};
 
 // var SystemJS = SystemJS;
 // window['Promise'] = promise;
-try{
-  if(typeof window['Promise'] === 'undefined')
+try {
+  if (typeof window['Promise'] === 'undefined')
     window['Promise'] = promise;
-}catch(e){
+} catch (e) {
   console.error(e);
 }
 

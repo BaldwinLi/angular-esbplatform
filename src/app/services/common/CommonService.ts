@@ -1,10 +1,26 @@
 import { Injectable } from '@angular/core';
 import { padStart, isObject, isArray } from 'lodash';
+import { saveAs } from 'file-saver';
+
+type AOA = Array<Array<any>>;
+
+function s2ab(s: string): ArrayBuffer {
+  const buf = new ArrayBuffer(s.length);
+  const view = new Uint8Array(buf);
+  for (let i = 0; i !== s.length; ++i) {
+    view[i] = s.charCodeAt(i) & 0xFF;
+  };
+  return buf;
+}
 
 @Injectable()
 export class CommonService {
 
   constructor() { }
+
+  data: AOA = [[], []];
+  wopts: any = { bookType: 'xlsx', type: 'binary' };
+  fileName: string = "SheetJS.xlsx";
 
   private preTimeTamps: Array<String> = [];
 
@@ -156,9 +172,9 @@ export class CommonService {
       return init_timestamp;
     } else {
       if (this.preTimeTamps.indexOf(init_timestamp) > -1) {
-        while (this.preTimeTamps.indexOf(init_timestamp) > -1){
+        while (this.preTimeTamps.indexOf(init_timestamp) > -1) {
           init_timestamp = (parseInt(init_timestamp) + 1).toString();
-        } 
+        }
         this.preTimeTamps.push(init_timestamp);
         return init_timestamp;
       } else {
@@ -172,5 +188,39 @@ export class CommonService {
     let date = new Date();
     date.setHours(date.getHours() + 8);
     return date;
+  }
+
+  onFileChange(evt: any, callback: Function) {
+    /* wire up file reader */
+    const target: DataTransfer = (<DataTransfer>(evt.target));
+    if (target.files.length != 1) throw new Error("Cannot upload multiple files on the entry");
+    const reader = new FileReader();
+    reader.onload = function (e: any) {
+      /* read workbook */
+      const bstr = e.target.result;
+      const wb = window['XLSX'].read(bstr, { type: 'binary' });
+
+      /* grab first sheet */
+      const wsname = wb.SheetNames[0];
+      const ws = wb.Sheets[wsname];
+
+      /* save data to scope */
+      callback(<AOA>(window['XLSX'].utils.sheet_to_json(ws, { header: 1 })));
+    };
+    reader.readAsBinaryString(target.files[0]);
+  }
+
+  export(): void {
+    /* generate worksheet */
+    const ws = window['XLSX'].utils.aoa_to_sheet(this.data);
+
+    /* generate workbook and add the worksheet */
+    const wb = window['XLSX'].utils.book_new();
+    window['XLSX'].utils.book_append_sheet(wb, ws, 'Sheet1');
+
+    /* save to file */
+    const wbout = window['XLSX'].write(wb, this.wopts);
+    console.log(this.fileName);
+    saveAs(new Blob([s2ab(wbout)]), this.fileName);
   }
 }

@@ -19,7 +19,9 @@ const vendors = [
     "angular2-layer",
     "ng2-combobox",
     "zone.js",
-    "es6-promise"
+    "es6-promise",
+    "xlsx",
+    "file-saver"
 ];
 
 const webpack = require('webpack');

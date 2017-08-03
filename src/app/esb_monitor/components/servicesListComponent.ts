@@ -231,11 +231,11 @@ export class servicesListComponent {
             }
           }
         },
-        {
-          id: 'service_name',
-          header: "服务名",
-          type: 'text'
-        },
+        // {
+        //   id: 'service_name',
+        //   header: "服务名",
+        //   type: 'text'
+        // },
         {
           id: 'src_sys',
           header: "源系统",

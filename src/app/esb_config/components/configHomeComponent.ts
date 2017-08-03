@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import * as XLSX from 'xlsx';
+window['XLSX'] = XLSX;
 
 @Component({
   selector: 'esb-config-home',

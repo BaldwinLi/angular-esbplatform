@@ -109,7 +109,7 @@ export class ServicesListSharingDialogComponent extends DialogComponent {
                             type: "html",
                             tempBuilder: function (row, headers) {
                                 return "<input id='" + row.token + '_url' + "' " +
-                                    "readonly style='border: 1px solid #999; width: 100%; float: left;' " +
+                                    "readonly class='form-control' style='width: 100%; float: left;' " +
                                     "type='text' value='" + window.location.origin + '/esbmon_public/#/' +
                                     (RES_TYPES[obj.shareType]) +
                                     '?token=' + row.token + "'>";

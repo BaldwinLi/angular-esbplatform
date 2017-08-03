@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { assign } from 'lodash';
 import { NgLayer, NgLayerRef, NgLayerComponent } from "angular2-layer/angular2-layer";
 import { DialogComponent } from "../../../common/components/DialogComponent";
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ErrorStepsService } from '../../../services/ErrorStepsService';
 
 @Component({
@@ -11,7 +11,15 @@ import { ErrorStepsService } from '../../../services/ErrorStepsService';
 })
 export class ErrorFlowDialogComponent extends DialogComponent {
     // export class ErrorFlowDialogComponent {
-    private ErrorFlowForm;
+    private ErrorFlowForm = this.ErrorFlowFormBuilder.group({
+        err_id: '',
+        err_flow_id: '',
+        err_log_id: '',
+        err_step_name: ['', Validators.required],
+        err_step_desc: '',
+        op_result: ['', Validators.required],
+        user_id: ''
+    });
     private error_step: any;
     private callback: any;
 
@@ -27,19 +35,9 @@ export class ErrorFlowDialogComponent extends DialogComponent {
 
     ngOnInit() {
         let obj = this;
-        let formObj = {
-            err_id: '',
-            err_flow_id: '',
-            err_log_id: '',
-            err_step_name: '',
-            err_step_desc: '',
-            op_result: '',
-            user_id: ''
-        };
-        this.ErrorFlowForm = this.ErrorFlowFormBuilder.group(formObj);
         setTimeout(() => {
             if (obj.error_step) {
-                obj.ErrorFlowForm = obj.ErrorFlowFormBuilder.group(assign(formObj, obj.error_step));
+                obj.ErrorFlowForm.patchValue(obj.error_step);
             }
         });
     }
@@ -60,6 +58,7 @@ export class ErrorFlowDialogComponent extends DialogComponent {
     }
 
     private err_post(): void {
+        if (this.ErrorFlowForm.status == 'INVALID') return;
         let obser;
         let obj = this;
         let postPbj = this.ErrorFlowForm.value;

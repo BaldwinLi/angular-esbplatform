@@ -522,6 +522,10 @@ tbody tr:hover {
     background: transparent url("../img/add.png") no-repeat center;
 }
 
+.import {
+    background: transparent url("../img/import.png") no-repeat center;
+}
+
 .resh {
     background: transparent url("../img/refresh.png") no-repeat center;
 }
@@ -675,6 +679,7 @@ tbody tr:hover {
     width: 150px;
     height: 50px;
     float: left;
+    line-height: 30px;
 }
 
 .left_det p {

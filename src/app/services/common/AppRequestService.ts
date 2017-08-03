@@ -6,8 +6,8 @@ import { keylistInitialized, keylistLoaded } from '../../model/data-model';
 import { HttpService } from './HttpService';
 
 export const isLocal = (window.location.hostname == "localhost" || window.location.hostname == "127.0.0.1");
-export const loginUser = (()=>(isLocal ? 'apptest05' : (window['currentUser'].user_code || '')));
-const userInfoHeader = (()=>(isLocal ? { 'iv-user': loginUser() } : undefined));
+export const loginUser = (() => (isLocal ? 'apptest05' : (window['currentUser'].user_code || '')));
+const userInfoHeader = (() => (isLocal ? { 'iv-user': loginUser() } : undefined));
 
 export const appContextPath = (function () {
     if (isLocal) {
@@ -132,33 +132,36 @@ export class AppRequestService {
         return this.httpService.getRequestObservable(`${appContextPath}mdm_consumers/${uuid}`, "delete", params || {});
     }
 
-    querySystems(sys_no?: string, params?: any): Observable<any> {
-        return this.httpService.getRequestObservable(sys_no ? `${appContextPath}systems/${sys_no}` : `${appContextPath}systems`, "get", params || {});
-    }
+    // querySystems(sys_no?: string, params?: any): Observable<any> {
+    //     return this.httpService.getRequestObservable(sys_no ? `${appContextPath}systems/${sys_no}` : `${appContextPath}systems/ALL`, "get", params || {});
+    // }
 
     createSystems(params?: any): Observable<any> {
-        return this.httpService.getRequestObservable(`${appContextPath}systems`, "post", params || {});
+        return this.httpService.getRequestObservable(`${appContextPath}system_v2`, "post", params || {});
     }
 
     updateSystems(params?: any): Observable<any> {
-        return this.httpService.getRequestObservable(`${appContextPath}systems`, "put", params || {});
+        return this.httpService.getRequestObservable(`${appContextPath}system_v2`, "put", params || {});
     }
 
-    deleteSystems(sys_no: string, params?: any): Observable<any> {
-        return this.httpService.getRequestObservable(`${appContextPath}systems/${sys_no}`, "delete", params || {});
-    }
+    // deleteSystems(sys_no: string, params?: any): Observable<any> {
+    //     return this.httpService.getRequestObservable(`${appContextPath}systems/${sys_no}`, "delete", params || {});
+    // }
 
-    querySystemsMulti(sys_no_list: string, params?: any): Observable<any> {
-        return this.httpService.getRequestObservable(sys_no_list ? `${appContextPath}systems/${sys_no_list}` : `${appContextPath}systems`, "get", params || {});
-    }
+    // querySystemsMulti(sys_no_list: string, params?: any): Observable<any> {
+    //     return this.httpService.getRequestObservable(sys_no_list ? `${appContextPath}systems/${sys_no_list}` : `${appContextPath}systems`, "get", params || {});
+    // }
 
-    querySystemsAndContactsList(sys_name_list: Array<string>): Observable<any> {
+    querySystemsAndContactsList(sys_name_list?: Array<string>): Observable<any> {
         let sysnamelist = '';
-        sys_name_list.forEach(e => {
-            if (!!e) sysnamelist += e + ',';
-        });
-        sysnamelist = trim(sysnamelist, ',');
-        return this.httpService.getRequestObservable(`${appContextPath}system_search/${sysnamelist}`, "get", {});
+        if (!!sys_name_list && sys_name_list.length > 0) {
+            sys_name_list.forEach(e => {
+                if (!!e) sysnamelist += e + ',';
+            });
+            sysnamelist = trim(sysnamelist, ',');
+        }
+
+        return this.httpService.getRequestObservable(`${appContextPath}system_search/${sysnamelist || 'ALL'}`, "get", {});
     }
 
     querySyscontacts(params?: any): Observable<any> {

@@ -4,12 +4,12 @@
         <p style="display: inline-block; border-bottom: 1px dashed #000;margin-left:14.8%;width:67%"></p>
         <esb-line-chart [lineChartData]="selectedTrending"></esb-line-chart>
         <span class="left_det" style="margin-left: 15%;width: 80%;line-height: 25px;">
-        <label style='float: left;'>切换服务：</label>
+        <label class="label_text" style='float: left;'>切换服务：</label>
         <!-- <select style="border: 1px solid #999;float: left;" [(ngModel)]="trendingSvcNo" (change)="changeTrending()">
             <option *ngFor="let svc of svcErrors" [value]="svc.svc_no">{{svc.svc_name}}</option>
           </select> -->
-        <div style="border: 1px solid #999;float: left;width: 40%;height: 25px;">
-                    <combo-box [inputClass]="'input_combo'" 
+        <div class="input_text" style="float: left;width: 40%;">
+                    <combo-box [inputClass]="'form-control input_combo'" 
                                [triggerIconClass]="'combo_drop_trigger'" 
                                [localFilter]='true' 
                                [localFilterCaseSensitive]='false'

@@ -1,0 +1,13 @@
+<div style="max-width: 1200px">
+    <div class="file-box" style="    margin-left: 28px;">
+        <form>
+            <input type='text' name='textfield' id='textfield' class='form-control import_txt' style="display: inline-block;" />
+            <input type='button' class='import_btn' value='浏览...' />
+            <input type="file" name="fileField" class="file" id="fileField" size="28" (change)="onImport($event)" onchange="document.getElementById('textfield').value=this.value" />
+            <input type="button" class="import_btn " value="上传 " (click)="upload() " />
+        </form>
+    </div>
+    <div class="left_d " *ngIf="tableConfig.data.length>0" style="max-height: 800px; overflow-y: scroll; ">
+        <datatable [tableConfig]='tableConfig'></datatable>
+    </div>
+</div>

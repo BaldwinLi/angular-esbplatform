@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { Validators } from '@angular/forms';
 import { startsWith } from 'lodash';
 import { Router } from '@angular/router';
 import { ContactsConfigFormDialogComponent } from './dialogComponents/ContactsConfigFormDialogComponent';
 import { CommonService } from '../../services/common/CommonService';
 import { SysContactsService } from '../../services/SysContactsService';
 import { AppRequestService } from '../../services/common/AppRequestService';
+import { ImportOperateDialogComponent } from '../../common/components/ImportOperateDialogComponent';
 
 @Component({
   selector: 'esb-system-config',
@@ -22,6 +24,7 @@ export class ContactsConfigComponent {
   private pageTol: number = 10;
   private isSuperAdmin: boolean;
   private dataArr: Array<any> = [];
+  private importData: Array<Array<any>>;
   private tableConfig: any = {
     columns: [],
     data: []
@@ -91,23 +94,57 @@ export class ContactsConfigComponent {
 
   private refreshData(): void {
     let obj = this;
-      this.contactSvc.querySysContact().subscribe(
-        success => {
-          obj.persons = success.body||[];
-          obj.refreshPageData();
-        },
-        error => window['esbLayer']({ type: 'error', message: error })
-      );
+    this.contactSvc.querySysContact().subscribe(
+      success => {
+        obj.persons = success.body || [];
+        obj.refreshPageData();
+      },
+      error => window['esbLayer']({ type: 'error', message: error })
+    );
   }
 
   private refreshPageData(): void {
     let obj = this;
     this.dataArr = this.persons.filter(e => {
-      return !!obj.contact_id ? (startsWith(e.name, obj.contact_id) || startsWith(e.email, obj.contact_id)): true;
+      return !!obj.contact_id ? (startsWith(e.name, obj.contact_id) || startsWith(e.email, obj.contact_id)) : true;
     });
     let tableDataInfo = this.cmm.getPageData(this.dataArr || this.persons, this.pageNow, this.pageTol);
     this.rowsCount = tableDataInfo.rowsCount;
     this.tableConfig.data = tableDataInfo.currentPageRows
+  }
+
+  private importContacts(evt) {
+    let obj = this;
+    let data = {
+      columns: this.tableConfig.columns.slice(0, 5),
+      data: [],
+      uploadCallBack: (data) => {
+        if (data.length === 0) {
+          window['esbLayer']({ type: 'alert', message: "上传数据不能为空！" });
+          return;
+        }
+          const isValid = data.every(e => {
+            return (!!e.name &&
+              !!e.mobile &&
+              !!e.email &&
+              /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/.test(e.email) &&
+              /^([0-9]|[\-])+$/.test(e.mobile) &&
+              e.mobile.length > 6 &&
+              e.mobile.length < 19
+            );
+          });
+        if (isValid) {
+          obj.refreshData();
+          dialog.close();
+        } else window['esbLayer']({ type: 'alert', message: "数据验证不通过！ （姓名、联系方式和邮箱不能为空！联系方式、邮箱必须格式有效。）" });
+      }
+    };
+    let dialog = window['esbLayer']({
+      type: 'dialog',
+      data: data,
+      dialogComponent: ImportOperateDialogComponent,
+      title: '批量导入联系人列表'
+    });
   }
 
   ngOnInit() {
@@ -132,7 +169,7 @@ export class ContactsConfigComponent {
             {
               id: 'company',
               header: "公司",
-              type: 'text'
+              type: 'text',
             },
             {
               id: 'mobile',

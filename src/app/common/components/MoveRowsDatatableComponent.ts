@@ -32,9 +32,19 @@ export class MoveRowsDatatableComponent {
 
     constructor() { }
 
-    ngOnInit() { }
+    ngOnInit() { 
+        debugger;
+        setTimeout(()=>{
+            this.selectedData.emit(this.config.seletedDatatable.data);
+        });
+        
+    }
 
-    ngOnChanges(changes: any) { }
+    ngOnChanges(changes: any) { 
+        if(changes.config) {
+            this.selectedData.emit(changes.config['currentValue'].seletedDatatable.data);
+        }
+    }
 
     ngAfterViewChecked() {
         this.config.beSeletedDatatable.data = this.config.beSeletedDatatable.data.filter(e => {
@@ -76,7 +86,7 @@ export class MoveRowsDatatableComponent {
         if (!!this.config.searchField && !!this.searchValue) {
             let obj = this;
             this.config.beSeletedDatatable.data = this.config.allData.filter(e => {
-                return startsWith(e[this.config.searchField].toLowerCase(), obj.searchValue.toLowerCase());
+                return e[this.config.searchField].toLowerCase().indexOf(obj.searchValue.toLowerCase())>-1;
             });
         } else {
             this.config.beSeletedDatatable.data = this.config.allData.filter(e => {
