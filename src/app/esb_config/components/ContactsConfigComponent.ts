@@ -118,25 +118,17 @@ export class ContactsConfigComponent {
     let data = {
       columns: this.tableConfig.columns.slice(0, 5),
       data: [],
-      uploadCallBack: (data) => {
+      uploadCallBack: (data, invalid) => {
         if (data.length === 0) {
           window['esbLayer']({ type: 'alert', message: "上传数据不能为空！" });
           return;
         }
-          const isValid = data.every(e => {
-            return (!!e.name &&
-              !!e.mobile &&
-              !!e.email &&
-              /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/.test(e.email) &&
-              /^([0-9]|[\-])+$/.test(e.mobile) &&
-              e.mobile.length > 6 &&
-              e.mobile.length < 19
-            );
-          });
-        if (isValid) {
+        if (invalid) {
+          window['esbLayer']({ type: 'alert', message: "数据验证不通过！ （姓名、联系方式和邮箱不能为空！联系方式、邮箱必须格式有效。）" });
+        } else {
           obj.refreshData();
           dialog.close();
-        } else window['esbLayer']({ type: 'alert', message: "数据验证不通过！ （姓名、联系方式和邮箱不能为空！联系方式、邮箱必须格式有效。）" });
+        }
       }
     };
     let dialog = window['esbLayer']({
@@ -164,7 +156,8 @@ export class ContactsConfigComponent {
             {
               id: 'name',
               header: "联系人姓名",
-              type: 'text'
+              type: 'text',
+              rules: ['required']
             },
             {
               id: 'company',
@@ -174,12 +167,17 @@ export class ContactsConfigComponent {
             {
               id: 'mobile',
               header: "联系电话",
-              type: 'text'
+              type: 'text',
+              rules: ['required', 'pattern', 'maxLength', 'minLength'],
+              maxLength: 18,
+              minLength: 7,
+              pattern: /^([0-9]|[\-])+$/
             },
             {
               id: 'email',
               header: "邮箱",
-              type: 'text'
+              type: 'text',
+              rules: ['required', 'email']
             },
             {
               id: 'memo',
