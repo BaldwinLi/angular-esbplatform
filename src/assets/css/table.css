@@ -1,5 +1,4 @@
-
-#tab{
+#tab {
     text-align: center;
     border-bottom: 1px solid #c0c0c0;
     font-family: "Microsoft YaHei";
@@ -9,43 +8,42 @@
     min-width: 1013px;
 }
 
-#tab tr td{
+#tab tr td {
     border: 0;
 }
 
-#tab tr td input{
+#tab tr td input {
     float: left;
     margin-left: 3%;
 }
 
-#tab tr td .chec{
+#tab tr td .chec {
     width: 85%;
 }
 
-#tab tr td .sele{
+#tab tr td .sele {
     width: 100%;
     height: 110%;
 }
 
-#tab tr:nth-child(even){
-    background:#f1f8ff;
+#tab tr:nth-child(even) {
+    background: #f1f8ff;
 }
 
-#tab .quer td:not(:first-child) input{
+#tab .quer td:not(:first-child) input {
     margin-left: 0;
     width: 100%;
 }
 
-#tab tr th{
+#tab tr th {
     background: url("http://support.ekingwin.com/basi/img/tab_th.png") no-repeat;
     background-size: 100% 100%;
     text-align: center;
     /*background-size属性支持IE8*/
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://support.ekingwin.com/basi/img/tab_th.png',
-            sizingMethod='scale');
+    filter: progid: DXImageTransform.Microsoft.AlphaImageLoader(src='http://support.ekingwin.com/basi/img/tab_th.png', sizingMethod='scale');
 }
 
-.icon{
+.icon {
     display: inline-block;
     width: 16px;
     height: 16px;
@@ -53,17 +51,17 @@
     margin: 0 3em;
 }
 
-nav{
+nav {
     border-bottom: 1px solid #c0c0c0;
 }
 
-nav .page{
+nav .page {
     margin: 5px 10px auto 10px;
     overflow: hidden;
     min-width: 803px;
 }
 
-div nav .page li a{
+div nav .page li a {
     font-size: 12px;
     margin-left: 5px;
     font-size: 14px;
@@ -77,26 +75,35 @@ div nav .page li a{
     border-bottom-left-radius: 0px;
 }
 
-nav .pagination>li:last-child>a{
+nav .pagination>li:last-child>a {
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
 }
 
-nav .pagination li .select{
+nav .pagination li .select {
     display: inline;
     margin-left: 25px;
 }
 
-nav .pagination li .select select{
+nav .pagination li .select select {
     margin: 0 5px;
 }
 
-nav .pagination li .page1{
+nav .pagination li .page1 {
     width: 35px;
     margin-left: 20px;
 }
 
-nav .pagination li .total{
+nav .pagination li .total {
     display: inline;
     margin-left: 20px;
+}
+
+.pageTol {
+    display: inline-block;
+    width: 35px;
+    height: 25px;
+    margin: 0 5px;
+    padding: 0;
+    text-align: center;
 }
