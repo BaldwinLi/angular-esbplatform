@@ -259,7 +259,8 @@ export class TransactionsListComponent implements OnInit {
           type: 'date',
           format: 'toTime',
           sort: 'server',
-          isDesc: true
+          isDesc: true,
+          defaultSort: true
         },
         {
           id: 'tran_status',

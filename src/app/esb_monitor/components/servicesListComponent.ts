@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { SGM_ESBMON_ERRSTATUS } from '../../model/data-model';
 import { ServicesListDialogComponent } from './dialogComponents/ServicesListDialogComponent';
 import { ServicesListSharingDialogComponent } from './dialogComponents/ServicesListSharingDialogComponent';
 import { CommonService } from '../../services/common/CommonService';
@@ -24,11 +25,12 @@ export class servicesListComponent {
   private hasReplayEntry: boolean = false;
   private resendable: boolean = false;
   private errors: Array<any> = [];
+  private err_status = SGM_ESBMON_ERRSTATUS;
   private isCheckAll: boolean;
   private rowsCount: number = 0;
   private pageNow: number;
   private pageTol: number;
-  private params: any = {};
+  private params: any;
   private searchBy: string = 'all';
 
   private tableConfig: any = {
@@ -203,7 +205,8 @@ export class servicesListComponent {
     } else {
       this.params = {
         svc_no: this.route.params['_value']['svc_no'],
-        // asc: 0
+        biz_id: '',
+        err_status: ''
       }
       this.pageNow = 1;
       this.pageTol = 10;
@@ -271,7 +274,9 @@ export class servicesListComponent {
           id: "err_level",
           header: "故障严重性",
           type: 'mapping',
-          options: 'EVENT_LEVELS'
+          options: 'EVENT_LEVELS',
+          sort: 'server',
+          isDesc: true
         },
         {
           id: "last_upd_ts",
@@ -279,7 +284,8 @@ export class servicesListComponent {
           type: 'date',
           format: 'toTime',
           sort: 'server',
-          isDesc: true
+          isDesc: true,
+          defaultSort: true
         }
       ],
       data: this.errors

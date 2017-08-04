@@ -126,8 +126,14 @@ export class ContactsConfigComponent {
         if (invalid) {
           window['esbLayer']({ type: 'alert', message: "数据验证不通过！ （姓名、联系方式和邮箱不能为空！联系方式、邮箱必须格式有效。）" });
         } else {
-          obj.refreshData();
-          dialog.close();
+          obj.contactSvc.createSysContact(data).subscribe(
+            success => {
+              obj.refreshData();
+              dialog.close();
+              window['esbLayer']({ type: 'alert', message: "上传成功！" })
+            },
+            error => window['esbLayer']({ type: 'error', message: error })
+          );
         }
       }
     };

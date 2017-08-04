@@ -195,10 +195,14 @@ export class CommonService {
     const target: DataTransfer = (<DataTransfer>(evt.target));
     if (target.files.length != 1) throw new Error("Cannot upload multiple files on the entry");
     const reader = new FileReader();
+    window['loading'].startLoading();
     reader.onload = function (e: any) {
+      window['loading'].finishLoading();
       /* read workbook */
       const bstr = e.target.result;
       const wb = window['XLSX'].read(bstr, { type: 'binary' });
+      // const wb = window['XLSX'].read(bstr, { type: 'buffer' });
+
 
       /* grab first sheet */
       const wsname = wb.SheetNames[0];
@@ -208,6 +212,7 @@ export class CommonService {
       callback(<AOA>(window['XLSX'].utils.sheet_to_json(ws, { header: 1 })));
     };
     reader.readAsBinaryString(target.files[0]);
+    // reader.readAsText(target.files[0]);
   }
 
   export(): void {

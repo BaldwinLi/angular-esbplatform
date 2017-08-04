@@ -1,4 +1,5 @@
 import { Component, enableProdMode } from '@angular/core';
+import { endsWith } from 'lodash';
 import { NgLayer, NgLayerRef, NgLayerComponent } from "angular2-layer/angular2-layer";
 import { DialogComponent } from "./DialogComponent";
 import { CommonService } from '../../services/common/CommonService';
@@ -17,7 +18,13 @@ export class ImportOperateDialogComponent extends DialogComponent {
         protected layComp: NgLayerComponent,
         private cmm: CommonService) {
         super(layerRef, layer, layComp);
+        if (!!window['ActiveXObject'] || "ActiveXObject" in window) {
+            window['esbLayer']({ type: 'alert', message: "IE浏览器不支持Excel数据读取功能，请更换其他浏览器进行操作。" });
+            this.close();
+            return;
+        }
     }
+    private filePath: string = '';
     private columns: Array<any>;
     private data: Array<any>;
 
@@ -29,7 +36,17 @@ export class ImportOperateDialogComponent extends DialogComponent {
     };
 
     private onImport(evt): void {
+        if (evt.target.files.length === 0) {
+            this.tableConfig.data = [];
+            this.filePath = '';
+            return;
+        }
+        if (!endsWith(evt.target.files[0].name, '.xls') && !endsWith(evt.target.files[0].name, '.xlsx')) {
+            window['esbLayer']({ type: 'alert', message: "请导入XLS或XLSX格式文件。" });
+            return;
+        }
         let scope = this;
+        this.filePath = evt.target.value;
         this.cmm.onFileChange(evt, (data) => {
             scope.tableConfig.data = data.map(v => {
                 let obj = {};
@@ -103,6 +120,11 @@ export class ImportOperateDialogComponent extends DialogComponent {
     }
 
     ngOnInit() {
+        // if (!!window['ActiveXObject'] || "ActiveXObject" in window) {
+        //     window['esbLayer']({ type: 'alert', message: "IE浏览器不支持Excel数据读取功能，请更换其他浏览器进行操作。" });
+        //     this.close();
+        //     return;
+        // }
         let scope = this;
         setTimeout(() => {
             if (scope.columns && scope.data)

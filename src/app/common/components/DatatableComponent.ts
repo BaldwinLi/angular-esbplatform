@@ -166,7 +166,7 @@ export class DatatableComponent {
 
         if (this.hasServerSort) {
             this.tableConfig.columns = this.tableConfig.columns.map((e, i) => {
-                if (!!e.sort && !obj.sorted) {
+                if (!!e.sort && e.sort === 'server' && e.defaultSort && !obj.sorted) {
                     e.isDesc = e.isDesc || false;
                     obj.sort(i, e.isDesc);
                     obj.sorted = true;

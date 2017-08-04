@@ -14,6 +14,19 @@
                 <p style="display: inline-block; font-weight: bolder;">服务名称： </p>
                 <h2 style="display: inline-block;font-weight: bolder; color: #eea236;">{{errors[0] && errors[0].service_name}}</h2>
             </div>
+            <div class="div_block" style="width: 100%;">
+                <span class="left_det" style="width: 100%;line-height: 25px;">
+                    <label class="label_text">业务主键：</label>
+                    <input class="form-control input_text" [(ngModel)]="params.biz_id" (change)="refreshData()"/>
+                    <label class="label_text">错误状态：</label>
+                    <select class="form-control input_text"
+                        [(ngModel)]="params.err_status" 
+                        (change)="refreshData()">
+                        <option value=''>请选择</option>
+                        <option *ngFor="let status of err_status" [value]="status.id">{{status.value}}</option>
+      	            </select>
+                </span>
+            </div>
             <datatable [tableConfig]='tableConfig' (sortEmit)="getSort($event)" (selectedItems)="getSelectedItems($event)"></datatable>
             <esb-pagination [totalRows]="rowsCount" [pageNow]="pageNow" [pageTol]="pageTol" (outputPageNow)="getPageNow($event)" (outputPageTol)="getPageTol($event)"></esb-pagination>
         </div>
