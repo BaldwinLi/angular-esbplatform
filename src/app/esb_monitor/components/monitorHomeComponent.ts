@@ -59,12 +59,12 @@ export class monitorHomeComponent {
   }
 
   private setTrendingSvcNo(svc_obj: any) {
-    if(svc_obj && svc_obj.constructor.name !== 'FocusEvent')
+    if (svc_obj && svc_obj.constructor.name !== 'FocusEvent')
       this.trendingSvcNo = (svc_obj && svc_obj.svc_no) || '';
     else {
-      if(!!svc_obj) {
+      if (!!svc_obj) {
         this.trendingSvcName = svc_obj.target.value;
-      }else{
+      } else {
         this.trendingSvcName = this.getSvcNameById;
       }
     }
@@ -89,7 +89,8 @@ export class monitorHomeComponent {
           id: 'svc_no',
           header: "服务编号",
           type: 'text',
-          sort: 'string'
+          sort: 'string',
+          width: 100
         },
         {
           id: 'svc_name',
@@ -109,13 +110,15 @@ export class monitorHomeComponent {
         {
           id: 'todayErrCnt',
           header: "处理中",
-          type: 'text'
+          type: 'text',
+          width: 80
         },
         {
           id: 'totalErrCnt',
           header: "累计错误",
           type: 'text',
-          sort: 'int'
+          sort: 'int',
+          width: 80
         },
         {
           id: 'svc_desc',

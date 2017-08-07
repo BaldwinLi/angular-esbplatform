@@ -1,6 +1,6 @@
 import 'core-js/es7/reflect';
 import 'zone.js/dist/zone';
-// import { daysOfWeek, months, date_locale } from '../lib/locales/i18n';
+import { daysOfWeek, months, date_locale } from '../lib/locales/i18n';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -80,11 +80,11 @@ import { FormatDatePip } from './pipe/FormatDatePip';
 
 import { ComboBoxModule } from 'ng2-combobox';
 
-// NguiDatetime.daysOfWeek = daysOfWeek;
+NguiDatetime.daysOfWeek = daysOfWeek;
 
-// NguiDatetime.locale = date_locale;
+NguiDatetime.locale = date_locale;
 
-// NguiDatetime.months = months;
+NguiDatetime.months = months;
 
 
 

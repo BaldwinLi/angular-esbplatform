@@ -2,21 +2,21 @@
     <div class="left_center">
         <div class="left_d">
             <div class="div_block">
-                <span class="left_det" style="width: 100%;line-height: 25px;">
+                <span class="left_det" style="width: 100%;line-height: 25px;margin-bottom: 20px;">
                 <label class="label_text">切换服务：</label>
                 <!-- <select class="input_text" 
                         [(ngModel)]="params.svcid" 
                         (change)="changeParams()">
                     <option *ngFor="let svc of svcErrors" [value]="svc.svcid">{{svc.svc_name}}</option>
                   </select> -->
-                <div class="input_text" style="width: 37%">
+                <div class="input_text" style="width: 31%">
                     <combo-box [inputClass]="'form-control input_combo'" 
                                [triggerIconClass]="'combo_drop_trigger'" 
                                [localFilter]='true' 
                                [localFilterCaseSensitive]='false'
                                [listData]="svcErrors" 
                                [displayField]="'usr_svcname'"  
-                               [valueField]="'svcid'"
+                               [valueField]="'usr_svcno'"
                                [currVal]="svcName"
                                (onSelect)="setParamsSvcid($event)"
                                (onBlur)="setParamsSvcid($event)"
@@ -30,29 +30,32 @@
                     <option value=''>请选择</option>
                     <option *ngFor="let tran of trancode" [value]="tran.id">{{tran.id}}</option>
       	        </select>
-            </span>
-                <span class="left_det" style="width: 100%;line-height: 25px;">
+            <!-- </span>
+                <span class="left_det" style="width: 100%;line-height: 25px;"> -->
                 <!-- <label class="label_text">源系统：</label>
                 <input class="input_text"  type='text' [(ngModel)]="params.src">
                 <label class="label_text">目标系统：</label>
                 <input class="input_text" type='text' [(ngModel)]="params.dest"> -->
-				<label class="label_text">开始时间：</label>
+				<!-- <label class="label_text">开始时间：</label>
                 <span class="input_text glyphicon glyphicon-calendar_a" style="line-height: 0;float: left;">
                     <input class="form-control esb_calender" style="width:86%"
                             (valueChanged)="valueChanged($event)" 
                             [(ngModel)]="start_date" 
                             ngui-datetime-picker
                             date-format="YYYY-MM-DD HH:mm" readonly/>
-                </span>
-                <label class="label_text">结束时间：</label>
-                <span class="input_text glyphicon glyphicon-calendar_a" style="line-height: 0;float: left;">
+                </span> -->
+                <label class="label_text">查询时间点：</label>
+                <div style="width:13%;float: left;">
+                    <span class="input_text glyphicon glyphicon-calendar_a" style="line-height: 0;float: left;width:100%;">
                     <input class="form-control esb_calender" style="width:86%"
                             (valueChanged)="valueChanged($event)" 
-                            [(ngModel)]="end_date" 
+                            [(ngModel)]="start_date" 
                             ngui-datetime-picker
                             date-format="YYYY-MM-DD HH:mm" readonly/>
-                </span>
-                <button class="btn btn-sm btn-default b_wra2" style="float: left; color: #fff; background-color: #eea236; border-color: #eea236;margin-left: 5%;" (click)="refreshData()">查询</button>
+                    </span>
+                    <label style="margin-left:0; color: red;position: relative;white-space: nowrap;font-size: 0.2rem;">*查询时间段：{{getTimeRangeStr}}</label>
+                </div>
+                <!-- <button class="btn btn-sm btn-default b_wra2" style="float: left; color: #fff; background-color: #eea236; border-color: #eea236;margin-left: 5%;" (click)="refreshData()">查询</button> -->
                 </span>
                 <span class="left_det" style="width: 100%;margin-left: 5%;">
                 <p class="text_p3">服务编号：</p>

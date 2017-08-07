@@ -227,7 +227,7 @@ export class AppRequestService {
         let params_str = ""
         if (err_id) {
             params_str = `/${err_id}`;
-            params = {}
+            // params = {}
         } else if (begin_ts && end_ts) {
             params_str = `/${begin_ts}/${end_ts}`;
         }

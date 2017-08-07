@@ -6,27 +6,27 @@ import { assign } from 'lodash';
 
 @Injectable()
 export class ErrorInfoService {
-    constructor(private appRequest: AppRequestService){}
+    constructor(private appRequest: AppRequestService) { }
 
-    queryErrorinfo(params: any, page: string, pageSize: string): Observable<any>{
-        params = assign(params, {page, page_size: pageSize});
+    queryErrorinfo(params: any, page: string, pageSize: string): Observable<any> {
+        params = assign(params, { page, page_size: pageSize });
         return this.appRequest.searchErrorinfo(params);
     }
 
-    updateErrorinfo(params: any): Observable<any>{
+    updateErrorinfo(params: any): Observable<any> {
         return this.appRequest.updateErrorinfo(params);
     }
 
-    queryUsersErrorinfoList(user_id: string, page: string, pageSize: string): Observable<any>{
-        return this.appRequest.queryErrorinfo("", "", "", { p:page, psize: pageSize });
+    queryUsersErrorinfoList(user_id: string, page: string, pageSize: string): Observable<any> {
+        return this.appRequest.queryErrorinfo("", "", "", { p: page, psize: pageSize });
     }
 
-    queryUsersErrorinfoByErrId(err_id: string): Observable<any>{
-        return this.appRequest.queryErrorinfo(err_id);
+    queryUsersErrorinfoByErrId(err_id: string, params?: any): Observable<any> {
+        return this.appRequest.queryErrorinfo(err_id, '', '', params);
     }
 
-    queryUsersErrorinfoByTime(user_id: string, begin_ts: string, end_ts: string, page: string, pageSize: string): Observable<any>{
-        return this.appRequest.queryErrorinfo("", begin_ts, end_ts, { p:page, psize: pageSize });
+    queryUsersErrorinfoByTime(user_id: string, begin_ts: string, end_ts: string, page: string, pageSize: string): Observable<any> {
+        return this.appRequest.queryErrorinfo("", begin_ts, end_ts, { p: page, psize: pageSize });
     }
 
     // queryUsersErrorinfoListAsync(page: string, pageSize: string): Observable<any>{

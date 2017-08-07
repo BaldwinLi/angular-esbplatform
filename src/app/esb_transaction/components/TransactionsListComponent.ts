@@ -15,8 +15,9 @@ import { EsbConfigsService } from '../../services/EsbConfigsService';
   providers: [CommonService, TranLogService]
 })
 export class TransactionsListComponent implements OnInit {
-  private start_date: any;
-  private end_date: any;
+  private start_date: any = new window['moment']();
+  // private end_date: any;
+  private _now: any = new window['moment']().add(8, 'hours').toISOString();
   private trancode: Array<any> = SGM_ESB_TRANCODE;
   private err_uu: Array<any>;
   private rowsCount: number = 0;
@@ -36,13 +37,7 @@ export class TransactionsListComponent implements OnInit {
     'subsys': ''
   };
 
-  private params: any = {
-    start: this.cmm.getEsblastThreeMonthsTimeStr,
-    end: this.cmm.getEsbCurrentTimeStr,
-    trancode: '',
-    // src: '',
-    // dest: ''
-  };
+  private params: any;
   private tableConfig: any;
   constructor(
     private cmm: CommonService,
@@ -53,8 +48,17 @@ export class TransactionsListComponent implements OnInit {
     private router: Router) { }
 
   valueChanged(event: any) {
-    this.params.start = this.cmm.formatISOToStr(this.start_date.toISOString());
-    this.params.end = this.cmm.formatISOToStr(this.end_date.toISOString());
+    let startDate = this.params.start = this.cmm.formatISOToStr(new window['moment'](this.start_date).add(8, 'hours').subtract(1, 'days').toISOString());
+    // startDate = startDate.add(8, 'hours');
+    let endDate = this.params.end = this.cmm.formatISOToStr(new window['moment'](this.start_date).add(8, 'hours').add(1, 'days').toISOString());
+    this._now = new window['moment']().add(8, 'hours').toISOString();
+    if (parseInt(endDate) > parseInt(this.cmm.formatISOToStr(this._now))) {
+      this.params.end = this.cmm.formatISOToStr(this._now);
+      // this.start_date = new window['moment']();
+      this.start_date = new Date();
+    }
+    // this.params.end = this.cmm.formatISOToStr(this.end_date.toISOString());
+    this.changeParams();
   }
   showDetail() {
     const lay = window['esbLayer']({
@@ -76,7 +80,7 @@ export class TransactionsListComponent implements OnInit {
 
   private changeParams(): void {
     for (const e in this.svcErrors) {
-      if (this.svcErrors[e].svcid === this.params.svcid) {
+      if (this.svcErrors[e].usr_svcno === this.params.svcid) {
         this.getSvcInfo(this.svcErrors[e].svcno);
         this.svcInfo.subsys = this.svcErrors[e].subsys;
         this.refreshData();
@@ -130,7 +134,7 @@ export class TransactionsListComponent implements OnInit {
         success => {
           if (success.body && success.body.length > 0) {
             obj.svcErrors = success.body;
-            obj.params.svcid = success.body && success.body[0].svcid;
+            obj.params.svcid = success.body && success.body[0].usr_svcno;
 
             // obj.params.svcid = 'S7066012';
             // obj.svcErrors = success.body.map(v=>{
@@ -208,7 +212,7 @@ export class TransactionsListComponent implements OnInit {
 
   private setParamsSvcid(svc_obj: any): void {
     if (svc_obj && svc_obj.constructor.name !== 'FocusEvent')
-      this.params.svcid = (svc_obj && svc_obj.svcid) || '';
+      this.params.svcid = (svc_obj && svc_obj.usr_svcno) || '';
     else {
       if (!!svc_obj) {
         this.svcName = svc_obj.target.value;
@@ -221,7 +225,7 @@ export class TransactionsListComponent implements OnInit {
 
   get getSvcNameById() {
     for (let el of this.svcErrors) {
-      if (el['svcid'] == this.params.svcid) {
+      if (el['usr_svcno'] == this.params.svcid) {
         return el.usr_svcname;
       }
     }
@@ -230,6 +234,15 @@ export class TransactionsListComponent implements OnInit {
 
   ngOnInit() {
     const obj = this;
+
+    this.params = {
+      start: this.cmm.formatISOToStr(new window['moment'](this.start_date).add(8, 'hours').subtract(1, 'days').toISOString()),
+      end: this.cmm.formatISOToStr(new window['moment'](this.start_date).add(8, 'hours').toISOString()),
+      trancode: '',
+      // src: '',
+      // dest: ''
+    };
+
     this.initParams();
     this.tableConfig = {
       columns: [
@@ -242,6 +255,7 @@ export class TransactionsListComponent implements OnInit {
           id: 'tran_uuid',
           header: '交易UUID',
           type: 'template',
+          width: 300,
           template: {
             type: 'eventHandler',
             event: 'click',
@@ -297,7 +311,16 @@ export class TransactionsListComponent implements OnInit {
       data: this.err_uu
     };
     // this.start_date = obj.cmm.formatDate(obj.params.start, 'Time');
-    this.end_date = new window['moment']();
-    this.start_date = new window['moment']().subtract(3, 'months');
+    // this.end_date = new window['moment']();
+    // this.start_date = new window['moment']().subtract(3, 'months');
+    // this.start_date = new window['moment']();
+  }
+
+  get getTimeRangeStr() {
+    let startDate = new window['moment'](this.start_date).add(8, 'hours').subtract(1, 'days').toISOString();
+    // startDate = startDate.add(8, 'hours');
+    let endDate = new window['moment'](this.start_date).add(8, 'hours').add(1, 'days').toISOString();
+    if (parseInt(this.cmm.formatISOToStr(endDate)) > parseInt(this.cmm.formatISOToStr(this._now))) endDate = this._now;
+    return this.cmm.getFormatToTime(startDate) + ' - ' + this.cmm.getFormatToTime(endDate);
   }
 }

@@ -24,7 +24,6 @@ export class barChartDirective {
             myChart.setOption({
                 title: {
                     text: '服务错误数量',
-                    // subtext: '纯属虚构'
                 },
                 tooltip: {
                     trigger: 'axis'
@@ -86,7 +85,8 @@ export class barChartDirective {
                             // ]
                         }
                     }
-                ]
+                ],
+                color: ['#FF8C00', '#A52A2A']
             });
         }
     }

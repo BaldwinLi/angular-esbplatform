@@ -18,6 +18,7 @@ import { ServicesListSharingDialogComponent } from './dialogComponents/ServicesL
 })
 export class serviceDetailComponent {
   // private err_reason: string;
+  private err_id: string;
   private data2: any = {};
   private hasReplayEntry: boolean = false;
   private resendable: boolean = false;
@@ -27,6 +28,7 @@ export class serviceDetailComponent {
   private dest: any = { contacts: [] };
   private data3: Array<any> = [];
   private err_data4: Array<any> = [];
+  private token: string;
   private tokens: Array<any> = [];
   // private err_step_no: string = "";
   // private err_step_name: string = "";
@@ -181,7 +183,10 @@ export class serviceDetailComponent {
     }
     if (this.data3.length > 0) {
       this.trSvc.resend([{ tran_uuid: obj.data2.tran_uuid || '' }]).subscribe(
-        success => window['esbLayer']({ type: 'alert', message: '操作成功！' }),
+        success => {
+          obj.refreshData();
+          window['esbLayer']({ type: 'alert', message: '操作成功！' });
+        },
         error => window['esbLayer']({ type: 'error', message: error })
       );
     } else {
@@ -203,9 +208,7 @@ export class serviceDetailComponent {
       title: '您正在分享该页面，请输入本次分享的详细描述'
     })
       .setOnClose(function () {
-        obj.queryData(
-          obj.route.params['_value']['err_id']
-        );
+        obj.refreshData();
       });
   }
 
@@ -333,49 +336,55 @@ export class serviceDetailComponent {
 
   }
 
-  private queryData(err_id: string, user_id?: string): void {
+  private queryData(user_id?: string): void {
     let obj = this;
 
-    err_id = err_id || '';
+    // err_id = this.err_id || '';
     // err_id = '34205';
-    this.appSvc.afterInitCall(function () {
-      // user_id = 'sesde8';
-      // user_id = window['currentUser']['user_code'];
-      obj.errSvc.queryUsersErrorinfoByErrId(err_id).subscribe(
-        success => {
-          obj.data2 = success.body.error || {};
-          // obj.data2.last_upd_ts = obj.cmm.getFormatToTime(obj.data2.last_upd_ts);
-
-          success.body && success.body.systems && success.body.systems.forEach(e => {
-            if (obj.data2.src_sys.toUpperCase() == e.sys_name.toUpperCase()) {
-              obj.src = e;
-              obj.srcContactTableConfig.data = e.contacts;
-            }
-            else if (obj.data2.dest_sys.toUpperCase() == e.sys_name.toUpperCase()) {
-              obj.dest = e;
-              obj.destContactTableConfig.data = e.contacts;
-            }
-          });
-
-          obj.tableConfig.data = obj.data3 = (success.body && success.body.tranlogs && success.body.tranlogs.map(v => {
-            // v.tran_ts = obj.cmm.getFormatToTime(v.tran_ts);
-            return v;
-          })) || [];
-          obj.setRowsClass();
-
-          obj.errorflows = success.body.errflow || [];
-
-          obj.err_data4 = success.body.errlog || [];
-
-          obj.tokens = (success.body.tokens && success.body.tokens.map(v => {
-            // v.expire_ts = obj.cmm.getFormatToDate(v.expire_ts);
-            // v.create_ts = obj.cmm.getFormatToDate(v.create_ts);
-            return v;
-          })) || [];
-        },
-        error => window['esbLayer']({ type: 'error', message: error })
-      );
+    this.appSvc.afterInitCall(() => {
+      obj.refreshData();
     });
+  }
+
+  private refreshData(): void {
+    let obj = this;
+    // user_id = 'sesde8';
+    // user_id = window['currentUser']['user_code'];
+    this.errSvc.queryUsersErrorinfoByErrId(this.err_id, { token: this.token }).subscribe(
+      success => {
+        obj.data2 = success.body.error || {};
+        obj.hasReplayEntry = success.body.replayEntry !== 'NA';
+        // obj.data2.last_upd_ts = obj.cmm.getFormatToTime(obj.data2.last_upd_ts);
+
+        success.body && success.body.systems && success.body.systems.forEach(e => {
+          if (obj.data2.src_sys.toUpperCase() == e.sys_name.toUpperCase()) {
+            obj.src = e;
+            obj.srcContactTableConfig.data = e.contacts;
+          }
+          else if (obj.data2.dest_sys.toUpperCase() == e.sys_name.toUpperCase()) {
+            obj.dest = e;
+            obj.destContactTableConfig.data = e.contacts;
+          }
+        });
+
+        obj.tableConfig.data = obj.data3 = (success.body && success.body.tranlogs && success.body.tranlogs.map(v => {
+          // v.tran_ts = obj.cmm.getFormatToTime(v.tran_ts);
+          return v;
+        })) || [];
+        obj.setRowsClass();
+
+        obj.errorflows = success.body.errflow || [];
+
+        obj.err_data4 = success.body.errlog || [];
+
+        obj.tokens = (success.body.tokens && success.body.tokens.map(v => {
+          // v.expire_ts = obj.cmm.getFormatToDate(v.expire_ts);
+          // v.create_ts = obj.cmm.getFormatToDate(v.create_ts);
+          return v;
+        })) || [];
+      },
+      error => window['esbLayer']({ type: 'error', message: error })
+    );
   }
 
   private setRowsClass(): void {
@@ -391,11 +400,11 @@ export class serviceDetailComponent {
     this.appSvc.afterInitCall(() => {
       obj.resendable = (window['currentUser'].is_admin != '0');
     });
-    if (!!this.route.params['_value']['err_id'] && !!this.route.params['_value']['hasReplayEntry']) {
-      this.hasReplayEntry = JSON.parse(this.route.params['_value']['hasReplayEntry']);
-      this.queryData(
-        this.route.params['_value']['err_id']
-      );
+    if (!!this.route.params['_value']['err_id']) {
+      // this.hasReplayEntry = JSON.parse(this.route.params['_value']['hasReplayEntry']);
+      this.err_id = this.route.params['_value']['err_id'];
+      this.token = this.route.params['_value']['token']
+      this.queryData();
     } else {
       this.router.navigate(['**']);
     }

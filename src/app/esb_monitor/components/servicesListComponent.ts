@@ -136,7 +136,9 @@ export class servicesListComponent {
       pageNow: this.pageNow,
       pageTol: this.pageTol
     };
-    this.router.navigate(['/monitor/servicedetail', { err_id, hasReplayEntry: this.hasReplayEntry }]);
+    this.router.navigate(['/monitor/servicedetail', { err_id, 
+      // hasReplayEntry: this.hasReplayEntry 
+    }]);
   }
 
   private getPageNow(pageNow: number) {
