@@ -1,0 +1,4 @@
+<div>
+    <datatable [resizableColumns]="_resizableColumns" [tableConfig]='config' (sortEmit)="getSort($event)" (selectedItem)="getSelectedItem($event)" (selectedItems)="getSelectedItems($event)"></datatable>
+    <esb-pagination [totalRows]="totalRows" [pageNow]="pageNow" [pageTol]="pageTol" (outputPageNow)="getPageNow($event)" (outputPageTol)="getPageTol($event)"></esb-pagination>
+</div>

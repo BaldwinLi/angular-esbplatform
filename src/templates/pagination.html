@@ -1,11 +1,11 @@
 <nav>
     <ul class="pagination">
-        <li><a style="cursor: pointer;" (click)="upPage()">&laquo;上一页</a></li>
+        <li><a style="cursor: pointer;border-radius: 4px;" (click)="upPage()">&laquo;上一页</a></li>
 
         <li class='pageuu' *ngFor="let page of pages">
             <a (click)="getPage(page)" [ngClass]="{'focus': page==pageNow}">{{page}}</a>
         </li>
-        <li><a style="cursor: pointer;" (click)="downPage()">下一页&raquo;</a></li>
+        <li><a style="cursor: pointer;border-radius: 4px;" (click)="downPage()">下一页&raquo;</a></li>
         <li style="line-height: 35px; margin-left: 10px">共有 {{totalPages}} 页 {{totalRows}} 条 / 每页
             <input type="text" (change)="changePageTol($event)" class="pageTol form-control" [(ngModel)]="pageTol"> 条 / 当前第
             <input type="text" (change)="changePage($event)" class="pageTol form-control" [(ngModel)]="pageNow"> 页

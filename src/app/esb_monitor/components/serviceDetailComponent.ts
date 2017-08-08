@@ -77,7 +77,8 @@ export class serviceDetailComponent {
         }
       }
     ],
-    data: this.data3
+    data: this.data3,
+    isStaticPagination: true
   };
 
   private srcContactTableConfig: any = {
@@ -353,7 +354,7 @@ export class serviceDetailComponent {
     this.errSvc.queryUsersErrorinfoByErrId(this.err_id, { token: this.token }).subscribe(
       success => {
         obj.data2 = success.body.error || {};
-        obj.hasReplayEntry = success.body.replayEntry !== 'NA';
+        obj.hasReplayEntry = JSON.parse(success.body && success.body.svcinfo && success.body.svcinfo.replay_entry);
         // obj.data2.last_upd_ts = obj.cmm.getFormatToTime(obj.data2.last_upd_ts);
 
         success.body && success.body.systems && success.body.systems.forEach(e => {

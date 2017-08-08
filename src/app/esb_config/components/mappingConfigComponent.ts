@@ -16,12 +16,10 @@ export class mappingConfigComponent {
 
   }
   private persons: Array<any> = [];
-  private dataArr: Array<any> = [];
-  private userId: string;
-  private rowsCount: number = 0;
-  private pageNow: number = 1;
-  private pageTol: number = 10;
   private isSuperAdmin: boolean;
+  private searchFieldsConfig: any = {
+    fields: ''
+  };
 
   private tableConfig: any = {
     columns: [
@@ -59,7 +57,7 @@ export class mappingConfigComponent {
             click: this.openServerList.bind(this)
           }
         }
-      }, 
+      },
       {
         header: "删除",
         type: 'template',
@@ -77,7 +75,8 @@ export class mappingConfigComponent {
 
 
     ],
-    data: this.persons
+    data: this.persons,
+    isStaticPagination: true
   };
 
   private openServerList(row: any) {
@@ -112,26 +111,16 @@ export class mappingConfigComponent {
     );
   }
 
-  private search(event): void {
-    if (event && event.type == 'keypress' && event.charCode !== 13) return;
-    this.refreshPageData();
-  }
-
-  private getPageNow(pageNow: number) {
-    this.pageNow = pageNow;
-    this.refreshPageData();
-  }
-
-  private getPageTol(pageTol: number) {
-    this.pageTol = pageTol;
-    this.refreshPageData();
-  }
+  // private search(event): void {
+  //   if (event && event.type == 'keypress' && event.charCode !== 13) return;
+  //   // this.refreshPageData();
+  // }
 
   private refreshData(): void {
     let obj = this;
     this.userSvc.queryUsersInfo_V2().subscribe(
       success => {
-        obj.dataArr = obj.persons = (success.body && success.body.map(v => {
+        obj.persons = (success.body && success.body.map(v => {
           return {
             user_code: v.user.user_code,
             user_name: v.user.user_name,
@@ -140,20 +129,9 @@ export class mappingConfigComponent {
             svclist: v.svclist
           }
         })) || [];
-        obj.refreshPageData();
       },
       error => window['esbLayer']({ type: 'error', message: error })
     );
-  }
-
-  private refreshPageData(): void {
-    let obj = this;
-    this.dataArr = this.persons.filter(e => {
-      return !!obj.userId ? (e.user_code.toLowerCase().indexOf(obj.userId.toLowerCase())>-1 || e.user_name.toLowerCase().indexOf(obj.userId.toLowerCase())>-1) : true;
-    });
-    let tableDataInfo = this.cmm.getPageData(this.dataArr || this.persons, this.pageNow, this.pageTol);
-    this.rowsCount = tableDataInfo.rowsCount;
-    this.tableConfig.data = tableDataInfo.currentPageRows
   }
 
   ngOnInit() {

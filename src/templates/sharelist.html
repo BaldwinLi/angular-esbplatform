@@ -17,8 +17,9 @@
         </div>
         <div class="left_d tab">
             <div class="tab_content">
-                <datatable [tableConfig]='tableConfig'></datatable>
-                <esb-pagination [totalRows]="rowsCount" (outputPageNow)="getPageNow($event)" (outputPageTol)="getPageTol($event)"></esb-pagination>
+                <!-- <datatable [tableConfig]='tableConfig'></datatable>
+                <esb-pagination [totalRows]="rowsCount" (outputPageNow)="getPageNow($event)" (outputPageTol)="getPageTol($event)"></esb-pagination> -->
+                <flex-datatable [config]='tableConfig' [tableData]='tokens'></flex-datatable>
             </div>
             <div class="clear_both"></div>
         </div>

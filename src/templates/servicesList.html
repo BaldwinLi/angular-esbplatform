@@ -27,8 +27,9 @@
       	            </select>
                 </span>
             </div>
-            <datatable [tableConfig]='tableConfig' (sortEmit)="getSort($event)" (selectedItems)="getSelectedItems($event)"></datatable>
-            <esb-pagination [totalRows]="rowsCount" [pageNow]="pageNow" [pageTol]="pageTol" (outputPageNow)="getPageNow($event)" (outputPageTol)="getPageTol($event)"></esb-pagination>
+            <!-- <datatable [tableConfig]='tableConfig' (sortEmit)="getSort($event)" (selectedItems)="getSelectedItems($event)"></datatable>
+            <esb-pagination [totalRows]="rowsCount" [pageNow]="pageNow" [pageTol]="pageTol" (outputPageNow)="getPageNow($event)" (outputPageTol)="getPageTol($event)"></esb-pagination> -->
+            <flex-datatable [config]='tableConfig' (sortEmit)="getSort($event)" (selectedItems)="getSelectedItems($event)" [totalRows]="rowsCount" [pageNow]="pageNow" [pageTol]="pageTol" (outputPageNow)="getPageNow($event)" (outputPageTol)="getPageTol($event)"></flex-datatable>
         </div>
     </div>
 </div>

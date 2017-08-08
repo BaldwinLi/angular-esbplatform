@@ -32,7 +32,8 @@
                 <p class="tit_p">交易日志详细记录</p>
     </span>
         </div>
-        <datatable [tableConfig]='tableConfig' (selectedItems)="getSelectedItems($event)"></datatable>
+        <!-- <datatable [tableConfig]='tableConfig' (selectedItems)="getSelectedItems($event)"></datatable> -->
         <!--<esb-pagination [totalRows]="rowsCount" (outputPageNow)="getPageNow($event)" (outputPageTol)="getPageTol($event)"></esb-pagination>-->
+        <flex-datatable [config]='tableConfig' [tableData]='trans'></flex-datatable>
     </div>
 </div>

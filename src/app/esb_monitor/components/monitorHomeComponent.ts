@@ -17,7 +17,8 @@ export class monitorHomeComponent {
   private showType: string = 'list';
   private tableConfig: any = {
     columns: [],
-    data: []
+    data: [],
+    isStaticPagination: true
   }
   constructor(private userSvc: UsersInfoService, private appSvc: AppRequestService, private router: Router) {
     let obj = this;
@@ -28,7 +29,8 @@ export class monitorHomeComponent {
         success => {
           obj.tableConfig = {
             columns: obj.tableConfig.columns,
-            data: obj.svcErrors = success.body.svc_errors || []
+            data: obj.svcErrors = success.body.svc_errors || [],
+            isStaticPagination: true
           }
           obj.svcErrorsTrending = success.body.svc_errors_trend || [];
           obj.selectedTrending = success.body.svc_errors_trend && success.body.svc_errors_trend.length > 0 ? success.body.svc_errors_trend[0] : [];
@@ -52,7 +54,7 @@ export class monitorHomeComponent {
     };
   }
 
-  private runCallBack(func: any): void { }
+  // private runCallBack(func: any): void { }
 
   private selectServiceById(svc_no: string) {
     this.router.navigate(['/monitor/serviceslist', svc_no]);
@@ -126,7 +128,8 @@ export class monitorHomeComponent {
           type: 'text'
         }
       ],
-      data: this.svcErrors
+      data: this.svcErrors,
+      isStaticPagination: true
     }
 
   }

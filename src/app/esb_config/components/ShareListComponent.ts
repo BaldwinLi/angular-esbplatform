@@ -15,12 +15,6 @@ export class ShareListComponent {
   }
   private tokens: Array<any> = [];
 
-  private userId: string;
-  private shareId: string;
-  private rowsCount: number = 0;
-  private pageNow: number = 1;
-  private pageTol: number = 10;
-
   private tableConfig: any = {
     columns: [
       {
@@ -58,23 +52,9 @@ export class ShareListComponent {
         type: 'text'
       }
     ],
-    data: this.tokens
+    data: this.tokens,
+    isStaticPagination: true
   };
-
-  private search(event): void {
-    if (event && event.type == 'keypress' && event.charCode !== 13) return;
-    this.refreshData(this.userId);
-  }
-
-  private getPageNow(pageNow: number) {
-    this.pageNow = pageNow;
-    this.refreshPageData();
-  }
-
-  private getPageTol(pageTol: number) {
-    this.pageTol = pageTol;
-    this.refreshPageData();
-  }
 
   private refreshData(user_id?: string): void {
     let obj = this;
@@ -82,21 +62,13 @@ export class ShareListComponent {
       obj.tokenSvc.queryTokensList().subscribe(
         success => {
           obj.tokens = success.body || [];
-          obj.refreshPageData();
         },
         error => window['esbLayer']({ type: 'error', message: error })
       );
     });
   }
 
-  private refreshPageData(): void {
-    let tableDataInfo = this.cmm.getPageData(this.tokens, this.pageNow, this.pageTol);
-    this.rowsCount = tableDataInfo.rowsCount;
-    this.tableConfig.data = tableDataInfo.currentPageRows
-  }
-
   ngOnInit() {
-    let obj = this;
     this.refreshData();
   }
 }

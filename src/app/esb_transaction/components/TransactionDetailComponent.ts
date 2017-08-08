@@ -64,7 +64,8 @@ export class TransactionDetailComponent implements OnInit {
         }
       }
     ],
-    data: this.trans
+    data: this.trans,
+    isStaticPagination: true
   };
 
   constructor(
@@ -98,16 +99,13 @@ export class TransactionDetailComponent implements OnInit {
     this.appSvc.afterInitCall(function () {
       obj.tlSvc.queryTranlogbyUuid(tran_uuid).subscribe(
         success => {
-          obj.tableConfig.data = (success.body && success.body.tranlogs && success.body.tranlogs.map(v => {
-            // v.tran_ts = obj.cmm.getFormatToTime(v.tran_ts);
+          obj.tableConfig.data = obj.trans = (success.body && success.body.tranlogs && success.body.tranlogs.map(v => {
             return v;
           })) || [];
           obj.setRowsClass();
 
           obj.svcInfo = success.body && success.body.svcinfo;
           obj.tokens = (success.body.tokens && success.body.tokens.map(v => {
-            // v.expire_ts = obj.cmm.getFormatToDate(v.expire_ts);
-            // v.create_ts = obj.cmm.getFormatToDate(v.create_ts);
             return v;
           })) || [];
         },

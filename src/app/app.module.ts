@@ -30,6 +30,7 @@ import { barChartDirective } from './common/directives/barChartDirective';
 import { lineChartDirective } from './common/directives/lineChartDirective';
 import { PaginationComponent } from './common/components/PaginationComponent';
 import { DatatableComponent } from './common/components/DatatableComponent';
+import { FlexDatatableComponent } from './common/components/FlexDatatableComponent';
 import { MoveRowsDatatableComponent } from './common/components/MoveRowsDatatableComponent';
 import { ArrListDialogComponent } from './common/components/ArrListDialogComponent';
 import { ImportOperateDialogComponent } from './common/components/ImportOperateDialogComponent';
@@ -150,6 +151,7 @@ const appRoutes: Routes = [
     MoveRowsDatatableComponent,
     TemplateDirective,
     PaginationComponent,
+    FlexDatatableComponent,
     PageNotFoundComponent,
     NgLayerComponent,
     DialogComponent,

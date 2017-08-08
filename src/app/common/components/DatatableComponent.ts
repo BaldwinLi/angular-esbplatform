@@ -27,13 +27,13 @@ export class DatatableComponent {
     private checkRadioIndex: string = "0";
 
     private _resizableColumns: boolean = true;
-    @Input() private set resizableColumns(isResizable: boolean){
+    @Input() private set resizableColumns(isResizable: boolean) {
         this._resizableColumns = isResizable;
     };
+
     @Input() private tableConfig: any = {
         columns: [],
-        data: [],
-
+        data: []
     };
 
     @Output() selectedItems: EventEmitter<any> = new EventEmitter<any>();
@@ -68,27 +68,32 @@ export class DatatableComponent {
     private sort(index, sortKey?: boolean): void {
         if (typeof sortKey !== 'undefined') this.tableConfig.columns[index].isDesc = sortKey;
         else this.tableConfig.columns[index].isDesc = !this.tableConfig.columns[index].isDesc;
-        switch (this.tableConfig.columns[index].sort) {
-            case 'server':
-                this.sortEmit.emit(this.tableConfig.columns[index]);
-                break;
-            case 'int':
-                this.tableConfig.data = this.tableConfig.data && this.tableConfig.data.sort((p, c) => {
-                    if (isNumber(p[this.tableConfig.columns[index].id]) && isNumber(c[this.tableConfig.columns[index].id]))
-                        return this.tableConfig.columns[index].isDesc ? (p[this.tableConfig.columns[index].id] - c[this.tableConfig.columns[index].id]) : (c[this.tableConfig.columns[index].id] - p[this.tableConfig.columns[index].id]);
-                    else console.error('columns element type is not int.');
-                });
-                break;
-            case 'string':
-                this.tableConfig.data = this.tableConfig.data && this.tableConfig.data.sort((p, c) => {
-                    if (isString(p[this.tableConfig.columns[index].id]) && isString(c[this.tableConfig.columns[index].id])) {
-                        if (this.tableConfig.columns[index].isDesc)
-                            return p[this.tableConfig.columns[index].id].localeCompare(c[this.tableConfig.columns[index].id]);
-                        else
-                            return c[this.tableConfig.columns[index].id].localeCompare(p[this.tableConfig.columns[index].id]);
-                    } else console.error('columns element type is not string.');
-                });
-                break;
+
+        if (this.tableConfig.isStaticPagination) {
+            this.sortEmit.emit(this.tableConfig.columns[index]);
+        } else {
+            switch (this.tableConfig.columns[index].sort) {
+                case 'server':
+                    this.sortEmit.emit(this.tableConfig.columns[index]);
+                    break;
+                case 'int':
+                    this.tableConfig.data = this.tableConfig.data && this.tableConfig.data.sort((p, c) => {
+                        if (isNumber(p[this.tableConfig.columns[index].id]) && isNumber(c[this.tableConfig.columns[index].id]))
+                            return this.tableConfig.columns[index].isDesc ? (p[this.tableConfig.columns[index].id] - c[this.tableConfig.columns[index].id]) : (c[this.tableConfig.columns[index].id] - p[this.tableConfig.columns[index].id]);
+                        else console.error('columns element type is not int.');
+                    });
+                    break;
+                case 'string':
+                    this.tableConfig.data = this.tableConfig.data && this.tableConfig.data.sort((p, c) => {
+                        if (isString(p[this.tableConfig.columns[index].id]) && isString(c[this.tableConfig.columns[index].id])) {
+                            if (this.tableConfig.columns[index].isDesc)
+                                return p[this.tableConfig.columns[index].id].localeCompare(c[this.tableConfig.columns[index].id]);
+                            else
+                                return c[this.tableConfig.columns[index].id].localeCompare(p[this.tableConfig.columns[index].id]);
+                        } else console.error('columns element type is not string.');
+                    });
+                    break;
+            }
         }
     }
 
