@@ -4,6 +4,7 @@ import { NgLayer, NgLayerRef, NgLayerComponent } from "angular2-layer/angular2-l
 import { DialogComponent } from "../../../common/components/DialogComponent";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ErrorStepsService } from '../../../services/ErrorStepsService';
+import { CommonService } from '../../../services/common/CommonService';
 
 @Component({
     selector: 'esb-errorflow-dialog',
@@ -28,7 +29,8 @@ export class ErrorFlowDialogComponent extends DialogComponent {
         protected layer: NgLayer,
         protected layComp: NgLayerComponent,
         private ErrorFlowFormBuilder: FormBuilder,
-        private esSvc: ErrorStepsService
+        private esSvc: ErrorStepsService,
+        private cmm: CommonService
     ) {
         super(layerRef, layer, layComp);
     }
@@ -58,7 +60,7 @@ export class ErrorFlowDialogComponent extends DialogComponent {
     }
 
     private err_post(): void {
-        if (this.ErrorFlowForm.status == 'INVALID') return;
+        if (this.cmm.isInvalidForm(this.ErrorFlowForm)) return;
         let obser;
         let obj = this;
         let postPbj = this.ErrorFlowForm.value;

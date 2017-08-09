@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { assign } from 'lodash';
 import { NgLayer, NgLayerRef, NgLayerComponent } from "angular2-layer/angular2-layer";
 import { DialogComponent } from "../../../common/components/DialogComponent";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SysContactsService } from '../../../services/SysContactsService';
+import { CommonService } from '../../../services/common/CommonService';
 
 @Component({
   selector: 'esb-contacts-dialog',
@@ -24,7 +26,8 @@ export class ContactsConfigFormDialogComponent extends DialogComponent {
     protected layer: NgLayer,
     protected layComp: NgLayerComponent,
     private contactsConfigFormBuilder: FormBuilder,
-    private contactSvc: SysContactsService
+    private contactSvc: SysContactsService,
+    private cmm: CommonService
   ) {
     super(layerRef, layer, layComp);
   }
@@ -39,13 +42,13 @@ export class ContactsConfigFormDialogComponent extends DialogComponent {
   }
 
   private sys_contacts_post(): void {
-    if(this.contactsConfigForm.status == 'INVALID') return;
+    if(this.cmm.isInvalidForm(this.contactsConfigForm)) return;
     let obser;
     let obj = this;
     if (this.persons) {
-      obser = this.contactSvc.updateSysContact(this.contactsConfigForm.value);
+      obser = this.contactSvc.updateSysContact([assign(this.persons, this.contactsConfigForm.value)]);
     } else {
-      obser = this.contactSvc.createSysContact(this.contactsConfigForm.value);
+      obser = this.contactSvc.createSysContact([this.contactsConfigForm.value]);
     }
     obser.subscribe(
       success => {

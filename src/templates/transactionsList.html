@@ -24,7 +24,7 @@
                 </div>
                 
                 <label class="label_text">交易代码：</label>
-                <select class="form-control input_text"
+                <select style="width:10%;" class="form-control input_text"
                         [(ngModel)]="params.trancode" 
                         (change)="changeParams()">
                     <option value=''>请选择</option>
@@ -44,51 +44,56 @@
                             ngui-datetime-picker
                             date-format="YYYY-MM-DD HH:mm" readonly/>
                 </span> -->
-                <label class="label_text">查询时间点：</label>
-                <div style="width:13%;float: left;">
-                    <span class="input_text glyphicon glyphicon-calendar_a" style="line-height: 0;float: left;width:100%;">
-                    <input class="form-control esb_calender" style="width:86%"
+                <!-- <button class="btn btn-sm btn-default b_wra2" style="float: left; color: #fff; background-color: #eea236; border-color: #eea236;margin-left: 5%;" (click)="refreshData()">查询</button> -->
+                </span>
+                <span class="left_det" style="width: 100%;line-height: 25px;margin-bottom: 20px;">
+                    <label class="label_text">查询时间点：</label>
+                <div style="width:45%;float: left;">
+                    <span class="input_text glyphicon glyphicon-calendar_a" style="line-height: 0;float: left;width:28%;">
+                        <input class="form-control esb_calender" style="width:86%"
                             (valueChanged)="valueChanged($event)" 
                             [(ngModel)]="start_date" 
                             ngui-datetime-picker
                             date-format="YYYY-MM-DD HH:mm" readonly/>
                     </span>
-                    <label style="margin-left:0; color: red;position: relative;white-space: nowrap;font-size: 0.2rem;">*查询时间段：{{getTimeRangeStr}}</label>
+                <div style="width: 72%;float: left;">
+                    <label style="margin-left:0;position: relative;white-space: nowrap;font-size: 0.6rem;">（查询数据范围为查询时间点前后24小时产生的数据）</label>
+                    <label style="margin-left:0; color: red;position: relative;white-space: nowrap;font-size: 0.6rem;">*查询时间段：{{getTimeRangeStr}}</label>
                 </div>
-                <!-- <button class="btn btn-sm btn-default b_wra2" style="float: left; color: #fff; background-color: #eea236; border-color: #eea236;margin-left: 5%;" (click)="refreshData()">查询</button> -->
-                </span>
-                <span class="left_det" style="width: 100%;margin-left: 5%;">
-                <p class="text_p3">服务编号：</p>
-                <label class="text_label">{{svcInfo.svc_no}}</label>
-                <p class="text_p3">服务ID：</p>
-                <label class="text_label">{{svcInfo.svc_id}}</label>
-                <p class="text_p3">项目名称：</p>
-                <label class="text_label">{{svcInfo.project_name}}</label>
-                <p class="text_p3">子系统：</p>
-                <label class="text_label">{{svcInfo.subsys}}</label>
-                
-            </span>
-                <span class="left_det" style="width: 100%;margin-left: 5%;">
-                <p class="text_p3">源协议：</p>
-                <label class="text_label">{{svcInfo.src_protocol}}</label>
-                <p class="text_p3">源系统：</p>
-                <label class="text_label">{{svcInfo.src_sys}}</label>
-                <p class="text_p3">目标协议：</p>
-                <label class="text_label">{{svcInfo.dest_protocol}}</label>
-                <p class="text_p3">目标系统：</p>
-                <label class="text_label">{{svcInfo.dest_sys}}</label>
-            </span>
-                <span class="left_det" style="width: 100%;margin-left: 5%;">
-                <p class="text_p3">服务描述：</p>
-                <label class="text_label" style="width:80%">{{svcInfo.svc_desc}}</label>
-            </span>
-                <span>
-                
-            </span>
             </div>
-            <!-- <datatable [tableConfig]='tableConfig' (sortEmit)="getSort($event)"></datatable>
-            <esb-pagination [totalRows]="rowsCount" (outputPageNow)="getPageNow($event)" (outputPageTol)="getPageTol($event)"></esb-pagination> -->
-            <flex-datatable [config]='tableConfig' (sortEmit)="getSort($event)" (selectedItems)="getSelectedItems($event)" [totalRows]="rowsCount" [pageNow]="pageNow" [pageTol]="pageTol" (outputPageNow)="getPageNow($event)" (outputPageTol)="getPageTol($event)"></flex-datatable>
+            </span>
+            <span class=" left_det " style="width: 100%;margin-left: 5%; ">
+                <p class="text_p3 ">服务编号：</p>
+                <label class="text_label ">{{svcInfo.svc_no}}</label>
+                    <p class="text_p3 ">服务ID：</p>
+                    <label class="text_label ">{{svcInfo.svc_id}}</label>
+                    <p class="text_p3 ">项目名称：</p>
+                    <label class="text_label ">{{svcInfo.project_name}}</label>
+                    <p class="text_p3 ">子系统：</p>
+                    <label class="text_label ">{{svcInfo.subsys}}</label>
+
+                    </span>
+            <span class="left_det " style="width: 100%;margin-left: 5%; ">
+                <p class="text_p3 ">源协议：</p>
+                <label class="text_label ">{{svcInfo.src_protocol}}</label>
+                <p class="text_p3 ">源系统：</p>
+                <label class="text_label ">{{svcInfo.src_sys}}</label>
+                <p class="text_p3 ">目标协议：</p>
+                <label class="text_label ">{{svcInfo.dest_protocol}}</label>
+                <p class="text_p3 ">目标系统：</p>
+                <label class="text_label ">{{svcInfo.dest_sys}}</label>
+            </span>
+            <span class="left_det " style="width: 100%;margin-left: 5%; ">
+                <p class="text_p3 ">服务描述：</p>
+                <label class="text_label " style="width:80% ">{{svcInfo.svc_desc}}</label>
+            </span>
+            <span>
+                
+            </span>
         </div>
+        <!-- <datatable [tableConfig]='tableConfig' (sortEmit)="getSort($event) "></datatable>
+            <esb-pagination [totalRows]="rowsCount " (outputPageNow)="getPageNow($event) " (outputPageTol)="getPageTol($event) "></esb-pagination> -->
+        <flex-datatable [config]='tableConfig' (sortEmit)="getSort($event) " (selectedItems)="getSelectedItems($event) " [totalRows]="rowsCount " [pageNow]="pageNow " [pageTol]="pageTol " (outputPageNow)="getPageNow($event) " (outputPageTol)="getPageTol($event) "></flex-datatable>
     </div>
+</div>
 </div>

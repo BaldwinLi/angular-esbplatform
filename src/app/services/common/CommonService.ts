@@ -228,4 +228,11 @@ export class CommonService {
     console.log(this.fileName);
     saveAs(new Blob([s2ab(wbout)]), this.fileName);
   }
+
+  isInvalidForm(form: any): void {
+    for (let i in form.controls){
+      if(form.controls[i].invalid) form.controls[i].markAsTouched();
+    }
+    return form.invalid;
+  }
 }

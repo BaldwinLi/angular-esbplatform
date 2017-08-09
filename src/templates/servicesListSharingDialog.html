@@ -26,7 +26,8 @@
         </div>
         <div *ngIf='tokens&&tokens.length>0' style="width: 100%;display: inline-block;">
             历史分享：
-            <datatable [tableConfig]='tableConfig'></datatable>
+            <!-- <datatable [tableConfig]='tableConfig'></datatable> -->
+            <flex-datatable [config]='tableConfig' [tableData]='tokens'></flex-datatable>
         </div>
     </div>
 </div>

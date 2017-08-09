@@ -268,6 +268,11 @@ export class TransactionsListComponent implements OnInit {
           }
         },
         {
+          id: 'biz_id',
+          header: '业务主键',
+          type: 'text'
+        },
+        {
           id: 'log_crt_ts',
           header: '时间',
           type: 'date',

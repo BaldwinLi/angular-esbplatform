@@ -14,7 +14,9 @@ export class ShareListComponent {
 
   }
   private tokens: Array<any> = [];
-
+  private searchFieldsConfig: any = {
+    fields: ''
+  };
   private tableConfig: any = {
     columns: [
       {

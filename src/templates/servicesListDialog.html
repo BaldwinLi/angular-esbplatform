@@ -1,6 +1,7 @@
 <div class="left_center" style="width:1200px">
     <div class="left_d" style="max-height: 800px; overflow-y: scroll;">
-        <datatable [tableConfig]='tableConfig'></datatable>
+        <!-- <datatable [tableConfig]='tableConfig'></datatable> -->
+        <flex-datatable [config]='tableConfig' [tableData]='errors'></flex-datatable>
     </div>
     <nav>
         <div class="iconing_alert_btn">

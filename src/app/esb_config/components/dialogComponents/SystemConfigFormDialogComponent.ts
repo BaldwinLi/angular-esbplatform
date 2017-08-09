@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SysContactsService } from '../../../services/SysContactsService';
 import { SystemsService } from '../../../services/SystemsService';
 import { CONTACT_TYPE } from '../../../model/data-model';
+import { CommonService } from '../../../services/common/CommonService';
 
 
 @Component({
@@ -83,7 +84,8 @@ export class SystemConfigFormDialogComponent extends DialogComponent {
     protected layComp: NgLayerComponent,
     private systemConfigFormBuilder: FormBuilder,
     private contactSvc: SysContactsService,
-    private sysSvc: SystemsService
+    private sysSvc: SystemsService,
+    private cmm: CommonService
   ) {
     super(layerRef, layer, layComp);
   }
@@ -108,7 +110,7 @@ export class SystemConfigFormDialogComponent extends DialogComponent {
   }
 
   private systems_post(): void {
-    if (this.systemConfigForm.status == 'INVALID') return;
+    if (this.cmm.isInvalidForm(this.systemConfigForm)) return;
     let obser;
     let obj = this;
     if (this.persons) {

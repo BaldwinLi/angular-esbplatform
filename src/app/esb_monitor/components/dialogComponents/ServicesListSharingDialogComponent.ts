@@ -142,7 +142,7 @@ export class ServicesListSharingDialogComponent extends DialogComponent {
                             type: "html",
                             tempBuilder: function (row, headers) {
                                 return "<button id='" + row.token + "' " +
-                                    "style='margin-left:2px; float: left; height: 31px;' " +
+                                    "style='height: 100%;width: 90%;margin: 2%;' " +
                                     "type='button' " +
                                     "class='btn btn-default' " +
                                     "data-toggle='tooltip' data-placement='bottom' title='复制到剪贴板'>" +
@@ -155,7 +155,8 @@ export class ServicesListSharingDialogComponent extends DialogComponent {
                         }
                     }
                 ],
-                data: obj.tokens
+                data: obj.tokens,
+                isStaticPagination: true
             }
         });
     }

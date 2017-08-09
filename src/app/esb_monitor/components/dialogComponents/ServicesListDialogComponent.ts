@@ -11,7 +11,7 @@ enableProdMode();
     providers: [NgLayer, NgLayerRef]
 })
 export class ServicesListDialogComponent extends DialogComponent {
-    private errors: Array<any>;
+    private errors: Array<any> = [];
 
     private okCallback;
 
@@ -56,7 +56,8 @@ export class ServicesListDialogComponent extends DialogComponent {
                 width: '110'
             }
         ],
-        data: []
+        data: [],
+        isStaticPagination: true
     };
 
     ok() {
@@ -64,8 +65,8 @@ export class ServicesListDialogComponent extends DialogComponent {
         this.layComp.close();
     }
 
-    ngAfterViewChecked() {
-        this.tableConfig.data = this.errors;
-    }
+    // ngAfterViewChecked() {
+    //     this.tableConfig.data = this.errors;
+    // }
 
 }

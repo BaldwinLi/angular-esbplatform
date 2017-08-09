@@ -12,21 +12,82 @@ import { AppRequestService } from '../../services/common/AppRequestService';
 export class serviceConfigComponent {
   constructor(private route: Router, private cmm: CommonService, private configSvc: EsbConfigsService, private appSvc: AppRequestService) { }
 
+  private searchFieldsConfig: any = {
+    fields: ''
+  };
   private svc_no: string;
   private persons: Array<any> = [];
-  private rowsCount: number = 0;
-  private pageNow: number = 1;
-  private pageTol: number = 10;
   private isSuperAdmin: boolean;
   private tableConfig: any = {
-    columns: [],
-    data: []
+    columns: [
+      {
+        id: 'svc_no',
+        header: "服务编号",
+        type: 'text'
+      },
+      {
+        id: 'svc_name',
+        header: "服务名",
+        type: 'text'
+      },
+      {
+        id: 'svc_id',
+        header: "服务ID",
+        type: 'text'
+      },
+      {
+        id: 'project_name',
+        header: "项目名称",
+        type: 'text'
+      },
+      {
+        id: 'svc_state',
+        header: "服务状态",
+        type: 'mapping',
+        options: 'SVC_STATES'
+      },
+      {
+        id: 'svc_desc',
+        header: "项目描述",
+        type: 'text'
+      },
+      {
+        header: "修改",
+        type: 'template',
+        width: '50',
+        template: {
+          type: "html",
+          tempBuilder: function (row, headers) {
+            return "<i class='esbconfigs_edits_icon'></i>"
+          },
+          on: {
+            click: this.esbconfigs_edit.bind(this)
+          }
+        }
+      },
+      {
+        header: "删除",
+        type: 'template',
+        width: '50',
+        template: {
+          type: "html",
+          tempBuilder: function (row, headers) {
+            return "<i class='delete_icon'></i>"
+          },
+          on: {
+            click: this.esbconfigs_delete.bind(this)
+          }
+        }
+      }
+    ],
+    data: this.persons,
+    isStaticPagination: true
   };
 
-  private search(event): void {
-    if (event && event.type == 'keypress' && event.charCode !== 13) return;
-    this.refreshData(this.svc_no);
-  }
+  // private search(event): void {
+  //   if (event && event.type == 'keypress' && event.charCode !== 13) return;
+  //   this.refreshData(this.svc_no);
+  // }
 
   private esbconfigs_add(): void {
     let obj = this;
@@ -75,37 +136,19 @@ export class serviceConfigComponent {
     );
   }
 
-  private getPageNow(pageNow: number): void {
-    this.pageNow = pageNow;
-    this.refreshPageData();
-  }
-
-  private getPageTol(pageTol: number): void {
-    this.pageTol = pageTol;
-    this.refreshPageData();
-  }
-
-  private refreshPageData(): void {
-    let tableDataInfo = this.cmm.getPageData(this.persons, this.pageNow, this.pageTol);
-    this.rowsCount = tableDataInfo.rowsCount;
-    this.tableConfig.data = tableDataInfo.currentPageRows
-  }
-
   private refreshData(svc_no?: string): void {
     let obj = this;
     if (svc_no) {
       this.configSvc.queryEsbConfigInfo(svc_no).subscribe(
         success => {
-          obj.persons = [success.body||{}];
-          obj.refreshPageData();
+          obj.persons = [success.body || {}];
         },
         error => window['esbLayer']({ type: 'error', message: error })
       );
     } else {
       this.configSvc.queryEsbConfigInfoList().subscribe(
         success => {
-          obj.persons = success.body||[];
-          obj.refreshPageData();
+          obj.persons = success.body || [];
         },
         error => window['esbLayer']({ type: 'error', message: error })
       );
@@ -119,70 +162,6 @@ export class serviceConfigComponent {
       if (!obj.isSuperAdmin) obj.route.navigate(['/confighome/myshare']);
       else {
         obj.refreshData();
-        obj.tableConfig = {
-          columns: [
-            {
-              id: 'svc_no',
-              header: "服务编号",
-              type: 'text'
-            },
-            {
-              id: 'svc_name',
-              header: "服务名",
-              type: 'text'
-            },
-            {
-              id: 'svc_id',
-              header: "服务ID",
-              type: 'text'
-            },
-            {
-              id: 'project_name',
-              header: "项目名称",
-              type: 'text'
-            },
-            {
-              id: 'svc_state',
-              header: "服务状态",
-              type: 'mapping',
-              options: 'SVC_STATES'
-            },
-            {
-              id: 'svc_desc',
-              header: "项目描述",
-              type: 'text'
-            },
-            {
-              header: "修改",
-              type: 'template',
-              width: '50',
-              template: {
-                type: "html",
-                tempBuilder: function (row, headers) {
-                  return "<i class='esbconfigs_edits_icon'></i>"
-                },
-                on: {
-                  click: obj.esbconfigs_edit.bind(obj)
-                } 
-              }
-            },
-            {
-              header: "删除",
-              type: 'template',
-              width: '50',
-              template: {
-                type: "html",
-                tempBuilder: function (row, headers) {
-                  return "<i class='delete_icon'></i>"
-                },
-                on: {
-                  click: obj.esbconfigs_delete.bind(obj)
-                }
-              }
-            }
-          ],
-          data: obj.persons
-        };
       }
     });
   }

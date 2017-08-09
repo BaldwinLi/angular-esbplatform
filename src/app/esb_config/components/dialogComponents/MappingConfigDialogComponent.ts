@@ -5,6 +5,7 @@ import { ROLE } from '../../../model/data-model';
 import { NgLayer, NgLayerRef, NgLayerComponent } from "angular2-layer/angular2-layer";
 import { DialogComponent } from "../../../common/components/DialogComponent";
 import { UsersInfoService } from '../../../services/UsersInfoService';
+import { CommonService } from '../../../services/common/CommonService';
 
 @Component({
     selector: 'esb-mapping-dialog',
@@ -73,6 +74,7 @@ export class MappingConfigDialogComponent extends DialogComponent {
         protected layComp: NgLayerComponent,
         private userSvc: UsersInfoService,
         private mappingConfigFormBuilder: FormBuilder,
+        private cmm: CommonService
     ) {
         super(layerRef, layer, layComp);
     }
@@ -121,7 +123,7 @@ export class MappingConfigDialogComponent extends DialogComponent {
     }
 
     private user_post(): void {
-        if (this.mappingConfigForm.status == 'INVALID') return;
+        if (this.cmm.isInvalidForm(this.mappingConfigForm)) return;
         let obj = this;
         this.userSvc.updateUsersInfo_V2([{
             user: this.mappingConfigForm.value,

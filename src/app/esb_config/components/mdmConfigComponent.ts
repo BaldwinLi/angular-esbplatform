@@ -15,21 +15,94 @@ export class mdmConfigComponent {
   constructor(private route: Router, private cmm: CommonService, private mdmSvc: MdmConsumersService, private appSvc: AppRequestService) {
 
   }
+  private searchFieldsConfig: any = {
+    fields: ''
+  };
   private uuid: string;
   private persons: Array<any> = [];
-  private rowsCount: number = 0;
-  private pageNow: number = 1;
-  private pageTol: number = 10;
   private isSuperAdmin: boolean;
   private tableConfig: any = {
-    columns: [],
-    data: []
+    columns: [
+      {
+        id: 'uuid',
+        header: "ID",
+        type: 'text'
+      },
+      {
+        id: 'mdm_topic',
+        header: "主题",
+        type: 'text'
+      },
+      {
+        id: 'consumer',
+        header: "消费者",
+        type: 'text'
+      },
+      {
+        id: 'consumer_uri',
+        header: "URL",
+        type: 'text',
+        displayField: "name"
+      },
+      {
+        id: 'auth_type',
+        header: "服务类型",
+        type: 'mapping',
+        // inputType: 'select',
+        options: 'AUTH_TYPES',
+        width: '220'
+      },
+      {
+        id: 'is_enabled',
+        header: "服务状态",
+        type: 'mapping',
+        // inputType: 'select',
+        options: 'SVC_STATES',
+        width: '70'
+      },
+      {
+        id: 'svc_version',
+        header: "订阅版本",
+        type: 'text'
+        // inputType: 'text'
+      },
+      {
+        header: "修改",
+        type: 'template',
+        width: '50',
+        template: {
+          type: "html",
+          tempBuilder: function (row, headers) {
+            return "<i class='business_edits_icon'></i>"
+          },
+          on: {
+            click: this.business_edit.bind(this)
+          }
+        }
+      },
+      {
+        header: "删除",
+        type: 'template',
+        width: '50',
+        template: {
+          type: "html",
+          tempBuilder: function (row, headers) {
+            return "<i class='delete_icon'></i>"
+          },
+          on: {
+            click: this.business_delete.bind(this)
+          }
+        }
+      }
+    ],
+    data: this.persons,
+    isStaticPagination: true
   };
 
-  private search(event): void {
-    if (event && event.type == 'keypress' && event.charCode !== 13) return;
-    this.refreshData(this.uuid);
-  }
+  // private search(event): void {
+  //   if (event && event.type == 'keypress' && event.charCode !== 13) return;
+  //   this.refreshData(this.uuid);
+  // }
 
   private business_add(): void {
     let obj = this;
@@ -78,29 +151,12 @@ export class mdmConfigComponent {
     );
   }
 
-  private getPageNow(pageNow: number): void {
-    this.pageNow = pageNow;
-    this.refreshPageData();
-  }
-
-  private getPageTol(pageTol: number): void {
-    this.pageTol = pageTol;
-    this.refreshPageData();
-  }
-
-  private refreshPageData(): void {
-    let tableDataInfo = this.cmm.getPageData(this.persons, this.pageNow, this.pageTol);
-    this.rowsCount = tableDataInfo.rowsCount;
-    this.tableConfig.data = tableDataInfo.currentPageRows
-  }
-
   private refreshData(uuid?: string): void {
     let obj = this;
     if (uuid) {
       this.mdmSvc.queryMdmConsumer(uuid).subscribe(
         success => {
           obj.persons = [success.body];
-          obj.refreshPageData();
         },
         error => window['esbLayer']({ type: 'error', message: error })
       );
@@ -108,7 +164,6 @@ export class mdmConfigComponent {
       this.mdmSvc.queryMdmConsumersList().subscribe(
         success => {
           obj.persons = success.body || [];
-          obj.refreshPageData();
         },
         error => window['esbLayer']({ type: 'error', message: error })
       );
@@ -122,82 +177,6 @@ export class mdmConfigComponent {
       if (!obj.isSuperAdmin) obj.route.navigate(['/confighome/myshare']);
       else {
         obj.refreshData();
-        obj.tableConfig = {
-          columns: [
-            {
-              id: 'uuid',
-              header: "ID",
-              type: 'text'
-            },
-            {
-              id: 'mdm_topic',
-              header: "主题",
-              type: 'text'
-            },
-            {
-              id: 'consumer',
-              header: "消费者",
-              type: 'text'
-            },
-            {
-              id: 'consumer_uri',
-              header: "URL",
-              type: 'text',
-              displayField: "name"
-            },
-            {
-              id: 'auth_type',
-              header: "服务类型",
-              type: 'input',
-              inputType: 'select',
-              options: AUTH_TYPES,
-              width: '220'
-            },
-            {
-              id: 'is_enabled',
-              header: "服务状态",
-              type: 'input',
-              inputType: 'select',
-              options: SVC_STATES,
-              width: '70'
-            },
-            {
-              id: 'svc_version',
-              header: "订阅版本",
-              type: 'input',
-              inputType: 'text'
-            },
-            {
-              header: "修改",
-              type: 'template',
-              width: '50',
-              template: {
-                type: "html",
-                tempBuilder: function (row, headers) {
-                  return "<i class='business_edits_icon'></i>"
-                },
-                on: {
-                  click: obj.business_edit.bind(obj)
-                }
-              }
-            },
-            {
-              header: "删除",
-              type: 'template',
-              width: '50',
-              template: {
-                type: "html",
-                tempBuilder: function (row, headers) {
-                  return "<i class='delete_icon'></i>"
-                },
-                on: {
-                  click: obj.business_delete.bind(obj)
-                }
-              }
-            }
-          ],
-          data: obj.persons
-        };
       }
     });
 

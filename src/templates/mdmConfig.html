@@ -23,13 +23,14 @@
         </div>
         <div class="left_d tab">
             <div class="tab_top btn_time">
-                <input placeholder="请输入ID" type="text" class="form-control sys_name serc" [(ngModel)]='uuid' (keypress)='search($event)'>
-                <button class="btn btn-sm btn-default b_wra2" style="float: left; margin-left: 5px;margin-top: 10px" (click)="search()">查询</button>
+                <input placeholder="请输入关键字进行匹配查询" type="text" class="form-control sys_name serc" [(ngModel)]='searchFieldsConfig.fields'>
+                <!-- <button class="btn btn-sm btn-default b_wra2" style="float: left; margin-left: 5px;margin-top: 10px" (click)="search()">查询</button> -->
                 <div class="clear_both"></div>
             </div>
             <div class="tab_content">
-                <datatable [tableConfig]='tableConfig'></datatable>
-                <esb-pagination [totalRows]="rowsCount" (outputPageNow)="getPageNow($event)" (outputPageTol)="getPageTol($event)"></esb-pagination>
+                <!-- <datatable [tableConfig]='tableConfig'></datatable>
+                <esb-pagination [totalRows]="rowsCount" (outputPageNow)="getPageNow($event)" (outputPageTol)="getPageTol($event)"></esb-pagination> -->
+                <flex-datatable [config]='tableConfig' [tableData]='persons' [staticSearchFieldsConfig]="searchFieldsConfig"></flex-datatable>
             </div>
             <div class="clear_both"></div>
         </div>

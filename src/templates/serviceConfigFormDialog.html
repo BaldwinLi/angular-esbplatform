@@ -6,19 +6,19 @@
                     <p>服务代码:</p>
                 </div>
                 <div class="right_det">
-                    <input type="text" formControlName="svc_no">
+                    <input class="form-control" type="text" formControlName="svc_no">
                 </div>
                 <div class="left_det">
                     <p>服务名:</p>
                 </div>
                 <div class="right_det">
-                    <input type="text" formControlName="svc_name">
+                    <input class="form-control" type="text" formControlName="svc_name">
                 </div>
                 <div class="left_det">
                     <p>服务ID:</p>
                 </div>
                 <div class="right_det">
-                    <input type="text" formControlName="svc_id">
+                    <input class="form-control" type="text" formControlName="svc_id">
                 </div>
             </li>
             <li>
@@ -26,13 +26,13 @@
                     <p>服务名称:</p>
                 </div>
                 <div class="right_det">
-                    <input type="text" formControlName="project_name">
+                    <input class="form-control" type="text" formControlName="project_name">
                 </div>
                 <div class="left_det">
                     <p>服务状态:</p>
                 </div>
                 <div class="right_det">
-                    <select formControlName="svc_state">
+                    <select class="form-control" formControlName="svc_state">
 						<option value=''>请选择</option>
           				<option *ngFor="let state of svc_states" [value]="state.id">{{state.value}}</option>
       				</select>
@@ -43,7 +43,7 @@
                     <p>服务描述:</p>
                 </div>
                 <div class="right_det">
-                    <textarea formControlName="svc_desc"></textarea>
+                    <textarea style="margin-bottom: 10%;" class="form-control" formControlName="svc_desc"></textarea>
                 </div>
             </li>
             <li>
@@ -51,19 +51,19 @@
                     <p>目标协议:</p>
                 </div>
                 <div class="right_det">
-                    <input type="text" formControlName="dest_protocol">
+                    <input class="form-control" type="text" formControlName="dest_protocol">
                 </div>
                 <div class="left_det">
                     <p>目标系统:</p>
                 </div>
                 <div class="right_det">
-                    <input type="text" formControlName="dest_sys">
+                    <input class="form-control" type="text" formControlName="dest_sys">
                 </div>
                 <div class="left_det">
                     <p>源协议:</p>
                 </div>
                 <div class="right_det">
-                    <input type="text" formControlName="src_protocol">
+                    <input class="form-control" type="text" formControlName="src_protocol">
                 </div>
             </li>
             <li>
@@ -72,19 +72,19 @@
                     <p>源系统:</p>
                 </div>
                 <div class="right_det">
-                    <input type="text" formControlName="src_sys">
+                    <input class="form-control" type="text" formControlName="src_sys">
                 </div>
                 <div class="left_det">
                     <p>内部编号:</p>
                 </div>
                 <div class="right_det">
-                    <input type="text" formControlName="inner_code">
+                    <input class="form-control" type="text" formControlName="inner_code">
                 </div>
                 <div class="left_det">
                     <p>服务模式:</p>
                 </div>
                 <div class="right_det">
-                    <select formControlName="pattern">
+                    <select class="form-control" formControlName="pattern">
 						<option value=''>请选择</option>
           				<option *ngFor="let pattern of patterns" [value]="pattern.id">{{pattern.value}}</option>
       				</select>
@@ -95,7 +95,7 @@
                     <p>日志1:</p>
                 </div>
                 <div class="right_det">
-                    <select formControlName="log1">
+                    <select class="form-control" formControlName="log1">
 						<option value=''>请选择</option>
           				<option *ngFor="let bool of isEnable" [value]="bool.id">{{bool.value}}</option>
       				</select>
@@ -104,7 +104,7 @@
                     <p>日志2:</p>
                 </div>
                 <div class="right_det">
-                    <select formControlName="log2">
+                    <select class="form-control" formControlName="log2">
 						<option value=''>请选择</option>
           				<option *ngFor="let bool of isEnable" [value]="bool.id">{{bool.value}}</option>
       				</select>
@@ -113,7 +113,7 @@
                     <p>日志3:</p>
                 </div>
                 <div class="right_det">
-                    <select formControlName="log3">
+                    <select class="form-control" formControlName="log3">
 						<option value=''>请选择</option>
           				<option *ngFor="let bool of isEnable" [value]="bool.id">{{bool.value}}</option>
       				</select>
@@ -124,7 +124,7 @@
                     <p>日志4:</p>
                 </div>
                 <div class="right_det">
-                    <select formControlName="log4">
+                    <select class="form-control" formControlName="log4">
 						<option value=''>请选择</option>
           				<option *ngFor="let bool of isEnable" [value]="bool.id">{{bool.value}}</option>
       				</select>
@@ -133,13 +133,13 @@
                     <p>esb_id:</p>
                 </div>
                 <div class="right_det">
-                    <input type="text" formControlName="esb_id" />
+                    <input class="form-control" type="text" formControlName="esb_id" />
                 </div>
                 <div class="left_det">
                     <p>日志级别:</p>
                 </div>
                 <div class="right_det">
-                    <select formControlName="event_level">
+                    <select class="form-control" formControlName="event_level">
 						<option value=''>请选择</option>
           				<option *ngFor="let level of event_levels" [value]="level.id">{{level.value}}</option>
       				</select>
@@ -150,7 +150,7 @@
                     <p>日志数量:</p>
                 </div>
                 <div class="right_det">
-                    <input type="text" formControlName="log_cnt">
+                    <input class="form-control" type="text" formControlName="log_cnt">
                 </div>
             </li>
         </ul>
