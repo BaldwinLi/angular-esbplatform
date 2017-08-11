@@ -183,6 +183,7 @@ const appRoutes: Routes = [
     ContactsConfigFormDialogComponent,
     LookupPipe,
     FormatDatePip
+    
   ],
   imports: [
     BrowserModule,

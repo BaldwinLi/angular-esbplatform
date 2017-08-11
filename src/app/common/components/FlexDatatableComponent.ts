@@ -83,7 +83,7 @@ export class FlexDatatableComponent {
                     isMatch = false;
                     for (let i in e) {
                         if (typeof e[i] === 'undefined' || isObject(e[i])) continue;
-                        if (!scope.staticSearchFieldsConfig.fields || e[i].toString().toLowerCase().indexOf(scope.staticSearchFieldsConfig.fields.toString().toLowerCase()) > -1) isMatch = true;
+                        if (!scope.staticSearchFieldsConfig.fields || (!!e[i] && e[i].toString().toLowerCase().indexOf(scope.staticSearchFieldsConfig.fields.toString().toLowerCase()) > -1)) isMatch = true;
                     }
                 } else {
                     isMatch = true;

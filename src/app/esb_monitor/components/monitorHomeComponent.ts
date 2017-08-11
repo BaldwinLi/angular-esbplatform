@@ -15,6 +15,9 @@ export class monitorHomeComponent {
   private svcErrorsTrending: Array<any>;
   private selectedTrending: any;
   private showType: string = 'list';
+  private searchFieldsConfig: any = {
+    fields: ''
+  }
   private tableConfig: any = {
     columns: [],
     data: [],

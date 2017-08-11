@@ -22,6 +22,8 @@ export class servicesListComponent {
     private appSvc: AppRequestService,
     private resendSvc: TranResendService
   ) { }
+  private start_date: any;
+  private end_date: any;
   private hasReplayEntry: boolean = false;
   private resendable: boolean = false;
   private errors: Array<any> = [];
@@ -40,6 +42,10 @@ export class servicesListComponent {
 
   private selectedItems: Array<any>;
 
+  valueChanged(event: any) {
+    this.params.start_ts = this.cmm.getFormatDateToStr(this.start_date.toString(), 'start')
+    this.params.end_ts = this.cmm.getFormatDateToStr(this.end_date.toString(), 'end');
+  }
   private getSelectedItems(selectedItems: Array<any>): void {
     this.selectedItems = selectedItems;
   }
@@ -136,7 +142,8 @@ export class servicesListComponent {
       pageNow: this.pageNow,
       pageTol: this.pageTol
     };
-    this.router.navigate(['/monitor/servicedetail', { err_id, 
+    this.router.navigate(['/monitor/servicedetail', {
+      err_id,
       // hasReplayEntry: this.hasReplayEntry 
     }]);
   }
@@ -208,7 +215,9 @@ export class servicesListComponent {
       this.params = {
         svc_no: this.route.params['_value']['svc_no'],
         biz_id: '',
-        err_status: ''
+        err_status: '',
+        start_ts: this.cmm.getEsblastThreeDaysTimeStr,
+        end_ts: this.cmm.getEsbCurrentTimeStr
       }
       this.pageNow = 1;
       this.pageTol = 10;
@@ -287,10 +296,13 @@ export class servicesListComponent {
           format: 'toTime',
           sort: 'server',
           isDesc: true,
-          defaultSort: true
+          defaultSort: true,
+          width: 150
         }
       ],
       data: this.errors
     };
+    this.start_date = new window['moment']().subtract(3, 'days');
+    this.end_date = new window['moment']();
   }
 }

@@ -15,9 +15,10 @@ import { EsbConfigsService } from '../../services/EsbConfigsService';
   providers: [CommonService, TranLogService]
 })
 export class TransactionsListComponent implements OnInit {
-  private start_date: any = new window['moment']();
-  // private end_date: any;
-  private _now: any = new window['moment']().add(8, 'hours').toISOString();
+  // private start_date: any = new window['moment']();
+  private start_date: any;
+  private end_date: any;
+  // private _now: any = new window['moment']().add(8, 'hours').toISOString();
   private trancode: Array<any> = SGM_ESB_TRANCODE;
   private err_uu: Array<any>;
   private rowsCount: number = 0;
@@ -37,7 +38,11 @@ export class TransactionsListComponent implements OnInit {
     'subsys': ''
   };
 
-  private params: any;
+  private params: any = {
+    start: this.cmm.getEsblastThreeDaysTimeStr,
+    end: this.cmm.getEsbCurrentTimeStr,
+    trancode: '',
+  };
   private tableConfig: any;
   constructor(
     private cmm: CommonService,
@@ -48,17 +53,19 @@ export class TransactionsListComponent implements OnInit {
     private router: Router) { }
 
   valueChanged(event: any) {
-    let startDate = this.params.start = this.cmm.formatISOToStr(new window['moment'](this.start_date).add(8, 'hours').subtract(1, 'days').toISOString());
+    this.params.start = this.cmm.getFormatDateToStr(this.start_date.toString(), 'start');
+    this.params.end = this.cmm.getFormatDateToStr(this.end_date.toString(), 'end');
+    // let startDate = this.params.start = this.cmm.formatISOToStr(new window['moment'](this.start_date).add(8, 'hours').subtract(1, 'days').toISOString());
     // startDate = startDate.add(8, 'hours');
-    let endDate = this.params.end = this.cmm.formatISOToStr(new window['moment'](this.start_date).add(8, 'hours').add(1, 'days').toISOString());
-    this._now = new window['moment']().add(8, 'hours').toISOString();
-    if (parseInt(endDate) > parseInt(this.cmm.formatISOToStr(this._now))) {
-      this.params.end = this.cmm.formatISOToStr(this._now);
-      // this.start_date = new window['moment']();
-      this.start_date = new Date();
-    }
+    // let endDate = this.params.end = this.cmm.formatISOToStr(new window['moment'](this.start_date).add(8, 'hours').add(1, 'days').toISOString());
+    // this._now = new window['moment']().add(8, 'hours').toISOString();
+    // if (parseInt(endDate) > parseInt(this.cmm.formatISOToStr(this._now))) {
+    //   this.params.end = this.cmm.formatISOToStr(this._now);
+    // this.start_date = new window['moment']();
+    // this.start_date = new Date();
+    // }
     // this.params.end = this.cmm.formatISOToStr(this.end_date.toISOString());
-    this.changeParams();
+    // this.changeParams();
   }
   showDetail() {
     const lay = window['esbLayer']({
@@ -157,8 +164,6 @@ export class TransactionsListComponent implements OnInit {
   private refreshData(): void {
     if (!this.params.svcid) { return };
     const obj = this;
-    // this.params.start = this.cmm.getFormatDateToStr(this.start_date.formatted, 'start');
-    // this.params.end = this.cmm.getFormatDateToStr(this.end_date.formatted, 'end');
     this.tls.queryTranlogList(this.pageNow.toString(), this.pageTol.toString(), this.params).subscribe(
       success => {
         obj.tableConfig = {
@@ -211,9 +216,12 @@ export class TransactionsListComponent implements OnInit {
   }
 
   private setParamsSvcid(svc_obj: any): void {
-    if (svc_obj && svc_obj.constructor.name !== 'FocusEvent')
+    if (svc_obj && svc_obj.constructor.name !== 'FocusEvent') {
+      if (this.params.svcid === (svc_obj && svc_obj.usr_svcno)) return;
       this.params.svcid = (svc_obj && svc_obj.usr_svcno) || '';
-    else {
+    } else {
+      if (this.svcName === svc_obj.target.value) return;
+
       if (!!svc_obj) {
         this.svcName = svc_obj.target.value;
       } else {
@@ -235,13 +243,15 @@ export class TransactionsListComponent implements OnInit {
   ngOnInit() {
     const obj = this;
 
-    this.params = {
-      start: this.cmm.formatISOToStr(new window['moment'](this.start_date).add(8, 'hours').subtract(1, 'days').toISOString()),
-      end: this.cmm.formatISOToStr(new window['moment'](this.start_date).add(8, 'hours').toISOString()),
-      trancode: '',
-      // src: '',
-      // dest: ''
-    };
+    // this.params = {
+    //   start: this.cmm.getEsblastThreeMonthsTimeStr,
+    //   end: this.cmm.getEsbCurrentTimeStr,
+    //   // start: this.cmm.formatISOToStr(new window['moment'](this.start_date).add(8, 'hours').subtract(1, 'days').toISOString()),
+    //   // end: this.cmm.formatISOToStr(new window['moment'](this.start_date).add(8, 'hours').toISOString()),
+    //   trancode: '',
+    //   // src: '',
+    //   // dest: ''
+    // };
 
     this.initParams();
     this.tableConfig = {
@@ -255,7 +265,7 @@ export class TransactionsListComponent implements OnInit {
           id: 'tran_uuid',
           header: '交易UUID',
           type: 'template',
-          width: 300,
+          width: 500,
           template: {
             type: 'eventHandler',
             event: 'click',
@@ -279,7 +289,8 @@ export class TransactionsListComponent implements OnInit {
           format: 'toTime',
           sort: 'server',
           isDesc: true,
-          defaultSort: true
+          defaultSort: true,
+          width: 150
         },
         {
           id: 'tran_status',
@@ -316,16 +327,16 @@ export class TransactionsListComponent implements OnInit {
       data: this.err_uu
     };
     // this.start_date = obj.cmm.formatDate(obj.params.start, 'Time');
-    // this.end_date = new window['moment']();
-    // this.start_date = new window['moment']().subtract(3, 'months');
-    // this.start_date = new window['moment']();
+    // this.end_date = obj.cmm.formatDate(obj.params.end, 'Time');
+    this.start_date = new window['moment']().subtract(3, 'days');
+    this.end_date = new window['moment']();
   }
 
-  get getTimeRangeStr() {
-    let startDate = new window['moment'](this.start_date).add(8, 'hours').subtract(1, 'days').toISOString();
-    // startDate = startDate.add(8, 'hours');
-    let endDate = new window['moment'](this.start_date).add(8, 'hours').add(1, 'days').toISOString();
-    if (parseInt(this.cmm.formatISOToStr(endDate)) > parseInt(this.cmm.formatISOToStr(this._now))) endDate = this._now;
-    return this.cmm.getFormatToTime(startDate) + ' - ' + this.cmm.getFormatToTime(endDate);
-  }
+  // get getTimeRangeStr() {
+  //   let startDate = new window['moment'](this.start_date).add(8, 'hours').subtract(1, 'days').toISOString();
+  //   // startDate = startDate.add(8, 'hours');
+  //   let endDate = new window['moment'](this.start_date).add(8, 'hours').add(1, 'days').toISOString();
+  //   if (parseInt(this.cmm.formatISOToStr(endDate)) > parseInt(this.cmm.formatISOToStr(this._now))) endDate = this._now;
+  //   return this.cmm.getFormatToTime(startDate) + ' - ' + this.cmm.getFormatToTime(endDate);
+  // }
 }

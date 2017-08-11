@@ -145,11 +145,15 @@ export const AUTH_TYPES = [
     },
     {
         id: '1',
-        value: "http_basic（user_agent辅助使用）"
+        value: "http_basic"
     },
     {
         id: '2',
         value: "oauth_token"
+    },
+    {
+        id: '3',
+        value: 'user_agent'
     }
 ];
 

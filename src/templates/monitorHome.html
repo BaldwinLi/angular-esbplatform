@@ -34,8 +34,15 @@
     </span>
     </div>
     <div *ngIf="showType=='list'" style="margin-left: 14.8%;width: 67%;">
-        <!-- <datatable [tableConfig]='tableConfig' (selectedItems)="getSelectedItems($event)"></datatable> -->
-        <flex-datatable [config]='tableConfig' [tableData]='svcErrors'></flex-datatable>
+        <div class="tab_top btn_time">
+            <input placeholder="请输入关键字进行匹配查询" type="text" class="form-control sys_name serc" [(ngModel)]='searchFieldsConfig.fields'>
+            <!-- <button class="btn btn-sm btn-default b_wra2" style="float: left; margin-left: 5px;margin-top: 10px" (click)="search()">查询</button> -->
+            <div class="clear_both"></div>
+        </div>
+        <div class="tab_content">
+            <!-- <datatable [tableConfig]='tableConfig' (selectedItems)="getSelectedItems($event)"></datatable> -->
+            <flex-datatable [config]='tableConfig' [tableData]='svcErrors' [staticSearchFieldsConfig]="searchFieldsConfig"></flex-datatable>
+        </div>
     </div>
     <esb-services-info *ngIf="showType=='flat'" [svcsData]="svcErrors"></esb-services-info>
     <!---->

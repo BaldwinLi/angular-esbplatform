@@ -24,6 +24,23 @@ export class CommonService {
 
   private preTimeTamps: Array<String> = [];
 
+  get getEsblastThreeDaysTimeStr(): string {
+    let date: Date = new Date();
+    date.setMonth(date.getDay() - 3);
+    let year = date.getFullYear().toString();
+    let month_cache = date.getMonth() + 1;
+    let month = month_cache < 10 ? padStart(month_cache.toString(), 2, '0') : month_cache.toString();
+    let day_cache = date.getDate();
+    let day = day_cache < 10 ? padStart(day_cache.toString(), 2, '0') : day_cache.toString();
+    let hour_cache = date.getHours();
+    let hour = hour_cache < 10 ? padStart(hour_cache.toString(), 2, '0') : hour_cache.toString();
+    let minute_cache = date.getMinutes();
+    let minute = minute_cache < 10 ? padStart(minute_cache.toString(), 2, '0') : minute_cache.toString();
+    let second_cache = date.getSeconds();
+    let second = second_cache < 10 ? padStart(second_cache.toString(), 2, '0') : second_cache.toString();
+    return year + month + day + hour + minute + second;
+  }
+
   get getEsblastThreeMonthsTimeStr(): string {
     let date: Date = new Date();
     date.setMonth(date.getMonth() - 3);

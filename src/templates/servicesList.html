@@ -26,6 +26,31 @@
                         <option *ngFor="let status of err_status" [value]="status.id">{{status.value}}</option>
       	            </select>
                 </span>
+                <span class="left_det" style="width: 100%;line-height: 25px;margin-bottom: 20px;">
+                    <label class="label_text">开始时间：</label>
+                    <span class="input_text glyphicon glyphicon-calendar_a" style="line-height: 0;float: left;">
+                        <input class="form-control esb_calender" style="width:86%"
+                            (valueChanged)="valueChanged($event)" 
+                            [(ngModel)]="start_date" 
+                            ngui-datetime-picker
+                            date-format="YYYY-MM-DD HH:mm" readonly/>
+                    </span>
+                <label class="label_text">结束时间：</label>
+                <!-- <div style="width:45%;float: left;"> -->
+                <span class="input_text glyphicon glyphicon-calendar_a" style="line-height: 0;float: left;">
+                        <input class="form-control esb_calender" style="width:86%"
+                            (valueChanged)="valueChanged($event)" 
+                            [(ngModel)]="end_date" 
+                            ngui-datetime-picker
+                            date-format="YYYY-MM-DD HH:mm" readonly/>
+                    </span>
+                <!-- <div style="width: 72%;float: left;"> -->
+                <!-- <label style="margin-left:0;position: relative;white-space: nowrap;font-size: 0.6rem;">（查询数据范围为查询时间点前后24小时产生的数据）</label>
+                    <label style="margin-left:0; color: red;position: relative;white-space: nowrap;font-size: 0.6rem;">*查询时间段：{{getTimeRangeStr}}</label> -->
+                <!-- </div> -->
+                <!-- </div> -->
+                <button class="btn btn-sm btn-default b_wra2" style="float: left; color: #fff; background-color: #eea236; border-color: #eea236;margin-left: 3%;height: 36px;border: 2px solid #ccc;" (click)="refreshData()">时间段查询</button>
+                </span>
             </div>
             <!-- <datatable [tableConfig]='tableConfig' (sortEmit)="getSort($event)" (selectedItems)="getSelectedItems($event)"></datatable>
             <esb-pagination [totalRows]="rowsCount" [pageNow]="pageNow" [pageTol]="pageTol" (outputPageNow)="getPageNow($event)" (outputPageTol)="getPageTol($event)"></esb-pagination> -->
