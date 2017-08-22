@@ -1,0 +1,109 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "angular2-layer@^2.0.0",
+        "scope": null,
+        "escapedName": "angular2-layer",
+        "name": "angular2-layer",
+        "rawSpec": "^2.0.0",
+        "spec": ">=2.0.0 <3.0.0",
+        "type": "range"
+      },
+      "D:\\workspace\\esb-operation-platform"
+    ]
+  ],
+  "_from": "angular2-layer@>=2.0.0 <3.0.0",
+  "_id": "angular2-layer@2.0.4",
+  "_inCache": true,
+  "_location": "/angular2-layer",
+  "_nodeVersion": "6.11.0",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/angular2-layer-2.0.4.tgz_1496984457194_0.26312404754571617"
+  },
+  "_npmUser": {
+    "name": "maker",
+    "email": "cnliangwei@foxmail.com"
+  },
+  "_npmVersion": "3.10.10",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "angular2-layer@^2.0.0",
+    "scope": null,
+    "escapedName": "angular2-layer",
+    "name": "angular2-layer",
+    "rawSpec": "^2.0.0",
+    "spec": ">=2.0.0 <3.0.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular2-layer/-/angular2-layer-2.0.4.tgz",
+  "_shasum": "1fb725c2ee53a85bcb18653c4cd0757d33da992d",
+  "_shrinkwrap": null,
+  "_spec": "angular2-layer@^2.0.0",
+  "_where": "D:\\workspace\\esb-operation-platform",
+  "author": {
+    "name": "LiangWei"
+  },
+  "bugs": {
+    "url": "https://github.com/1inus/angular2-layer/issues"
+  },
+  "dependencies": {
+    "@angular/forms": "^4.0.2"
+  },
+  "description": "angular2 dialog, alert, confirm, loading, tip",
+  "devDependencies": {
+    "@angular/common": "^4.0.0",
+    "@angular/compiler": "^4.0.0",
+    "@angular/core": "^4.0.0",
+    "@angular/platform-browser": "^4.0.0",
+    "@angular/platform-browser-dynamic": "^4.0.0",
+    "core-js": "^2.4.1",
+    "gulp-typescript": "^3.1.6",
+    "reflect-metadata": "^0.1.10",
+    "rxjs": "^5.2.0",
+    "systemjs": "^0.19.41",
+    "ts-loader": "^2.0.3",
+    "typescript": "^2.2.2",
+    "zone.js": "^0.8.5"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "1fb725c2ee53a85bcb18653c4cd0757d33da992d",
+    "tarball": "https://registry.npmjs.org/angular2-layer/-/angular2-layer-2.0.4.tgz"
+  },
+  "gitHead": "8d406c049e32b1653b1f5b04d500a5fdd296e6d5",
+  "homepage": "http://ng2-layer.wemakers.net/",
+  "keywords": [
+    "angular2",
+    "dialog",
+    "alert",
+    "confirm",
+    "loading",
+    "tip",
+    "msg",
+    "message",
+    "layer"
+  ],
+  "license": "Apache",
+  "main": "angular2-layer.js",
+  "maintainers": [
+    {
+      "name": "maker",
+      "email": "cnliangwei@foxmail.com"
+    }
+  ],
+  "name": "angular2-layer",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1inus/angular2-layer.git"
+  },
+  "scripts": {},
+  "version": "2.0.4"
+}

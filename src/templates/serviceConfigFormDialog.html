@@ -2,45 +2,73 @@
     <form [formGroup]="serviceConfigForm" novalidate>
         <ul>
             <li>
-                <div class="left_det">
+                <div class="left_det" style="width: 10%;">
+                    <p>是否为服务:</p>
+                </div>
+                <div class="right_det" style="width: 4%;line-height: 35px;">
+                    <input class="form-control" style="height: 15px;width: 15px;display: inline-block;margin:0;" type="checkbox" formControlName="isSvc" (change)="setSvcNo()">
+                </div>
+                <div class="left_det" style="width: 10%;">
                     <p>服务代码:</p>
                 </div>
-                <div class="right_det">
-                    <input class="form-control" type="text" formControlName="svc_no">
+                <div class="right_det" style="width: 18%;">
+                    <input class="form-control" style="width: 180px;" type="text" formControlName="svc_no" (change)="setServiceName()" disabled>
                 </div>
-                <div class="left_det">
+                <div class="left_det" style="width: 10%;">
+                    <p>项目名称:</p>
+                </div>
+                <div class="right_det required-field-block" style="width: 18%;">
+                    <input class="form-control" style="width: 180px;" type="text" [ngStyle]="{border: serviceConfigForm.get('project_name').errors && (serviceConfigForm.get('project_name').dirty || serviceConfigForm.get('project_name').touched) ? '2px solid red' : '1px solid #999'}"
+                        formControlName="project_name" (change)="setServiceName()">
+                    <div *ngIf="serviceConfigForm.get('project_name').errors && (serviceConfigForm.get('project_name').dirty || serviceConfigForm.get('project_name').touched)">
+                        <p [hidden]="!serviceConfigForm.get('project_name').errors.required" class="invalid_field">项目名称不能为空</p>
+                    </div>
+                    <div class="required-icon" style="right: 9px;">
+                        <div class="text">*</div>
+                    </div>
+                </div>
+                <div class="left_det" style="width: 10%;">
                     <p>服务名:</p>
                 </div>
-                <div class="right_det">
-                    <input class="form-control" type="text" formControlName="svc_name">
-                </div>
-                <div class="left_det">
-                    <p>服务ID:</p>
-                </div>
-                <div class="right_det">
-                    <input class="form-control" type="text" formControlName="svc_id">
+                <div class="right_det" style="width: 18%;">
+                    <input class="form-control" style="width: 180px;" type="text" formControlName="svc_name" disabled>
                 </div>
             </li>
             <li>
-                <div class="left_det">
-                    <p>服务名称:</p>
-                </div>
-                <div class="right_det">
-                    <input class="form-control" type="text" formControlName="project_name">
-                </div>
                 <div class="left_det">
                     <p>服务状态:</p>
                 </div>
-                <div class="right_det">
-                    <select class="form-control" formControlName="svc_state">
+                <div class="right_det required-field-block">
+                    <select class="form-control" formControlName="svc_state" [ngStyle]="{border: serviceConfigForm.get('svc_state').errors && (serviceConfigForm.get('svc_state').dirty || serviceConfigForm.get('svc_state').touched) ? '2px solid red' : '1px solid #999'}">
 						<option value=''>请选择</option>
           				<option *ngFor="let state of svc_states" [value]="state.id">{{state.value}}</option>
-      				</select>
+                    </select>
+                    <div *ngIf="serviceConfigForm.get('svc_state').errors && (serviceConfigForm.get('svc_state').dirty || serviceConfigForm.get('svc_state').touched)">
+                        <p [hidden]="!serviceConfigForm.get('svc_state').errors.required" class="invalid_field">服务状态不能为空</p>
+                    </div>
+                    <div class="required-icon">
+                        <div class="text">*</div>
+                    </div>
+                </div>
+                <div class="left_det">
+                    <p>服务类型:</p>
+                </div>
+                <div class="right_det required-field-block">
+                    <select class="form-control" formControlName="svc_type" [ngStyle]="{border: serviceConfigForm.get('svc_type').errors && (serviceConfigForm.get('svc_type').dirty || serviceConfigForm.get('svc_type').touched) ? '2px solid red' : '1px solid #999'}">
+						<option value=''>请选择</option>
+          				<option *ngFor="let type of svc_types" [value]="type.id">{{type.value}}</option>
+                    </select>
+                    <div *ngIf="serviceConfigForm.get('svc_type').errors && (serviceConfigForm.get('svc_type').dirty || serviceConfigForm.get('svc_type').touched)">
+                        <p [hidden]="!serviceConfigForm.get('svc_type').errors.required" class="invalid_field">服务类型不能为空</p>
+                    </div>
+                    <div class="required-icon">
+                        <div class="text">*</div>
+                    </div>
                 </div>
             </li>
             <li>
                 <div class="left_det">
-                    <p>服务描述:</p>
+                    <p>项目描述:</p>
                 </div>
                 <div class="right_det">
                     <textarea style="margin-bottom: 10%;" class="form-control" formControlName="svc_desc"></textarea>
@@ -50,108 +78,181 @@
                 <div class="left_det">
                     <p>目标协议:</p>
                 </div>
-                <div class="right_det">
-                    <input class="form-control" type="text" formControlName="dest_protocol">
+                <div class="right_det required-field-block">
+                    <input class="form-control" type="text" formControlName="dest_protocol" [ngStyle]="{border: serviceConfigForm.get('dest_protocol').errors && (serviceConfigForm.get('dest_protocol').dirty || serviceConfigForm.get('dest_protocol').touched) ? '2px solid red' : '1px solid #999'}">
+                    <div *ngIf="serviceConfigForm.get('dest_protocol').errors && (serviceConfigForm.get('dest_protocol').dirty || serviceConfigForm.get('dest_protocol').touched)">
+                        <p [hidden]="!serviceConfigForm.get('dest_protocol').errors.required" class="invalid_field">目标协议不能为空</p>
+                    </div>
+                    <div class="required-icon">
+                        <div class="text">*</div>
+                    </div>
                 </div>
                 <div class="left_det">
                     <p>目标系统:</p>
                 </div>
-                <div class="right_det">
-                    <input class="form-control" type="text" formControlName="dest_sys">
-                </div>
-                <div class="left_det">
-                    <p>源协议:</p>
-                </div>
-                <div class="right_det">
-                    <input class="form-control" type="text" formControlName="src_protocol">
+                <div class="right_det required-field-block">
+                    <combo-box [inputClass]="getDestComboClass" [triggerIconClass]="'combo_drop_trigger'" [localFilter]='true' [localFilterCaseSensitive]='false' [listData]="sysList" [displayField]="'sys_name'" [valueField]="'sys_name'" [currVal]="sysCache.dest" (onSelect)="setDestSys($event)"
+                        (onBlur)="setDestSys($event)"></combo-box>
+                    <div *ngIf="serviceConfigForm.get('dest_sys').errors && (serviceConfigForm.get('dest_sys').dirty || serviceConfigForm.get('dest_sys').touched)">
+                        <p [hidden]="!serviceConfigForm.get('dest_sys').errors.required" class="invalid_field">目标系统不能为空</p>
+                    </div>
+                    <div class="required-icon">
+                        <div class="text">*</div>
+                    </div>
                 </div>
             </li>
             <li>
-
+                <div class="left_det">
+                    <p>源协议:</p>
+                </div>
+                <div class="right_det required-field-block">
+                    <input class="form-control" type="text" formControlName="src_protocol" [ngStyle]="{border: serviceConfigForm.get('src_protocol').errors && (serviceConfigForm.get('src_protocol').dirty || serviceConfigForm.get('src_protocol').touched) ? '2px solid red' : '1px solid #999'}">
+                    <div *ngIf="serviceConfigForm.get('src_protocol').errors && (serviceConfigForm.get('src_protocol').dirty || serviceConfigForm.get('src_protocol').touched)">
+                        <p [hidden]="!serviceConfigForm.get('src_protocol').errors.required" class="invalid_field">源协议不能为空</p>
+                    </div>
+                    <div class="required-icon">
+                        <div class="text">*</div>
+                    </div>
+                </div>
                 <div class="left_det">
                     <p>源系统:</p>
                 </div>
-                <div class="right_det">
-                    <input class="form-control" type="text" formControlName="src_sys">
+                <div class="right_det required-field-block">
+                    <combo-box [inputClass]="getSrcComboClass" [triggerIconClass]="'combo_drop_trigger'" [localFilter]='true' [localFilterCaseSensitive]='false' [listData]="sysList" [displayField]="'sys_name'" [valueField]="'sys_name'" [currVal]="sysCache.src" (onSelect)="setSrcSys($event)"
+                        (onBlur)="setSrcSys($event)"></combo-box>
+                    <div *ngIf="serviceConfigForm.get('src_sys').errors && (serviceConfigForm.get('src_sys').dirty || serviceConfigForm.get('src_sys').touched)">
+                        <p [hidden]="!serviceConfigForm.get('src_sys').errors.required" class="invalid_field">源系统不能为空</p>
+                    </div>
+                    <div class="required-icon">
+                        <div class="text">*</div>
+                    </div>
                 </div>
+            </li>
+            <li>
                 <div class="left_det">
                     <p>内部编号:</p>
                 </div>
-                <div class="right_det">
-                    <input class="form-control" type="text" formControlName="inner_code">
+                <div class="right_det required-field-block">
+                    <input class="form-control" type="text" formControlName="inner_code" [ngStyle]="{border: serviceConfigForm.get('inner_code').errors && (serviceConfigForm.get('inner_code').dirty || serviceConfigForm.get('inner_code').touched) ? '2px solid red' : '1px solid #999'}">
+                    <div *ngIf="serviceConfigForm.get('inner_code').errors && (serviceConfigForm.get('inner_code').dirty || serviceConfigForm.get('inner_code').touched)">
+                        <p [hidden]="!serviceConfigForm.get('inner_code').errors.required" class="invalid_field">内部编号不能为空</p>
+                    </div>
+                    <div class="required-icon">
+                        <div class="text">*</div>
+                    </div>
                 </div>
                 <div class="left_det">
                     <p>服务模式:</p>
                 </div>
-                <div class="right_det">
-                    <select class="form-control" formControlName="pattern">
+                <div class="right_det required-field-block">
+                    <select class="form-control" formControlName="pattern" [ngStyle]="{border: serviceConfigForm.get('pattern').errors && (serviceConfigForm.get('pattern').dirty || serviceConfigForm.get('pattern').touched) ? '2px solid red' : '1px solid #999'}">
 						<option value=''>请选择</option>
           				<option *ngFor="let pattern of patterns" [value]="pattern.id">{{pattern.value}}</option>
-      				</select>
+                      </select>
+                    <div *ngIf="serviceConfigForm.get('pattern').errors && (serviceConfigForm.get('pattern').dirty || serviceConfigForm.get('pattern').touched)">
+                        <p [hidden]="!serviceConfigForm.get('pattern').errors.required" class="invalid_field">服务模式不能为空</p>
+                    </div>
+                    <div class="required-icon">
+                        <div class="text">*</div>
+                    </div>
+                </div>
+                <div class="left_det">
+                    <p>日志1:</p>
+                </div>
+                <div class="right_det required-field-block">
+                    <select class="form-control" formControlName="log1" [ngStyle]="{border: serviceConfigForm.get('log1').errors && (serviceConfigForm.get('log1').dirty || serviceConfigForm.get('log1').touched) ? '2px solid red' : '1px solid #999'}">
+						<option value=''>请选择</option>
+          				<option *ngFor="let bool of isEnable" [value]="bool.id">{{bool.value}}</option>
+                      </select>
+                    <div *ngIf="serviceConfigForm.get('log1').errors && (serviceConfigForm.get('log1').dirty || serviceConfigForm.get('log1').touched)">
+                        <p [hidden]="!serviceConfigForm.get('log1').errors.required" class="invalid_field">日志1不能为空</p>
+                    </div>
+                    <div class="required-icon">
+                        <div class="text">*</div>
+                    </div>
                 </div>
             </li>
             <li>
                 <div class="left_det">
-                    <p>日志1:</p>
-                </div>
-                <div class="right_det">
-                    <select class="form-control" formControlName="log1">
-						<option value=''>请选择</option>
-          				<option *ngFor="let bool of isEnable" [value]="bool.id">{{bool.value}}</option>
-      				</select>
-                </div>
-                <div class="left_det">
                     <p>日志2:</p>
                 </div>
-                <div class="right_det">
-                    <select class="form-control" formControlName="log2">
+                <div class="right_det required-field-block">
+                    <select class="form-control" formControlName="log2" [ngStyle]="{border: serviceConfigForm.get('log2').errors && (serviceConfigForm.get('log2').dirty || serviceConfigForm.get('log2').touched) ? '2px solid red' : '1px solid #999'}">
 						<option value=''>请选择</option>
           				<option *ngFor="let bool of isEnable" [value]="bool.id">{{bool.value}}</option>
-      				</select>
+                      </select>
+                    <div *ngIf="serviceConfigForm.get('log2').errors && (serviceConfigForm.get('log2').dirty || serviceConfigForm.get('log2').touched)">
+                        <p [hidden]="!serviceConfigForm.get('log2').errors.required" class="invalid_field">日志2不能为空</p>
+                    </div>
+                    <div class="required-icon">
+                        <div class="text">*</div>
+                    </div>
                 </div>
                 <div class="left_det">
                     <p>日志3:</p>
                 </div>
-                <div class="right_det">
-                    <select class="form-control" formControlName="log3">
+                <div class="right_det required-field-block">
+                    <select class="form-control" formControlName="log3" [ngStyle]="{border: serviceConfigForm.get('log3').errors && (serviceConfigForm.get('log3').dirty || serviceConfigForm.get('log3').touched) ? '2px solid red' : '1px solid #999'}">
 						<option value=''>请选择</option>
           				<option *ngFor="let bool of isEnable" [value]="bool.id">{{bool.value}}</option>
-      				</select>
+                      </select>
+                    <div *ngIf="serviceConfigForm.get('log3').errors && (serviceConfigForm.get('log3').dirty || serviceConfigForm.get('log3').touched)">
+                        <p [hidden]="!serviceConfigForm.get('log3').errors.required" class="invalid_field">日志3不能为空</p>
+                    </div>
+                    <div class="required-icon">
+                        <div class="text">*</div>
+                    </div>
+                </div>
+                <div class="left_det">
+                    <p>日志4:</p>
+                </div>
+                <div class="right_det required-field-block">
+                    <select class="form-control" formControlName="log4" [ngStyle]="{border: serviceConfigForm.get('log4').errors && (serviceConfigForm.get('log4').dirty || serviceConfigForm.get('log4').touched) ? '2px solid red' : '1px solid #999'}">
+						<option value=''>请选择</option>
+          				<option *ngFor="let bool of isEnable" [value]="bool.id">{{bool.value}}</option>
+                      </select>
+                    <div *ngIf="serviceConfigForm.get('log4').errors && (serviceConfigForm.get('log4').dirty || serviceConfigForm.get('log4').touched)">
+                        <p [hidden]="!serviceConfigForm.get('log4').errors.required" class="invalid_field">日志4不能为空</p>
+                    </div>
+                    <div class="required-icon">
+                        <div class="text">*</div>
+                    </div>
                 </div>
             </li>
             <li>
                 <div class="left_det">
-                    <p>日志4:</p>
+                    <p>ESB标识:</p>
                 </div>
-                <div class="right_det">
-                    <select class="form-control" formControlName="log4">
-						<option value=''>请选择</option>
-          				<option *ngFor="let bool of isEnable" [value]="bool.id">{{bool.value}}</option>
-      				</select>
-                </div>
-                <div class="left_det">
-                    <p>esb_id:</p>
-                </div>
-                <div class="right_det">
-                    <input class="form-control" type="text" formControlName="esb_id" />
+                <div class="right_det required-field-block">
+                    <input class="form-control" type="text" formControlName="esb_id" [ngStyle]="{border: serviceConfigForm.get('esb_id').errors && (serviceConfigForm.get('esb_id').dirty || serviceConfigForm.get('esb_id').touched) ? '2px solid red' : '1px solid #999'}">
+                    <div *ngIf="serviceConfigForm.get('esb_id').errors && (serviceConfigForm.get('esb_id').dirty || serviceConfigForm.get('esb_id').touched)">
+                        <p [hidden]="!serviceConfigForm.get('esb_id').errors.required" class="invalid_field">ESB标识不能为空</p>
+                    </div>
+                    <div class="required-icon">
+                        <div class="text">*</div>
+                    </div>
                 </div>
                 <div class="left_det">
                     <p>日志级别:</p>
                 </div>
-                <div class="right_det">
-                    <select class="form-control" formControlName="event_level">
+                <div class="right_det required-field-block">
+                    <select class="form-control" formControlName="event_level" [ngStyle]="{border: serviceConfigForm.get('event_level').errors && (serviceConfigForm.get('event_level').dirty || serviceConfigForm.get('event_level').touched) ? '2px solid red' : '1px solid #999'}">
 						<option value=''>请选择</option>
           				<option *ngFor="let level of event_levels" [value]="level.id">{{level.value}}</option>
-      				</select>
+                      </select>
+                    <div *ngIf="serviceConfigForm.get('event_level').errors && (serviceConfigForm.get('event_level').dirty || serviceConfigForm.get('event_level').touched)">
+                        <p [hidden]="!serviceConfigForm.get('event_level').errors.required" class="invalid_field">日志级别不能为空</p>
+                    </div>
+                    <div class="required-icon">
+                        <div class="text">*</div>
+                    </div>
                 </div>
-            </li>
-            <li>
-                <div class="left_det">
+                <!-- <div class="left_det">
                     <p>日志数量:</p>
                 </div>
                 <div class="right_det">
                     <input class="form-control" type="text" formControlName="log_cnt">
-                </div>
+                </div> -->
             </li>
         </ul>
         <div class="clear_both"></div>

@@ -25,4 +25,16 @@ export class MdmConsumersService {
     deleteMdmConsumer(uuid: string): Observable<any>{
         return this.appRequest.deleteMdmconsumers(uuid);
     }
+
+    querySvcConfigs(param?: any): Observable<any>{
+        return this.appRequest.querySvcConfigs(param);
+    }
+
+    querySvcListConfig(svc_no: string, param?: any): Observable<any>{
+        return this.appRequest.querySvcListConfig(svc_no, param);
+    }
+
+    updateSvcListConfig(svc_no: string, param: any): Observable<any>{
+        return this.appRequest.updateSvcListConfig(svc_no, param);
+    }
 }

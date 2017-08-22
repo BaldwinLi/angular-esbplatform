@@ -13,7 +13,9 @@ enableProdMode();
 export class ArrListDialogComponent extends DialogComponent {
     private columns: Array<any>;
     private data: Array<any>;
-
+    private searchFieldsConfig: any = {
+        fields: ''
+    };
     private tableConfig: any = {
         columns: [],
         data: []
@@ -24,7 +26,8 @@ export class ArrListDialogComponent extends DialogComponent {
         setTimeout(() => {
             obj.tableConfig = {
                 columns: obj.columns,
-                data: obj.data
+                data: obj.data,
+                isStaticPagination: true
             };
         });
     }

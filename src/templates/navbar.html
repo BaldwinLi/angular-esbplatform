@@ -6,8 +6,8 @@
         <div class="sidebar_nav" *ngIf="isSuperAdmin">
             <div class="sidebar_headers access">
                 <a (click)="toActiveBkanOpenSub()"> <i></i>
-					<p>权限配置</p> <b class="clktran"></b>
-				</a>
+                    <p>权限配置</p> <b class="clktran"></b>
+                </a>
             </div>
             <div *ngIf="bkanOpen" class="sidebar_list">
                 <ul>
@@ -23,14 +23,19 @@
         <div class="sidebar_nav" *ngIf="isSuperAdmin">
             <div class="sidebar_headers system">
                 <a (click)="toActiveCkanOpenSub()"> <i></i>
-					<p>系统配置</p> <b class="clktran"></b>
-				</a>
+                    <p>系统配置</p> <b class="clktran"></b>
+                </a>
             </div>
             <div *ngIf="ckanOpen" class="sidebar_list">
                 <ul>
                     <li>
                         <a routerLink="/confighome/serviceconfig" routerLinkActive="active">
                             <p>服务配置</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/confighome/subscribeconfig" routerLinkActive="active">
+                            <p>服务发布订阅配置</p>
                         </a>
                     </li>
                     <li>
@@ -49,6 +54,16 @@
                             <p>系统联系人配置</p>
                         </a>
                     </li>
+                    <li>
+                        <a routerLink="/confighome/emailconfig" routerLinkActive="active">
+                            <p>预警邮箱配置</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/confighome/errflowconfig" routerLinkActive="active">
+                            <p>建议错误处理流程配置</p>
+                        </a>
+                    </li>
                 </ul>
                 <div class="clear_both"></div>
             </div>
@@ -56,8 +71,8 @@
         <div class="sidebar_nav">
             <div class="sidebar_headers cah" routerLink="/confighome/myshare" routerLinkActive="header_active">
                 <a> <i></i>
-					<p>我的分享</p>
-				</a>
+                    <p>我的分享</p>
+                </a>
             </div>
         </div>
     </div>

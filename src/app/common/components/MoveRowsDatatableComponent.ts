@@ -32,8 +32,7 @@ export class MoveRowsDatatableComponent {
 
     constructor() { }
 
-    ngOnInit() { 
-        debugger;
+    ngOnInit() {
         setTimeout(()=>{
             this.selectedData.emit(this.config.seletedDatatable.data);
         });

@@ -1,0 +1,28 @@
+<div class="popover_content left_d" style="max-width: 1500px;">
+    <fieldset form='true'>
+        <legend>服务信息</legend>
+        <ul style="margin: 2%;">
+            <li>
+                <p class=" text_p3 ">服务编号：</p>
+                <label class="text_label ">{{persons.svc_no}}</label>
+                <p class="text_p3 ">服务名称：</p>
+                <label class="text_label ">{{persons.svc_name}}</label>
+
+            </li>
+            <li>
+                <p class="text_p3 ">服务类型：</p>
+                <label class="text_label ">{{persons.svc_type | lookup: 'SVC_TYPE'}}</label>
+                <p class="text_p3 ">系统数：</p>
+                <label class="text_label ">{{persons.sys_cnt}}</label>
+            </li>
+        </ul>
+    </fieldset>
+    <esb-moverows-datatable [config]='tableConfig' (selectedData)='setSelectedData($event)'></esb-moverows-datatable>
+    <div class="clear_both "></div>
+</div>
+<nav>
+    <div class="iconing_alert_btn ">
+        <button class="iconing_btn_ok " (click)="subscribe_post() ">保 存</button>
+        <button class="iconing_btn_cancel " (click)="close() ">关 闭</button>
+    </div>
+</nav>

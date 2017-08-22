@@ -64,7 +64,19 @@
             </li>
             <li *ngIf="routeName=='myshare'" routerLink="/confighome/myshare">
                 <a *ngIf="routeName!='myshare'" style="cursor: pointer;">我的分享</a>
-                <p style="color: #3b3c40;">我的分享</p>
+                <p *ngIf="routeName=='myshare'" style="color: #3b3c40;">我的分享</p>
+            </li>
+            <li *ngIf="routeName=='emailconfig'" routerLink="/confighome/emailconfig">
+                <a *ngIf="routeName!='emailconfig'" style="cursor: pointer;">预警邮箱配置</a>
+                <p *ngIf="routeName=='emailconfig'" style="color: #3b3c40;">预警邮箱配置</p>
+            </li>
+            <li *ngIf="routeName=='errflowconfig'" routerLink="/confighome/errflowconfig">
+                <a *ngIf="routeName!='errflowconfig'" style="cursor: pointer;">建议错误处理流程配置</a>
+                <p *ngIf="routeName=='errflowconfig'" style="color: #3b3c40;">建议错误处理流程配置</p>
+            </li>
+            <li *ngIf="routeName=='subscribeconfig'" routerLink="/confighome/subscribeconfig">
+                <a *ngIf="routeName!='subscribeconfig'" style="cursor: pointer;">服务发布订阅配置</a>
+                <p *ngIf="routeName=='subscribeconfig'" style="color: #3b3c40;">服务发布订阅配置</p>
             </li>
         </ol>
     </nav>

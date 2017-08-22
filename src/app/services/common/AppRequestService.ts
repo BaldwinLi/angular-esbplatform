@@ -211,7 +211,23 @@ export class AppRequestService {
     deleteErrorflows(flow_id: string, params?: any): Observable<any> {
         return this.httpService.getRequestObservable(`${appContextPath}error_flows/${flow_id}`, "delete", params || {});
     }
+// errorflow_v2 START
+    queryErrorflowsV2(params?: any): Observable<any> {
+        return this.httpService.getRequestObservable(`${appContextPath}errorflow_v2`, "get", params || {});
+    }
 
+    createErrorflowsV2(params?: any): Observable<any> {
+        return this.httpService.getRequestObservable(`${appContextPath}errorflow_v2`, "post", params || {});
+    }
+
+    updateErrorflowsV2(params?: any): Observable<any> {
+        return this.httpService.getRequestObservable(`${appContextPath}errorflow_v2`, "put", params || {});
+    }
+
+    deleteErrorflowsV2(flow_id: string, params?: any): Observable<any> {
+        return this.httpService.getRequestObservable(`${appContextPath}errorflow_v2/${flow_id}`, "delete", params || {});
+    }
+// errorflow_v2 END
     updateErrorinfo(params?: any): Observable<any> {
         return this.httpService.getRequestObservable(`${appContextPath}error_info`, "put", params || {});
     }
@@ -292,5 +308,33 @@ export class AppRequestService {
 
     deleteToken(access_token: string, params?: any): Observable<any> {
         return this.httpService.getRequestObservable(`${appContextPath}tokens/${access_token}`, "delete", params || {});
+    }
+
+    queryEmails(params?: any): Observable<any> {
+        return this.httpService.getRequestObservable(`${appContextPath}emailconfig`, "get", params || {}, userInfoHeader());
+    }
+
+    createEmail(params?: any): Observable<any> {
+        return this.httpService.getRequestObservable(`${appContextPath}emailconfig`, "post", params || {}, userInfoHeader());
+    }
+
+    updateEmail(params?: any): Observable<any> {
+        return this.httpService.getRequestObservable(`${appContextPath}emailconfig`, "put", params || {});
+    }
+
+    deleteEmail(cfg_id: string, params?: any): Observable<any> {
+        return this.httpService.getRequestObservable(`${appContextPath}emailconfig/${cfg_id}`, "delete", params || {});
+    }
+
+    querySvcConfigs(params?: any): Observable<any> {
+        return this.httpService.getRequestObservable(`${appContextPath}svc_configs`, "get", params || {});
+    }
+    
+    querySvcListConfig(svc_no: string, params?: any): Observable<any> {
+        return this.httpService.getRequestObservable(`${appContextPath}svclistconfig/${svc_no}`, "get", params || {});
+    }
+
+    updateSvcListConfig(svc_no: string, params: any): Observable<any> {
+        return this.httpService.getRequestObservable(`${appContextPath}svclistconfig/${svc_no}`, "post", params || {});
     }
 }

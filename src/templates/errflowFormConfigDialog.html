@@ -1,0 +1,47 @@
+<div class="popover_content left_d" style="max-width: 1500px;">
+    <fieldset form='true'>
+        <legend>流程信息修改</legend>
+        <form role="form" style="display: block; height: 50px;width:1000px" [formGroup]="ErrflowConfigForm" novalidate>
+            <ul>
+                <li>
+                    <div class="left_det" style="width: 100px; margin-left:30px;">
+                        <p>流程名称：</p>
+                    </div>
+                    <div class="right_det required-field-block">
+                        <input type="text" class="form-control" [ngStyle]="{border: ErrflowConfigForm.get('err_flow_no').errors && (ErrflowConfigForm.get('err_flow_no').dirty || ErrflowConfigForm.get('err_flow_no').touched) ? '2px solid red' : '1px solid #999'}" formControlName="err_flow_no">
+                        <div *ngIf="ErrflowConfigForm.get('err_flow_no').errors && (ErrflowConfigForm.get('err_flow_no').dirty || ErrflowConfigForm.get('err_flow_no').touched)">
+                            <p [hidden]="!ErrflowConfigForm.get('err_flow_no').errors.required" class="invalid_field">流程名称不能为空</p>
+                        </div>
+                        <div class="required-icon">
+                            <div class="text">*</div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="left_det " style="width: 100px; margin-left:30px; ">
+                        <p>流程描述:</p>
+                    </div>
+                    <textarea style="width: 80%; height:50px; " class="form-control " formControlName="err_flow_desc"></textarea>
+                </li>
+            </ul>
+        </form>
+    </fieldset>
+    <p class="tit_p" style="border-top: 1px dashed #ccc;">建议处理流程步骤
+        <button class="btn_add btn btn-default btn-xs" style="margin-right:10px;border: 1px solid #999;color: #fff; background-color: #eea236; border-color: #eea236;" (click)="add_step()">添加步骤</button>
+    </p>
+    <div class="breadcrumb flat" style="width:100%;">
+        <a *ngFor="let step of errorflows; index as i" (click)="edit_step(step)" style="width: 16.6%;margin-top: 5px;" title="{{step.err_step_desc}}" [ngClass]="{'crumb-cell-oringe': step.err_step_name=='忽略', 'crumb-cell-red': step.err_step_name=='结束', 'crumb-cell-blue': (step.err_step_name!='忽略'&&step.err_step_name!='结束')}">
+            <div style="float:left;" class='step-no' *ngIf="step.err_step_name!='忽略'&&step.err_step_name!='结束'">{{i+1}}</div>
+            <div style="float:left; margin-left:35px;text-align: center;">
+                <p style="line-height: 50px;">{{step.err_step_name}}</p>
+            </div>
+        </a>
+    </div>
+    <div class="clear_both "></div>
+</div>
+<nav>
+    <div class="iconing_alert_btn ">
+        <button class="iconing_btn_ok " (click)="flow_post() ">保 存</button>
+        <button class="iconing_btn_cancel " (click)="close() ">关 闭</button>
+    </div>
+</nav>

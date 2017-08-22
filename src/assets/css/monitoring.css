@@ -697,7 +697,7 @@ tbody tr:hover {
 }
 
 .popover_content ul li input {
-    width: 200px;
+    width: 100%;
     height: 30px;
     border: 1px solid #999;
     text-indent: 10px;

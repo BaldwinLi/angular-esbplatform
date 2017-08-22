@@ -183,6 +183,21 @@ export const RES_TYPE = [
     }
 ];
 
+export const SVC_TYPE = [
+    {
+        id: 'S',
+        value: '订阅服务'
+    },
+    {
+        id: 'P',
+        value: '下发服务'
+    },
+    {
+        id: 'C',
+        value: '标准服务'
+    }
+];
+
 export const RES_TYPES = {
   error: 'servicedetail',
   tran: 'transactiondetail',

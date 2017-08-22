@@ -47,14 +47,21 @@ import { NavbarComponent } from './esb_config/components/NavbarComponent';
 import { mappingConfigComponent } from './esb_config/components/mappingConfigComponent';
 import { mdmConfigComponent } from './esb_config/components/mdmConfigComponent';
 import { serviceConfigComponent } from './esb_config/components/serviceConfigComponent';
+import { SubscribeConfigComponent } from './esb_config/components/SubscribeConfigComponent';
 import { systemConfigComponent } from './esb_config/components/systemConfigComponent';
 import { ContactsConfigComponent } from './esb_config/components/ContactsConfigComponent';
 import { ShareListComponent } from './esb_config/components/ShareListComponent';
+import { EmailConfigComponent } from './esb_config/components/EmailConfigComponent';
+import { ErrflowConfigComponent } from './esb_config/components/ErrflowConfigComponent';
+import { ErrorFlowConfigEditDialogComponent } from './esb_config/components/dialogComponents/ErrorFlowConfigEditDialogComponent';
+import { ErrflowConfigFormDialogComponent } from './esb_config/components/dialogComponents/ErrflowConfigFormDialogComponent';
 import { MappingConfigDialogComponent } from './esb_config/components/dialogComponents/MappingConfigDialogComponent';
 import { MdmConfigFormDialogComponent } from './esb_config/components/dialogComponents/MdmConfigFormDialogComponent';
 import { ServiceConfigFormDialogComponent } from './esb_config/components/dialogComponents/ServiceConfigFormDialogComponent';
 import { SystemConfigFormDialogComponent } from './esb_config/components/dialogComponents/SystemConfigFormDialogComponent';
 import { ContactsConfigFormDialogComponent } from './esb_config/components/dialogComponents/ContactsConfigFormDialogComponent';
+import { EmailConfigFormDialogComponent } from './esb_config/components/dialogComponents/EmailConfigFormDialogComponent';
+import { SubscribeConfigDialogComponent } from './esb_config/components/dialogComponents/SubscribeConfigDialogComponent';
 // 交易页面相关依赖
 import { TransactionDetailComponent } from './esb_transaction/components/TransactionDetailComponent';
 import { TransactionsListComponent } from './esb_transaction/components/TransactionsListComponent';
@@ -75,6 +82,7 @@ import { MdmConsumersService } from './services/MdmConsumersService';
 import { EsbConfigsService } from './services/EsbConfigsService';
 import { CachesService } from './services/CachesService';
 import { TokenService } from './services/TokenService';
+import { EmailInfoService } from './services/EmailInfoService';
 // 引入管道
 import { LookupPipe } from './pipe/LookupPipe';
 import { FormatDatePip } from './pipe/FormatDatePip';
@@ -105,9 +113,12 @@ const appRoutes: Routes = [
     children: [
       { path: 'mdmconfig', component: mdmConfigComponent },
       { path: 'serviceconfig', component: serviceConfigComponent },
+      { path: 'subscribeconfig', component: SubscribeConfigComponent },
       { path: 'systemconfig', component: systemConfigComponent },
       { path: 'mappingconfig', component: mappingConfigComponent },
       { path: 'contactsconfig', component: ContactsConfigComponent },
+      { path: 'emailconfig', component: EmailConfigComponent },
+      { path: 'errflowconfig', component: ErrflowConfigComponent },
       { path: 'myshare', component: ShareListComponent },
       { path: '', redirectTo: '/confighome/mappingconfig', pathMatch: 'full' }
     ]
@@ -139,7 +150,11 @@ const appRoutes: Routes = [
     MdmConfigFormDialogComponent,
     ServiceConfigFormDialogComponent,
     SystemConfigFormDialogComponent,
-    ContactsConfigFormDialogComponent
+    ContactsConfigFormDialogComponent,
+    EmailConfigFormDialogComponent,
+    ErrflowConfigFormDialogComponent,
+    ErrorFlowConfigEditDialogComponent,
+    SubscribeConfigDialogComponent
   ],
   declarations: [
     homeComponent,
@@ -160,6 +175,7 @@ const appRoutes: Routes = [
     ServicesListDialogComponent,
     ServicesListSharingDialogComponent,
     ErrorFlowDialogComponent,
+    SubscribeConfigDialogComponent,
     monitorComponent,
     monitorHomeComponent,
     serviceDetailComponent,
@@ -173,9 +189,15 @@ const appRoutes: Routes = [
     mappingConfigComponent,
     mdmConfigComponent,
     serviceConfigComponent,
+    SubscribeConfigComponent,
     systemConfigComponent,
     ContactsConfigComponent,
     ShareListComponent,
+    EmailConfigComponent,
+    EmailConfigFormDialogComponent,
+    ErrflowConfigComponent,
+    ErrflowConfigFormDialogComponent,
+    ErrorFlowConfigEditDialogComponent,
     MappingConfigDialogComponent,
     MdmConfigFormDialogComponent,
     ServiceConfigFormDialogComponent,
@@ -183,7 +205,6 @@ const appRoutes: Routes = [
     ContactsConfigFormDialogComponent,
     LookupPipe,
     FormatDatePip
-    
   ],
   imports: [
     BrowserModule,
@@ -217,7 +238,8 @@ const appRoutes: Routes = [
     MdmConsumersService,
     EsbConfigsService,
     CachesService,
-    TokenService
+    TokenService,
+    EmailInfoService
   ],
   bootstrap: [
     homeComponent

@@ -7,6 +7,7 @@ import { CommonService } from '../../services/common/CommonService';
 import { ErrorInfoService } from '../../services/ErrorInfoService';
 import { TranResendService } from '../../services/TranResendService';
 import { AppRequestService } from '../../services/common/AppRequestService';
+import { ArrListDialogComponent } from '../../common/components/ArrListDialogComponent';
 
 @Component({
   selector: 'esb-services-list',
@@ -48,6 +49,59 @@ export class servicesListComponent {
   }
   private getSelectedItems(selectedItems: Array<any>): void {
     this.selectedItems = selectedItems;
+  }
+
+  private openResentHistory(): void {
+    let obj = this;
+    let dataObject = {
+      columns: [
+        {
+          id: 'err_id',
+          header: "错误ID",
+          type: 'text',
+          width: '60'
+        },
+        {
+          id: 'service_name',
+          header: "服务名",
+          type: 'text',
+          width: '400'
+        },
+        {
+          id: 'err_type_code',
+          header: "故障类别",
+          type: 'text',
+          width: '100'
+        },
+        {
+          id: 'err_msg',
+          header: "故障信息",
+          type: 'text',
+          width: '100'
+        },
+        {
+          id: "err_status",
+          header: "错误状态",
+          type: 'mapping',
+          options: 'SGM_ESBMON_ERRSTATUS',
+          width: '80'
+        },
+        {
+          id: "err_level",
+          header: "故障严重性",
+          type: 'mapping',
+          options: 'EVENT_LEVELS',
+          width: '110'
+        }
+      ],
+      data: []
+    }
+    let dialog = window['esbLayer']({
+      type: 'dialog',
+      data: dataObject,
+      dialogComponent: ArrListDialogComponent,
+      title: '重发历史记录列表'
+    });
   }
 
   private resend(): void {
@@ -140,7 +194,9 @@ export class servicesListComponent {
     window['svcListParams'] = {
       params: this.params,
       pageNow: this.pageNow,
-      pageTol: this.pageTol
+      pageTol: this.pageTol,
+      start_date: this.start_date,
+      end_date: this.end_date
     };
     this.router.navigate(['/monitor/servicedetail', {
       err_id,
@@ -211,16 +267,22 @@ export class servicesListComponent {
     let obj = this;
     if (!!window['svcListParams'] && (this.route.params['_value']['svc_no'] == window['svcListParams'].params.svc_no)) {
       this.params = window['svcListParams'].params;
+      this.start_date = window['svcListParams'].start_date;
+      this.end_date = window['svcListParams'].end_date;
     } else {
       this.params = {
         svc_no: this.route.params['_value']['svc_no'],
         biz_id: '',
         err_status: '',
-        start_ts: this.cmm.getEsblastThreeDaysTimeStr,
-        end_ts: this.cmm.getEsbCurrentTimeStr
+        start_ts: '',
+        end_ts: ''
       }
       this.pageNow = 1;
       this.pageTol = 10;
+      this.start_date = new window['moment']().subtract(3, 'months');
+      this.end_date = new window['moment']();
+      this.start_date = '';
+      this.end_date = '';
     }
     // this.refreshData();
     this.appSvc.afterInitCall(() => {
@@ -302,7 +364,5 @@ export class servicesListComponent {
       ],
       data: this.errors
     };
-    this.start_date = new window['moment']().subtract(3, 'days');
-    this.end_date = new window['moment']();
   }
 }

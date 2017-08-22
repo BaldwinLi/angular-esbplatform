@@ -26,7 +26,7 @@ export class CommonService {
 
   get getEsblastThreeDaysTimeStr(): string {
     let date: Date = new Date();
-    date.setMonth(date.getDay() - 3);
+    date.setDate(date.getDate() - 3);
     let year = date.getFullYear().toString();
     let month_cache = date.getMonth() + 1;
     let month = month_cache < 10 ? padStart(month_cache.toString(), 2, '0') : month_cache.toString();

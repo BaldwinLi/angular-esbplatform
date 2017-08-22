@@ -25,8 +25,8 @@ export class MappingConfigDialogComponent extends DialogComponent {
     private selectedData: Array<any> = [];
     private tableConfig: any = {
         primaryKey: 'usr_svcno',
-        searchPlaceholder: '请输入服务编号进行查询',
-        searchField: 'usr_svcno',
+        searchPlaceholder: '请输入服务名称进行查询',
+        searchField: 'usr_svcname',
         beSelectedTableTitle: '服务列表',
         selectedTableTitle: '已选服务',
         beSeletedDatatable: {

@@ -158,11 +158,14 @@ export class homeComponent {
         'confighome',
         'mappingconfig',
         'serviceconfig',
+        'subscribeconfig',
         'mdmconfig',
         'systemconfig',
         'contactsconfig',
         'myshare',
-        'transactiondetail'
+        'transactiondetail',
+        'emailconfig',
+        'errflowconfig'
       ];
       location.hash.replace('#', '').split(';').forEach((e, i) => {
         if (i > 0) {

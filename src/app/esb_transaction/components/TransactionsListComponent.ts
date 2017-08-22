@@ -38,11 +38,7 @@ export class TransactionsListComponent implements OnInit {
     'subsys': ''
   };
 
-  private params: any = {
-    start: this.cmm.getEsblastThreeDaysTimeStr,
-    end: this.cmm.getEsbCurrentTimeStr,
-    trancode: '',
-  };
+  private params: any;
   private tableConfig: any;
   constructor(
     private cmm: CommonService,
@@ -128,6 +124,7 @@ export class TransactionsListComponent implements OnInit {
             break;
           }
         }
+        obj.refreshData();
       },
       error => window['esbLayer']({ type: 'error', message: error })
     );
@@ -141,7 +138,8 @@ export class TransactionsListComponent implements OnInit {
         success => {
           if (success.body && success.body.length > 0) {
             obj.svcErrors = success.body;
-            obj.params.svcid = success.body && success.body[0].usr_svcno;
+            if (!obj.params.svcid)
+              obj.params.svcid = success.body && success.body[0].usr_svcno;
 
             // obj.params.svcid = 'S7066012';
             // obj.svcErrors = success.body.map(v=>{
@@ -151,7 +149,6 @@ export class TransactionsListComponent implements OnInit {
 
             obj.svcName = obj.getSvcNameById;
             obj.getSvcInfo((success.body && success.body[0].svcno) || '');
-            obj.refreshData();
           }
         },
         error => window['esbLayer']({ type: 'error', message: error })
@@ -196,6 +193,13 @@ export class TransactionsListComponent implements OnInit {
     //   if (this.svcErrors[e].svcid === svcid) { svc_desc = this.svcErrors[e].svc_desc; }
     // }
     // this.svcInfo.tran_uuid=tran_uuid;
+    window['tranListParams'] = {
+      params: this.params,
+      pageNow: this.pageNow,
+      pageTol: this.pageTol,
+      start_date: this.start_date,
+      end_date: this.end_date
+    };
     this.router.navigate(['/transactionhome/transactiondetail', { tran_uuid }]);
   }
 
@@ -242,7 +246,22 @@ export class TransactionsListComponent implements OnInit {
 
   ngOnInit() {
     const obj = this;
-
+    if (!!window['tranListParams']) {
+      this.params = window['tranListParams'].params;
+      this.start_date = window['tranListParams'].start_date;
+      this.end_date = window['tranListParams'].end_date;
+    } else {
+      this.params = {
+        start: this.cmm.getEsblastThreeDaysTimeStr,
+        end: this.cmm.getEsbCurrentTimeStr,
+        trancode: '',
+        tran_uuid: '',
+      };
+      this.pageNow = 1;
+      this.pageTol = 10;
+      this.start_date = new window['moment']().subtract(3, 'days');
+      this.end_date = new window['moment']();
+    }
     // this.params = {
     //   start: this.cmm.getEsblastThreeMonthsTimeStr,
     //   end: this.cmm.getEsbCurrentTimeStr,
@@ -328,8 +347,6 @@ export class TransactionsListComponent implements OnInit {
     };
     // this.start_date = obj.cmm.formatDate(obj.params.start, 'Time');
     // this.end_date = obj.cmm.formatDate(obj.params.end, 'Time');
-    this.start_date = new window['moment']().subtract(3, 'days');
-    this.end_date = new window['moment']();
   }
 
   // get getTimeRangeStr() {

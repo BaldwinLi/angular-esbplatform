@@ -2,7 +2,7 @@
     <div class="left_center">
         <div class="left_d">
             <div class="btn_time">
-                <!-- <button *ngIf='resendable' class="btn btn-sm btn-danger b_wra" style="background: #22bac4;" (click)="resend($event)">重发信息列表</button> -->
+                <button *ngIf='resendable' class="btn btn-sm btn-danger b_wra" style="background: #22bac4;" (click)="openResentHistory($event)">重发信息列表</button>
                 <button *ngIf='resendable' class="btn btn-sm btn-danger b_wra" (click)="resend($event)">重发</button>
                 <button *ngIf='resendable' class="btn btn-sm btn-warning b_wra2" (click)="ignore()">忽略</button>
                 <button class="btn btn-sm btn-default btn_t" [ngClass]="{'q_brn': searchBy=='all'}" (click)="queryAll()">全部</button>

@@ -628,7 +628,7 @@ a:focus {
 .label_text {
     float: left;
     width: 7%;
-    margin-left: 5%;
+    margin-left: 4%;
     white-space: nowrap;
     line-height: 35px;
 }
@@ -644,6 +644,13 @@ a:focus {
     border: 1px;
     float: left;
     width: 100%;
+}
+
+.input_invalid_combo {
+    border: 1px;
+    float: left;
+    width: 100%;
+    border: 2px solid red!important;
 }
 
 .combo_drop_trigger {

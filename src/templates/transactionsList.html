@@ -9,7 +9,7 @@
                         (change)="changeParams()">
                     <option *ngFor="let svc of svcErrors" [value]="svc.svcid">{{svc.svc_name}}</option>
                   </select> -->
-                <div class="input_text" style="width: 31%">
+                <div class="input_text" style="width: 25%">
                     <combo-box [inputClass]="'form-control input_combo'" 
                                [triggerIconClass]="'combo_drop_trigger'" 
                                [localFilter]='true' 
@@ -32,10 +32,26 @@
       	        </select>
             <!-- </span>
                 <span class="left_det" style="width: 100%;line-height: 25px;"> -->
-                <!-- <label class="label_text">源系统：</label>
-                <input class="input_text"  type='text' [(ngModel)]="params.src">
+                </span>
+                <span class="left_det" style="width: 100%;line-height: 25px;margin-bottom: 20px;">
+                    <label class="label_text">交易UUID：</label>
+                <!-- <select class="input_text" 
+                        [(ngModel)]="params.svcid" 
+                        (change)="changeParams()">
+                    <option *ngFor="let svc of svcErrors" [value]="svc.svcid">{{svc.svc_name}}</option>
+                  </select> -->
+                <input type="text"  class="form-control input_text" [(ngModel)]="params.tran_uuid" (change)="changeParams()"/> 
+                <label class="label_text">业务主键</label>
+                <!-- <select class="input_text" 
+                        [(ngModel)]="params.svcid" 
+                        (change)="changeParams()">
+                    <option *ngFor="let svc of svcErrors" [value]="svc.svcid">{{svc.svc_name}}</option>
+                  </select> -->
+                <input type="text"  class="form-control input_text" [(ngModel)]="params.biz_id" (change)="changeParams()"/> 
+                <label class="label_text">源系统：</label>
+                <input class="form-control input_text"  type='text' [(ngModel)]="params.src" (change)="changeParams()">
                 <label class="label_text">目标系统：</label>
-                <input class="input_text" type='text' [(ngModel)]="params.dest"> -->
+                <input class="form-control input_text" type='text' [(ngModel)]="params.dest" (change)="changeParams()"> 
                 </span>
                 <span class="left_det" style="width: 100%;line-height: 25px;margin-bottom: 20px;">
                     <label class="label_text">开始时间：</label>

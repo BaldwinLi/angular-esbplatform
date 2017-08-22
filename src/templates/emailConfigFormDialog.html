@@ -1,0 +1,62 @@
+<div class="popover_content">
+    <form role="form" [formGroup]="emailConfigForm" novalidate>
+        <ul style="width:1100px">
+            <li>
+                <div class="left_det">
+                    <p>配置ID:</p>
+                </div>
+                <div class="right_det required-field-block">
+                    <input type="text" class="form-control" [ngStyle]="{border: emailConfigForm.get('cfg_id').errors && (emailConfigForm.get('cfg_id').dirty || emailConfigForm.get('cfg_id').touched) ? '2px solid red' : '1px solid #999'}" formControlName="cfg_id">
+                    <div *ngIf="emailConfigForm.get('cfg_id').errors && (emailConfigForm.get('cfg_id').dirty || emailConfigForm.get('cfg_id').touched)">
+                        <p [hidden]="!emailConfigForm.get('cfg_id').errors.required" class="invalid_field">配置ID不能为空</p>
+                    </div>
+                    <div class="required-icon">
+                        <div class="text">*</div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="left_det">
+                    <div class="text" style="color: red;display: inline-block;width: 1px;">*</div>
+                    <p>发送人:</p>
+                </div>
+                <div class="right_det" style="margin-bottom: 20px;">
+                    <textarea placeholder="可输入多个联系人邮箱，并以‘,’隔开。" class="form-control" [ngStyle]="{border: emailConfigForm.get('to_list').errors && (emailConfigForm.get('to_list').dirty || emailConfigForm.get('to_list').touched) ? '2px solid red' : '1px solid #999'}" formControlName="to_list">
+                    </textarea>
+                    <div *ngIf="emailConfigForm.get('to_list').errors && (emailConfigForm.get('to_list').dirty || emailConfigForm.get('to_list').touched)">
+                        <p [hidden]="!emailConfigForm.get('to_list').errors.required" class="invalid_field">发送人不能为空</p>
+                        <!-- <p *ngIf="!emailConfigForm.get('to_list').errors.required" [hidden]="!emailConfigForm.get('to_list').errors.email" class="invalid_field">请输入正确的邮箱地址</p> -->
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="left_det">
+                    <!-- <div class="text" style="color: red;display: inline-block;width: 1px;">*</div> -->
+                    <p>抄送人:</p>
+                </div>
+                <div class="right_det" style="margin-bottom: 20px;">
+                    <textarea placeholder="可输入多个联系人邮箱，并以‘,’隔开。" class="form-control" [ngStyle]="{border: emailConfigForm.get('cc_list').errors && (emailConfigForm.get('cc_list').dirty || emailConfigForm.get('cc_list').touched) ? '2px solid red' : '1px solid #999'}" formControlName="cc_list">
+                    </textarea>
+                    <div *ngIf="emailConfigForm.get('cc_list').errors && (emailConfigForm.get('cc_list').dirty || emailConfigForm.get('cc_list').touched)">
+                        <!-- <p *ngIf="!emailConfigForm.get('cc_list').errors.required" [hidden]="!emailConfigForm.get('cc_list').errors.email" class="invalid_field">请输入正确的邮箱地址</p> -->
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="left_det">
+                    <p>备注:</p>
+                </div>
+                <div class="right_det">
+                    <textarea name="" class="form-control" formControlName="memo"></textarea>
+                </div>
+            </li>
+        </ul>
+        <div class="clear_both"></div>
+        <nav>
+            <div class="iconing_alert_btn">
+                <button class="iconing_btn_ok" (click)="email_post()">保 存</button>
+                <button class="iconing_btn_cancel" (click)="close()">关 闭</button>
+            </div>
+        </nav>
+    </form>
+</div>

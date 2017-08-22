@@ -1,0 +1,38 @@
+<div class="content_tab">
+    <div class="item_tab">
+        <div class="tob_header">
+            <div class="left_tab">
+                <i class="icon_stab"></i>
+                <p>建议错误处理流程配置</p>
+            </div>
+            <div class="right_tab">
+                <div style="float: right" (click)="refreshData()">
+                    <ul class="esbconfigs_resh">
+                        <li class="resh"></li>
+                        <li style="margin-left: 0px;width: 35px;font-size: 16px; line-height: 13px;">刷新</li>
+                    </ul>
+                </div>
+                <div style="float: right" (click)="flow_add()">
+                    <ul class="esbconfigs_add">
+                        <li class="add"></li>
+                        <li style="margin-left: 0px;width: 35px;font-size: 16px; line-height: 13px;">新增</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="clear_both"></div>
+        </div>
+        <div class="left_d tab">
+            <div class="tab_top btn_time">
+                <input placeholder="请输入关键字进行匹配查询" type="text" class="form-control sys_name serc" [(ngModel)]='searchFieldsConfig.fields'>
+                <!-- <button class="btn btn-sm btn-default b_wra2" style="float: left; margin-left: 5px;margin-top: 10px" (click)="search()">查询</button> -->
+                <div class="clear_both"></div>
+            </div>
+            <div class="tab_content users_tab">
+                <!-- <datatable [tableConfig]='tableConfig'></datatable>
+                <esb-pagination [totalRows]="rowsCount" (outputPageNow)="getPageNow($event)" (outputPageTol)="getPageTol($event)"></esb-pagination> -->
+                <flex-datatable [config]='tableConfig' [tableData]='persons' [staticSearchFieldsConfig]="searchFieldsConfig"></flex-datatable>
+            </div>
+            <div class="clear_both"></div>
+        </div>
+    </div>
+</div>

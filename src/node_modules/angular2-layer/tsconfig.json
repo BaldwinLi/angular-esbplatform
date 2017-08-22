@@ -1,0 +1,21 @@
+{
+  "files": [
+	"angular2-layer.ts"
+  ],
+  "compileOnSave": true,
+  "compilerOptions": {
+	"module": "commonjs",
+	"moduleResolution": "node",
+	"noImplicitAny": true,
+	"removeComments": true,
+	"target": "es5",
+	"sourceMap": false,
+	"emitDecoratorMetadata": true,
+	"experimentalDecorators": true,
+	"lib": ["es2017", "dom"]
+  },
+  "exclude": [
+	"node_modules"
+  ]
+}
+//dts-generator --project ./ --out index.d.ts
