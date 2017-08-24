@@ -4,6 +4,7 @@ import { daysOfWeek, months, date_locale } from '../lib/locales/i18n';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule, JsonpModule } from '@angular/http';
@@ -208,19 +209,18 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpModule,
     JsonpModule,
     ReactiveFormsModule,
     NguiDatetimePickerModule,
-
     RouterModule.forRoot(appRoutes, { useHash: true }),
     // ConfigModule,
     // TransactionModule,
     // CommonModule,
     // MonitorModule,
-    ComboBoxModule
-
+    ComboBoxModule,
   ],
   providers: [
     HttpService,

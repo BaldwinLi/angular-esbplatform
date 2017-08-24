@@ -36,10 +36,10 @@ module.exports = {
                 test: /\.css$/,
                 loader: ['style-loader', 'css-loader']
             },
-            {
-                test: /\.js$/,
-                loader: ['jsx-loader']
-            },
+            // {
+            //     test: /\.js$/,
+            //     loader: ['babel-loader']
+            // },
             {
                 test: /\.(png|jpg|svg|gif)$/,
                 loader: ['url-loader']

@@ -3,7 +3,7 @@ import { startsWith } from 'lodash';
 import { NgLayer, NgLayerRef, NgLayerComponent } from "angular2-layer/angular2-layer";
 import { DialogComponent } from "../../../common/components/DialogComponent";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { SVC_STATES, PATTERNS, IS_ENABLE, EVENT_LEVELS, SVC_TYPE } from '../../../model/data-model';
+import { SVC_STATES, PATTERNS, IS_ENABLE, EVENT_LEVELS, SVC_TYPE, SGM_ESB_PROTOCOLS, SVC_CATEGORY } from '../../../model/data-model';
 import { CommonService } from '../../../services/common/CommonService';
 import { EsbConfigsService } from '../../../services/EsbConfigsService';
 import { SysContactsService } from '../../../services/SysContactsService';
@@ -17,8 +17,10 @@ export class ServiceConfigFormDialogComponent extends DialogComponent {
 
   private persons: any;
   private svcNoCache: any = {
-    service: '',
-    interface: ''
+    S: '',
+    I: '',
+    D: '',
+    C: ''
   };
   private sysCache: any = {
     dest: '',
@@ -26,21 +28,21 @@ export class ServiceConfigFormDialogComponent extends DialogComponent {
   };
   private sysList: Array<any> = [];
   private serviceConfigForm = this.serviceConfigFormBuilder.group({
-    isSvc: false,
-    svc_no: '',
+    svc_category: ['I', Validators.required],
+    svc_no: ['', Validators.required],
     svc_name: '',
     svc_id: '',
     project_name: ['', Validators.required],
     svc_state: ['1', Validators.required],
     svc_type: ['C', Validators.required],
     svc_desc: '',
-    dest_protocol: ['', Validators.required],
+    dest_protocol: ['REST', Validators.required],
     dest_sys: ['', Validators.required],
     // dest_sys_fullname: '',
-    src_protocol: ['', Validators.required],
+    src_protocol: ['REST', Validators.required],
     src_sys: ['', Validators.required],
     // src_sys_fullname: '',
-    inner_code: ['', Validators.required],
+    // inner_code: ['', Validators.required],
     pattern: ['', Validators.required],
     log1: ['1', Validators.required],
     log2: ['1', Validators.required],
@@ -54,6 +56,8 @@ export class ServiceConfigFormDialogComponent extends DialogComponent {
   private isEnable = IS_ENABLE;
   private event_levels = EVENT_LEVELS;
   private svc_types = SVC_TYPE;
+  private protocols = SGM_ESB_PROTOCOLS;
+  private svc_category = SVC_CATEGORY;
   private callback: any;
   constructor(
     protected layerRef: NgLayerRef,
@@ -75,9 +79,15 @@ export class ServiceConfigFormDialogComponent extends DialogComponent {
       if (this.persons) {
         this.serviceConfigForm.patchValue(this.persons);
         if (startsWith(this.persons['svc_no'], 'S')) {
-          this.svcNoCache.service = this.persons['svc_no'];
-          this.serviceConfigForm.patchValue({ isSvc: true });
-        } else if (startsWith(this.persons['svc_no'], 'I')) this.svcNoCache.interface = this.persons['svc_no'];
+          this.svcNoCache['S'] = this.persons['svc_no'];
+          this.serviceConfigForm.patchValue({ svc_category: 'S' });
+        } else if (startsWith(this.persons['svc_no'], 'C')) {
+          this.svcNoCache['C'] = this.persons['svc_no'];
+          this.serviceConfigForm.patchValue({ svc_category: 'C' });
+        } else if (startsWith(this.persons['svc_no'], 'D')) {
+          this.svcNoCache['D'] = this.persons['svc_no'];
+          this.serviceConfigForm.patchValue({ svc_category: 'D' });
+        } else if (startsWith(this.persons['svc_no'], 'I')) this.svcNoCache['I'] = this.persons['svc_no'];
       }
     });
     this.setSysList();
@@ -103,26 +113,57 @@ export class ServiceConfigFormDialogComponent extends DialogComponent {
   }
 
   private setServiceName(): void {
-    this.serviceConfigForm.patchValue({ svc_name: (this.serviceConfigForm.value['svc_no'] || '') + '_' + (this.serviceConfigForm.value['project_name'] || '') });
+    if (!this.serviceConfigForm.value['svc_no'] && !this.serviceConfigForm.value['project_name']) this.serviceConfigForm.patchValue({ svc_name: '' });
+    else this.serviceConfigForm.patchValue({ svc_name: (this.serviceConfigForm.value['svc_no'] || '') + '_' + (this.serviceConfigForm.value['project_name'] || '') });
   }
 
   private setSvcNo(): void {
-    const key = this.serviceConfigForm.value['isSvc'];
-    if (key) {
-      if (!!this.svcNoCache.service) {
-        this.serviceConfigForm.patchValue({ svc_no: this.svcNoCache.service });
-        this.setServiceName();
-      } else {
-        // ...
-      }
-    } else {
-      if (!!this.svcNoCache.interface) {
-        this.serviceConfigForm.patchValue({ svc_no: this.svcNoCache.interface });
-        this.setServiceName();
-      }else {
-        // ...
-      }
+    const key = this.serviceConfigForm.value['svc_category'];
+    switch (key) {
+      case 'I':
+        if (!!this.svcNoCache['I']) {
+          this.serviceConfigForm.patchValue({ svc_no: this.svcNoCache['I'] });
+          this.setServiceName();
+        } else {
+          this.retrieveSvcNo('I');
+        }
+        break;
+      case 'S':
+        if (!!this.svcNoCache['S']) {
+          this.serviceConfigForm.patchValue({ svc_no: this.svcNoCache['S'] });
+          this.setServiceName();
+        } else {
+          this.retrieveSvcNo('S');
+        }
+        break;
+      case 'C':
+        if (!!this.svcNoCache['C']) {
+          this.serviceConfigForm.patchValue({ svc_no: this.svcNoCache['C'] });
+          this.setServiceName();
+        } else {
+          this.retrieveSvcNo('C');
+        }
+        break;
+      case 'D':
+        if (!!this.svcNoCache['D']) {
+          this.serviceConfigForm.patchValue({ svc_no: this.svcNoCache['D'] });
+          this.setServiceName();
+        } else {
+          this.retrieveSvcNo('D');
+        }
+        break;
     }
+  }
+
+  private retrieveSvcNo(type: string): void {
+    let obj = this;
+    this.configSvc.retrieveSvcNewNo(type).subscribe(
+      success => {
+        obj.serviceConfigForm.patchValue({ svc_no: obj.svcNoCache[type] = success.body['svcno'] || '' });
+        obj.setServiceName();
+      },
+      error => window['esbLayer']({ type: 'error', message: error })
+    );
   }
 
   private setSysList(): void {
@@ -139,6 +180,7 @@ export class ServiceConfigFormDialogComponent extends DialogComponent {
         // });
         obj.sysCache.dest = obj.getDestSysName;
         obj.sysCache.src = obj.getSrcSysName;
+        obj.setSvcNo();
       }
     );
   }

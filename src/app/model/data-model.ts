@@ -14,6 +14,8 @@ export let SGM_ESBMON_ERRLEVEL = [];
 
 export let SGM_ESB_TRANCODE = [];
 
+export let SGM_ESB_PROTOCOLS = [];
+
 export let keylistLoaded = false;
 
 export const SVC_STATES = [
@@ -198,10 +200,30 @@ export const SVC_TYPE = [
     }
 ];
 
+
+export const SVC_CATEGORY = [
+    {
+        id: 'I',
+        value: '接口'
+    },
+    {
+        id: 'S',
+        value: '服务'
+    },
+    {
+        id: 'C',
+        value: '内部服务'
+    },
+    {
+        id: 'D',
+        value: '测试服务'
+    }
+];
+
 export const RES_TYPES = {
-  error: 'servicedetail',
-  tran: 'transactiondetail',
-  errorovw: 'errormonitor'
+    error: 'servicedetail',
+    tran: 'transactiondetail',
+    errorovw: 'errormonitor'
 };
 
 @Injectable()
@@ -243,6 +265,11 @@ export class DataModelService {
                 });
             else if (e.viewtable == "SGM_ESB_TRANCODE")
                 SGM_ESB_TRANCODE.push({
+                    id: e.v_code,
+                    value: e.v_desc
+                });
+            else if (e.viewtable == "SGM_ESB_PROTOCOLS")
+                SGM_ESB_PROTOCOLS.push({
                     id: e.v_code,
                     value: e.v_desc
                 });

@@ -1,37 +1,58 @@
 <div class="popover_content">
     <form [formGroup]="serviceConfigForm" novalidate>
         <ul>
-            <li>
-                <div class="left_det" style="width: 10%;">
-                    <p>是否为服务:</p>
+            <li [hidden]="persons">
+                <div class="left_det">
+                    <p>服务类别:</p>
                 </div>
-                <div class="right_det" style="width: 4%;line-height: 35px;">
-                    <input class="form-control" style="height: 15px;width: 15px;display: inline-block;margin:0;" type="checkbox" formControlName="isSvc" (change)="setSvcNo()">
-                </div>
-                <div class="left_det" style="width: 10%;">
-                    <p>服务代码:</p>
-                </div>
-                <div class="right_det" style="width: 18%;">
-                    <input class="form-control" style="width: 180px;" type="text" formControlName="svc_no" (change)="setServiceName()" disabled>
-                </div>
-                <div class="left_det" style="width: 10%;">
-                    <p>项目名称:</p>
-                </div>
-                <div class="right_det required-field-block" style="width: 18%;">
-                    <input class="form-control" style="width: 180px;" type="text" [ngStyle]="{border: serviceConfigForm.get('project_name').errors && (serviceConfigForm.get('project_name').dirty || serviceConfigForm.get('project_name').touched) ? '2px solid red' : '1px solid #999'}"
-                        formControlName="project_name" (change)="setServiceName()">
-                    <div *ngIf="serviceConfigForm.get('project_name').errors && (serviceConfigForm.get('project_name').dirty || serviceConfigForm.get('project_name').touched)">
-                        <p [hidden]="!serviceConfigForm.get('project_name').errors.required" class="invalid_field">项目名称不能为空</p>
+                <div class="right_det required-field-block">
+                    <select class="form-control" formControlName="svc_category" [ngStyle]="{border: serviceConfigForm.get('svc_category').errors && (serviceConfigForm.get('svc_category').dirty || serviceConfigForm.get('svc_category').touched) ? '2px solid red' : '1px solid #999'}"
+                        (change)="setSvcNo()">
+						<option value=''>请选择</option>
+          				<option *ngFor="let category of svc_category" [value]="category.id">{{category.value}}</option>
+                    </select>
+                    <div *ngIf="serviceConfigForm.get('svc_category').errors && (serviceConfigForm.get('svc_category').dirty || serviceConfigForm.get('svc_category').touched)">
+                        <p [hidden]="!serviceConfigForm.get('svc_category').errors.required" class="invalid_field">服务类别不能为空</p>
                     </div>
-                    <div class="required-icon" style="right: 9px;">
+                    <div class="required-icon">
                         <div class="text">*</div>
                     </div>
                 </div>
-                <div class="left_det" style="width: 10%;">
+                <!-- <input class="form-control" style="height: 15px;width: 15px;display: inline-block;margin:0;" type="checkbox" formControlName="svc_category" (change)="setSvcNo()"> -->
+            </li>
+            <li>
+                <div class="left_det">
+                    <p>服务编号:</p>
+                </div>
+                <div class="right_det required-field-block">
+                    <input class="form-control" type="text" formControlName="svc_no" (change)="setServiceName()" disabled>
+                    <!-- <input class="form-control" type="text" [ngStyle]="{border: serviceConfigForm.get('svc_no').errors && (serviceConfigForm.get('svc_no').dirty || serviceConfigForm.get('svc_no').touched) ? '2px solid red' : '1px solid #999'}" formControlName="svc_no" (change)="setServiceName()"
+                        disabled>
+                    <div *ngIf="serviceConfigForm.get('svc_no').errors && (serviceConfigForm.get('svc_no').dirty || serviceConfigForm.get('svc_no').touched)">
+                        <p [hidden]="!serviceConfigForm.get('svc_no').errors.required" class="invalid_field">服务编号不能为空</p>
+                    </div>
+                    <div class="required-icon">
+                        <div class="text">*</div>
+                    </div> -->
+                </div>
+                <div class="left_det">
+                    <p>项目名称:</p>
+                </div>
+                <div class="right_det required-field-block">
+                    <input class="form-control" type="text" [ngStyle]="{border: serviceConfigForm.get('project_name').errors && (serviceConfigForm.get('project_name').dirty || serviceConfigForm.get('project_name').touched) ? '2px solid red' : '1px solid #999'}" formControlName="project_name"
+                        (change)="setServiceName()">
+                    <div *ngIf="serviceConfigForm.get('project_name').errors && (serviceConfigForm.get('project_name').dirty || serviceConfigForm.get('project_name').touched)">
+                        <p [hidden]="!serviceConfigForm.get('project_name').errors.required" class="invalid_field">项目名称不能为空</p>
+                    </div>
+                    <div class="required-icon">
+                        <div class="text">*</div>
+                    </div>
+                </div>
+                <div class="left_det">
                     <p>服务名:</p>
                 </div>
-                <div class="right_det" style="width: 18%;">
-                    <input class="form-control" style="width: 180px;" type="text" formControlName="svc_name" disabled>
+                <div class="right_det">
+                    <input class="form-control" type="text" formControlName="svc_name" disabled>
                 </div>
             </li>
             <li>
@@ -79,7 +100,10 @@
                     <p>目标协议:</p>
                 </div>
                 <div class="right_det required-field-block">
-                    <input class="form-control" type="text" formControlName="dest_protocol" [ngStyle]="{border: serviceConfigForm.get('dest_protocol').errors && (serviceConfigForm.get('dest_protocol').dirty || serviceConfigForm.get('dest_protocol').touched) ? '2px solid red' : '1px solid #999'}">
+                    <select class="form-control" formControlName="dest_protocol" [ngStyle]="{border: serviceConfigForm.get('dest_protocol').errors && (serviceConfigForm.get('dest_protocol').dirty || serviceConfigForm.get('dest_protocol').touched) ? '2px solid red' : '1px solid #999'}">
+						<option value=''>请选择</option>
+          				<option *ngFor="let protocol of protocols" [value]="protocol.id">{{protocol.value}}</option>
+                      </select>
                     <div *ngIf="serviceConfigForm.get('dest_protocol').errors && (serviceConfigForm.get('dest_protocol').dirty || serviceConfigForm.get('dest_protocol').touched)">
                         <p [hidden]="!serviceConfigForm.get('dest_protocol').errors.required" class="invalid_field">目标协议不能为空</p>
                     </div>
@@ -106,7 +130,10 @@
                     <p>源协议:</p>
                 </div>
                 <div class="right_det required-field-block">
-                    <input class="form-control" type="text" formControlName="src_protocol" [ngStyle]="{border: serviceConfigForm.get('src_protocol').errors && (serviceConfigForm.get('src_protocol').dirty || serviceConfigForm.get('src_protocol').touched) ? '2px solid red' : '1px solid #999'}">
+                    <select class="form-control" formControlName="src_protocol" [ngStyle]="{border: serviceConfigForm.get('src_protocol').errors && (serviceConfigForm.get('src_protocol').dirty || serviceConfigForm.get('src_protocol').touched) ? '2px solid red' : '1px solid #999'}">
+						<option value=''>请选择</option>
+          				<option *ngFor="let protocol of protocols" [value]="protocol.id">{{protocol.value}}</option>
+                      </select>
                     <div *ngIf="serviceConfigForm.get('src_protocol').errors && (serviceConfigForm.get('src_protocol').dirty || serviceConfigForm.get('src_protocol').touched)">
                         <p [hidden]="!serviceConfigForm.get('src_protocol').errors.required" class="invalid_field">源协议不能为空</p>
                     </div>
@@ -129,7 +156,7 @@
                 </div>
             </li>
             <li>
-                <div class="left_det">
+                <!-- <div class="left_det">
                     <p>内部编号:</p>
                 </div>
                 <div class="right_det required-field-block">
@@ -140,7 +167,7 @@
                     <div class="required-icon">
                         <div class="text">*</div>
                     </div>
-                </div>
+                </div> -->
                 <div class="left_det">
                     <p>服务模式:</p>
                 </div>
@@ -171,8 +198,6 @@
                         <div class="text">*</div>
                     </div>
                 </div>
-            </li>
-            <li>
                 <div class="left_det">
                     <p>日志2:</p>
                 </div>
@@ -188,6 +213,8 @@
                         <div class="text">*</div>
                     </div>
                 </div>
+            </li>
+            <li>
                 <div class="left_det">
                     <p>日志3:</p>
                 </div>
@@ -218,8 +245,6 @@
                         <div class="text">*</div>
                     </div>
                 </div>
-            </li>
-            <li>
                 <div class="left_det">
                     <p>ESB标识:</p>
                 </div>
@@ -232,6 +257,8 @@
                         <div class="text">*</div>
                     </div>
                 </div>
+            </li>
+            <li>
                 <div class="left_det">
                     <p>日志级别:</p>
                 </div>

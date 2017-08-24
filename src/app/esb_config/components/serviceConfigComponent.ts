@@ -124,7 +124,7 @@ export class serviceConfigComponent {
     let obj = this;
     let confirmLayer = window['esbLayer']({ type: 'confirm', message: "是否确认删除？" }).ok(
       () => {
-        obj.configSvc.deleteEsbConfig(row.uuid).subscribe(
+        obj.configSvc.deleteEsbConfig(row.svc_no).subscribe(
           success => {
             window['esbLayer']({ type: 'alert', message: "删除成功！" });
             obj.refreshData(obj.svc_no);

@@ -24,73 +24,36 @@ export class mdmConfigComponent {
   private tableConfig: any = {
     columns: [
       {
-        id: 'uuid',
-        header: "ID",
+        id: 'usr_svcno',
+        header: "下发服务编号",
         type: 'text'
       },
       {
-        id: 'mdm_topic',
-        header: "主题",
+        id: 'user_svcname',
+        header: "下发服务名称",
         type: 'text'
       },
       {
-        id: 'consumer',
-        header: "消费者",
+        id: 'endpoint_cnt',
+        header: "端点数",
         type: 'text'
       },
       {
-        id: 'consumer_uri',
-        header: "URL",
-        type: 'text',
-        displayField: "name"
-      },
-      {
-        id: 'auth_type',
-        header: "服务类型",
-        type: 'mapping',
-        // inputType: 'select',
-        options: 'AUTH_TYPES',
-        width: '220'
-      },
-      {
-        id: 'is_enabled',
-        header: "服务状态",
-        type: 'mapping',
-        // inputType: 'select',
-        options: 'SVC_STATES',
-        width: '70'
-      },
-      {
-        id: 'svc_version',
-        header: "订阅版本",
+        id: 'memo',
+        header: "备注",
         type: 'text'
-        // inputType: 'text'
       },
       {
-        header: "修改",
+        header: "配置详细信息",
         type: 'template',
-        width: '50',
+        width: '100',
         template: {
           type: "html",
           tempBuilder: function (row, headers) {
-            return "<i class='business_edits_icon'></i>"
+            return "<i class='consumers_edits_icon'></i>"
           },
           on: {
-            click: this.business_edit.bind(this)
-          }
-        }
-      },
-      {
-        header: "删除",
-        type: 'template',
-        width: '50',
-        template: {
-          type: "html",
-          tempBuilder: function (row, headers) {
-            return "<i class='delete_icon'></i>"
-          },
-          on: {
-            click: this.business_delete.bind(this)
+            click: this.openCustomersWin.bind(this)
           }
         }
       }
@@ -104,70 +67,40 @@ export class mdmConfigComponent {
   //   this.refreshData(this.uuid);
   // }
 
-  private business_add(): void {
+  private openCustomersWin(row: any): void {
     let obj = this;
     let data = {
-      callback: () => {
-        obj.refreshData(obj.uuid);
-      }
+      usr_svcno: row.usr_svcno
     };
     let dialog = window['esbLayer']({
       type: 'dialog',
       data: data,
       dialogComponent: MdmConfigFormDialogComponent,
-      title: '新增MDM下发服务消费者配置'
+      title: '修改发布服务详细配置'
     });
   }
 
-  private business_edit(row: any): void {
+  private refreshData(): void {
     let obj = this;
-    let data = {
-      persons: row,
-      callback: () => {
-        obj.refreshData(obj.uuid);
-      }
-    };
-    let dialog = window['esbLayer']({
-      type: 'dialog',
-      data: data,
-      dialogComponent: MdmConfigFormDialogComponent,
-      title: '修改MDM下发服务消费者配置'
-    });
-  }
-
-  private business_delete(row: any): void {
-    let obj = this;
-    let confirmLayer = window['esbLayer']({ type: 'confirm', message: "是否确认删除？" }).ok(
-      () => {
-        obj.mdmSvc.deleteMdmConsumer(row.uuid).subscribe(
-          success => {
-            window['esbLayer']({ type: 'alert', message: "删除成功！" });
-            obj.refreshData(obj.uuid);
-          },
-          error => window['esbLayer']({ type: 'error', message: error })
-        );
-        confirmLayer.close();
-      }
+    this.mdmSvc.queryPublishServices().subscribe(
+      success => {
+        obj.persons = success.body || [];
+      },
+      error => window['esbLayer']({ type: 'error', message: error })
+      // error => {
+      //   obj.persons = [{
+      //     "usr_svcno": "S018_FOL",
+      //     "user_svcname": "S018_DMAP_DealerAcc_PubService_FOL",
+      //     "endpoint_cnt": 5,
+      //     "memo": "FOL DealerAcc"
+      //   }, {
+      //     "usr_svcno": "S017_FOL",
+      //     "user_svcname": "S017_DMES_DealerMasterData_FOL",
+      //     "endpoint_cnt": 5,
+      //     "memo": "FOL DealerMaster"
+      //   }]
+      // }
     );
-  }
-
-  private refreshData(uuid?: string): void {
-    let obj = this;
-    if (uuid) {
-      this.mdmSvc.queryMdmConsumer(uuid).subscribe(
-        success => {
-          obj.persons = [success.body];
-        },
-        error => window['esbLayer']({ type: 'error', message: error })
-      );
-    } else {
-      this.mdmSvc.queryMdmConsumersList().subscribe(
-        success => {
-          obj.persons = success.body || [];
-        },
-        error => window['esbLayer']({ type: 'error', message: error })
-      );
-    }
   }
 
   ngOnInit() {

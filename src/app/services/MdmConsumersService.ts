@@ -6,8 +6,8 @@ import { AppRequestService } from './common/AppRequestService';
 @Injectable()
 export class MdmConsumersService {
     constructor(private appRequest: AppRequestService){}
-    queryMdmConsumersList(): Observable<any>{
-        return this.appRequest.queryMdmconsumers();
+    queryMdmConsumersList(usr_svcno?: string): Observable<any>{
+        return this.appRequest.queryMdmconsumers(usr_svcno);
     }
 
     queryMdmConsumer(uuid: string): Observable<any>{
@@ -36,5 +36,9 @@ export class MdmConsumersService {
 
     updateSvcListConfig(svc_no: string, param: any): Observable<any>{
         return this.appRequest.updateSvcListConfig(svc_no, param);
+    }
+
+    queryPublishServices(params?: any): Observable<any>{
+        return this.appRequest.queryPublishServicesList(params);
     }
 }

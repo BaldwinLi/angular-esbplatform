@@ -53,55 +53,82 @@ export class servicesListComponent {
 
   private openResentHistory(): void {
     let obj = this;
-    let dataObject = {
-      columns: [
-        {
-          id: 'err_id',
-          header: "错误ID",
-          type: 'text',
-          width: '60'
-        },
-        {
-          id: 'service_name',
-          header: "服务名",
-          type: 'text',
-          width: '400'
-        },
-        {
-          id: 'err_type_code',
-          header: "故障类别",
-          type: 'text',
-          width: '100'
-        },
-        {
-          id: 'err_msg',
-          header: "故障信息",
-          type: 'text',
-          width: '100'
-        },
-        {
-          id: "err_status",
-          header: "错误状态",
-          type: 'mapping',
-          options: 'SGM_ESBMON_ERRSTATUS',
-          width: '80'
-        },
-        {
-          id: "err_level",
-          header: "故障严重性",
-          type: 'mapping',
-          options: 'EVENT_LEVELS',
-          width: '110'
-        }
-      ],
-      data: []
-    }
-    let dialog = window['esbLayer']({
-      type: 'dialog',
-      data: dataObject,
-      dialogComponent: ArrListDialogComponent,
-      title: '重发历史记录列表'
-    });
+    let dataColumns = [
+      {
+        id: 'sessionUUID',
+        header: "session",
+        type: 'text'
+      },
+      {
+        id: 'tranuuid',
+        header: "交易UUID",
+        type: 'text'
+      },
+      {
+        id: 'loguuid',
+        header: "日志UUID",
+        type: 'text'
+      },
+      {
+        id: 'replay_result',
+        header: "重发结果",
+        type: 'text',
+        width: 100
+      },
+      {
+        id: 'replay_ts',
+        header: "重发时间",
+        type: 'date',
+        format: 'toTime',
+        width: 140
+      },
+      {
+        id: "error_log_id",
+        header: "错误ID",
+        type: 'text',
+        width: 60
+      },
+      {
+        id: "r1_entry",
+        header: "重发入口",
+        type: 'text'
+      },
+      {
+        id: "r1_type",
+        header: "重发类型",
+        type: 'text',
+        width: 60
+      }
+    ];
+    this.resendSvc.queryResendSessionHistory().subscribe(
+      success => {
+        let replayInfoList = [];
+        success.body && success.body.forEach(v => {
+          v.replayInfoList && v.replayInfoList.length > 0 && v.replayInfoList.forEach(val => {
+            replayInfoList.push({
+              sessionUUID: v.sessionUUID,
+              replay_ts: v.replay_ts,
+              tranuuid: val.tranuuid,
+              loguuid: val.loguuid,
+              r1_entry: val.r1_entry,
+              r1_type: val.r1_type,
+              replay_result: val.replay_result,
+              error_log_id: val.error_log_id,
+            });
+          });
+        });
+        let dialog = window['esbLayer']({
+          type: 'dialog',
+          data: {
+            columns: dataColumns,
+            data: replayInfoList,
+          },
+          dialogComponent: ArrListDialogComponent,
+          title: '当前服务重发历史记录列表'
+        });
+      },
+      error => window['esbLayer']({ type: 'error', message: error })
+    );
   }
 
   private resend(): void {

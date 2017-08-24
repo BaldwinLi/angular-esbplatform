@@ -13,4 +13,8 @@ export class TranResendService {
     resend(trans: Array<any>, type?: string): Observable<any>{
         return this.appRequest.resendTranlog(trans, type);
     }
+
+    queryResendSessionHistory(svc_no?: string): Observable<any>{
+        return this.appRequest.querySession(svc_no);
+    }
 }

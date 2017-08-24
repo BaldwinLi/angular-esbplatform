@@ -60,6 +60,10 @@ export class AppRequestService {
         );
     }
 
+    querySession(svc_no?: string, params?: any): Observable<any> {
+        return this.httpService.getRequestObservable(`${appContextPath}sessions${svc_no?('/'+svc_no):''}`, "get", params || {}, userInfoHeader());
+    }
+
     userLogin(params?: any): Observable<any> {
         return this.httpService.getRequestObservable(`${appContextPath}users_login`, "get", params || {}, userInfoHeader());
     }
@@ -116,9 +120,13 @@ export class AppRequestService {
         return this.httpService.getRequestObservable(`${appContextPath}esbconfigs/${svc_no}`, "delete", params || {});
     }
 
-    queryMdmconsumers(uuid?: string, params?: any): Observable<any> {
-        return this.httpService.getRequestObservable(uuid ? `${appContextPath}mdm_consumers/${uuid}` : `${appContextPath}mdm_consumers`, "get", params || {});
+    queryMdmconsumers(usr_svcno?: string, params?: any): Observable<any> {
+        return this.httpService.getRequestObservable(usr_svcno ? `${appContextPath}mdm_consumers/${usr_svcno}` : `${appContextPath}mdm_consumers`, "get", params || {});
     }
+
+    queryPublishServicesList(params?: any): Observable<any> {
+        return this.httpService.getRequestObservable(`${appContextPath}pubservice_list`, "get", params || {});
+    } 
 
     createMdmconsumers(params?: any): Observable<any> {
         return this.httpService.getRequestObservable(`${appContextPath}mdm_consumers`, "post", params || {});
@@ -336,5 +344,9 @@ export class AppRequestService {
 
     updateSvcListConfig(svc_no: string, params: any): Observable<any> {
         return this.httpService.getRequestObservable(`${appContextPath}svclistconfig/${svc_no}`, "post", params || {});
+    }
+
+    retrieveSvcNewNo(type: string): Observable<any> {
+        return this.httpService.getRequestObservable(`${appContextPath}svcgen/${type}`, "get");
     }
 }

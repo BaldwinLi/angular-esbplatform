@@ -132,7 +132,7 @@ export class SubscribeConfigDialogComponent extends DialogComponent {
                     sys_no: v.subsys_no,
                     sys_name: v.subsys_name,
                     full_name: v.subsys_fullname,
-                    memo: v.subsys_memo
+                    memo: v.usr_svcmemo
                 })) || []
             },
             error => window['esbLayer']({ type: 'error', message: error })
@@ -145,8 +145,8 @@ export class SubscribeConfigDialogComponent extends DialogComponent {
             usr_svcno: `${this.persons.svc_no}_${v.sys_name}`,
             usr_svcname: `${this.persons.svc_name}_${v.sys_name}`,
             svcno: this.persons.svc_no,
-            subsys: v.sys_name,
-            memo: v.memo
+            subsys_name: v.sys_name,
+            usr_svcmemo: v.memo
         }))).subscribe(
             success => {
                 window['esbLayer']({ type: 'alert', message: '操作成功！' })

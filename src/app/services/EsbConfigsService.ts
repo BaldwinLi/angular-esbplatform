@@ -25,4 +25,8 @@ export class EsbConfigsService {
     deleteEsbConfig(svc_no: string): Observable<any>{
         return this.appRequest.deleteEsbconfigs(svc_no);
     }
+
+    retrieveSvcNewNo(type: string): Observable<any>{
+        return this.appRequest.retrieveSvcNewNo(type);
+    }
 }

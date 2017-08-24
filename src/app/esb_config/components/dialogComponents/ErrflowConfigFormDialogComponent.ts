@@ -122,6 +122,10 @@ export class ErrflowConfigFormDialogComponent extends DialogComponent {
     }
 
     private add_step(): void {
+        if(this.errorflows.length>0 && this.errorflows[this.errorflows.length-1].err_step_name == '结束'){
+            window['esbLayer']({ type: 'alert', message: "\"结束\"步骤节点无法添加步骤节点。" });
+            return;
+        } 
         let obj = this;
         let data = {
             callback: (e, type) => {
