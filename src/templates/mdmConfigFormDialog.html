@@ -12,24 +12,25 @@
                             <input type="text" class="form-control" value="" formControlName="uuid">
                         </div> -->
                         <div class="left_det">
-                            <p>主题:</p>
+                            <p>消费者:</p>
                         </div>
-                        <div class="right_det required-field-block">
-                            <input type="text" class="form-control" formControlName="mdm_topic" [ngStyle]="{border: mdmConfigForm.get('mdm_topic').errors && (mdmConfigForm.get('mdm_topic').dirty || mdmConfigForm.get('mdm_topic').touched) ? '2px solid red' : '1px solid #999'}">
-                            <div *ngIf="mdmConfigForm.get('mdm_topic').errors && (mdmConfigForm.get('mdm_topic').dirty || mdmConfigForm.get('mdm_topic').touched)">
-                                <p [hidden]="!mdmConfigForm.get('mdm_topic').errors.required" class="invalid_field">主题不能为空</p>
+                        <div class="right_det">
+                            <input type="text" class="form-control" formControlName="consumer" disabled>
+                            <!-- <div *ngIf="mdmConfigForm.get( 'consumer').errors && (mdmConfigForm.get( 'consumer').dirty || mdmConfigForm.get( 'consumer').touched)">
+                                <p [hidden]="!mdmConfigForm.get( 'consumer').errors.required" class="invalid_field">消费者不能为空</p>
                             </div>
                             <div class="required-icon">
                                 <div class="text">*</div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="left_det">
-                            <p>消费者:</p>
+                            <p>主题:</p>
                         </div>
                         <div class="right_det required-field-block">
-                            <input type="text" class="form-control" formControlName="consumer" [ngStyle]="{border: mdmConfigForm.get('consumer').errors && (mdmConfigForm.get('consumer').dirty || mdmConfigForm.get('consumer').touched) ? '2px solid red' : '1px solid #999'}">
-                            <div *ngIf="mdmConfigForm.get('consumer').errors && (mdmConfigForm.get('consumer').dirty || mdmConfigForm.get('consumer').touched)">
-                                <p [hidden]="!mdmConfigForm.get('consumer').errors.required" class="invalid_field">消费者不能为空</p>
+                            <input type="text" class="form-control" formControlName="mdm_topic" [ngStyle]="{border: mdmConfigForm.get( 'mdm_topic').errors && (mdmConfigForm.get( 'mdm_topic').dirty || mdmConfigForm.get( 'mdm_topic').touched) ?
+                                '2px solid red' : '1px solid #999'}">
+                            <div *ngIf="mdmConfigForm.get( 'mdm_topic').errors && (mdmConfigForm.get( 'mdm_topic').dirty || mdmConfigForm.get( 'mdm_topic').touched)">
+                                <p [hidden]="!mdmConfigForm.get( 'mdm_topic').errors.required" class="invalid_field">主题不能为空</p>
                             </div>
                             <div class="required-icon">
                                 <div class="text">*</div>
@@ -39,24 +40,27 @@
                             <p>服务类型:</p>
                         </div>
                         <div class="right_det required-field-block">
-                            <input class="form-control" formControlName="svc_type" type="text" [ngStyle]="{border: mdmConfigForm.get('svc_type').errors && (mdmConfigForm.get('svc_type').dirty || mdmConfigForm.get('svc_type').touched) ? '2px solid red' : '1px solid #999'}">
-                            <div *ngIf="mdmConfigForm.get('svc_type').errors && (mdmConfigForm.get('svc_type').dirty || mdmConfigForm.get('svc_type').touched)">
-                                <p [hidden]="!mdmConfigForm.get('svc_type').errors.required" class="invalid_field">服务类型不能为空</p>
+                            <input class="form-control" formControlName="svc_type" type="text" [ngStyle]="{border: mdmConfigForm.get( 'svc_type').errors && (mdmConfigForm.get( 'svc_type').dirty || mdmConfigForm.get( 'svc_type').touched) ?
+                                '2px solid red' : '1px solid #999'}">
+                            <div *ngIf="mdmConfigForm.get( 'svc_type').errors && (mdmConfigForm.get( 'svc_type').dirty || mdmConfigForm.get( 'svc_type').touched)">
+                                <p [hidden]="!mdmConfigForm.get( 'svc_type').errors.required" class="invalid_field">服务类型不能为空</p>
                             </div>
                             <div class="required-icon">
                                 <div class="text">*</div>
                             </div>
                         </div>
                         <div class="left_det">
-                            <p>服务状态:</p>
+                            <p>服务状态码:</p>
                         </div>
                         <div class="right_det required-field-block">
-                            <select class="form-control" formControlName="is_enabled" [ngStyle]="{border: mdmConfigForm.get('is_enabled').errors && (mdmConfigForm.get('is_enabled').dirty || mdmConfigForm.get('is_enabled').touched) ? '2px solid red' : '1px solid #999'}">
+                            <input class="form-control" formControlName="is_enabled" type="text" [ngStyle]="{border: mdmConfigForm.get( 'is_enabled').errors && (mdmConfigForm.get( 'is_enabled').dirty || mdmConfigForm.get( 'is_enabled').touched) ?
+                                '2px solid red' : '1px solid #999'}">
+                            <!-- <select class="form-control" formControlName="is_enabled">                            
                                 <option value=''>请选择</option>
-          			            <option *ngFor="let state of svc_states" [value]="state.id">{{state.value}}</option>
-                            </select>
-                            <div *ngIf="mdmConfigForm.get('is_enabled').errors && (mdmConfigForm.get('is_enabled').dirty || mdmConfigForm.get('is_enabled').touched)">
-                                <p [hidden]="!mdmConfigForm.get('is_enabled').errors.required" class="invalid_field">服务状态不能为空</p>
+                                <option *ngFor="let state of svc_states" [value]="state.id">{{state.value}}</option>
+                            </select> -->
+                            <div *ngIf="mdmConfigForm.get( 'is_enabled').errors && (mdmConfigForm.get( 'is_enabled').dirty || mdmConfigForm.get( 'is_enabled').touched)">
+                                <p [hidden]="!mdmConfigForm.get( 'is_enabled').errors.required" class="invalid_field">服务状态不能为空</p>
                             </div>
                             <div class="required-icon">
                                 <div class="text">*</div>
@@ -68,9 +72,10 @@
                             <p>订阅版本:</p>
                         </div>
                         <div class="right_det required-field-block">
-                            <input class="form-control" type="text" formControlName="svc_version" [ngStyle]="{border: mdmConfigForm.get('svc_version').errors && (mdmConfigForm.get('svc_version').dirty || mdmConfigForm.get('svc_version').touched) ? '2px solid red' : '1px solid #999'}">
-                            <div *ngIf="mdmConfigForm.get('svc_version').errors && (mdmConfigForm.get('svc_version').dirty || mdmConfigForm.get('svc_version').touched)">
-                                <p [hidden]="!mdmConfigForm.get('svc_version').errors.required" class="invalid_field">订阅版本不能为空</p>
+                            <input class="form-control" type="text" formControlName="svc_version" [ngStyle]="{border: mdmConfigForm.get( 'svc_version').errors && (mdmConfigForm.get( 'svc_version').dirty || mdmConfigForm.get( 'svc_version').touched)
+                                ? '2px solid red' : '1px solid #999'}">
+                            <div *ngIf="mdmConfigForm.get( 'svc_version').errors && (mdmConfigForm.get( 'svc_version').dirty || mdmConfigForm.get( 'svc_version').touched)">
+                                <p [hidden]="!mdmConfigForm.get( 'svc_version').errors.required" class="invalid_field">订阅版本不能为空</p>
                             </div>
                             <div class="required-icon">
                                 <div class="text">*</div>
@@ -80,12 +85,13 @@
                             <p>认证类型:</p>
                         </div>
                         <div class="right_det required-field-block">
-                            <select class="form-control" formControlName="auth_type" [ngStyle]="{border: mdmConfigForm.get('auth_type').errors && (mdmConfigForm.get('auth_type').dirty || mdmConfigForm.get('auth_type').touched) ? '2px solid red' : '1px solid #999'}">
+                            <select class="form-control" formControlName="auth_type" [ngStyle]="{border: mdmConfigForm.get( 'auth_type').errors && (mdmConfigForm.get( 'auth_type').dirty || mdmConfigForm.get( 'auth_type').touched) ? '2px solid red'
+                                : '1px solid #999'}">
                                 <option value=''>请选择</option>
           			            <option *ngFor="let type of auth_types" [value]="type.id">{{type.value}}</option>   
                             </select>
-                            <div *ngIf="mdmConfigForm.get('auth_type').errors && (mdmConfigForm.get('auth_type').dirty || mdmConfigForm.get('auth_type').touched)">
-                                <p [hidden]="!mdmConfigForm.get('auth_type').errors.required" class="invalid_field">订阅版本不能为空</p>
+                            <div *ngIf="mdmConfigForm.get( 'auth_type').errors && (mdmConfigForm.get( 'auth_type').dirty || mdmConfigForm.get( 'auth_type').touched)">
+                                <p [hidden]="!mdmConfigForm.get( 'auth_type').errors.required" class="invalid_field">订阅版本不能为空</p>
                             </div>
                             <div class="required-icon">
                                 <div class="text">*</div>
@@ -95,27 +101,30 @@
                             <p>{{mdmConfigForm.value.auth_type | lookup:'AUTH_TYPES'}}:</p>
                         </div>
                         <div class="right_det required-field-block" *ngIf="mdmConfigForm.value.auth_type=='1'">
-                            <input class="form-control" type="text" formControlName="http_basic" [required]="true" [ngStyle]="{border: mdmConfigForm.get('http_basic').errors && (mdmConfigForm.get('http_basic').dirty || mdmConfigForm.get('http_basic').touched) ? '2px solid red' : '1px solid #999'}">
-                            <div *ngIf="mdmConfigForm.get('http_basic').errors && (mdmConfigForm.get('http_basic').dirty || mdmConfigForm.get('http_basic').touched)">
-                                <p [hidden]="!mdmConfigForm.get('http_basic').errors.required" class="invalid_field">http_basic不能为空</p>
+                            <input class="form-control" type="text" formControlName="http_basic" [required]="true" [ngStyle]="{border: mdmConfigForm.get( 'http_basic').errors && (mdmConfigForm.get( 'http_basic').dirty || mdmConfigForm.get(
+                                'http_basic').touched) ? '2px solid red' : '1px solid #999'}">
+                            <div *ngIf="mdmConfigForm.get( 'http_basic').errors && (mdmConfigForm.get( 'http_basic').dirty || mdmConfigForm.get( 'http_basic').touched)">
+                                <p [hidden]="!mdmConfigForm.get( 'http_basic').errors.required" class="invalid_field">http_basic不能为空</p>
                             </div>
                             <div class="required-icon">
                                 <div class="text">*</div>
                             </div>
                         </div>
                         <div class="right_det required-field-block" *ngIf="mdmConfigForm.value.auth_type=='2'">
-                            <input class="form-control" type="text" formControlName="oauth_token" [required]="true" [ngStyle]="{border: mdmConfigForm.get('oauth_token').errors && (mdmConfigForm.get('oauth_token').dirty || mdmConfigForm.get('oauth_token').touched) ? '2px solid red' : '1px solid #999'}">
-                            <div *ngIf="mdmConfigForm.get('oauth_token').errors && (mdmConfigForm.get('oauth_token').dirty || mdmConfigForm.get('oauth_token').touched)">
-                                <p [hidden]="!mdmConfigForm.get('oauth_token').errors.required" class="invalid_field">oauth_token不能为空</p>
+                            <input class="form-control" type="text" formControlName="oauth_token" [required]="true" [ngStyle]="{border: mdmConfigForm.get( 'oauth_token').errors && (mdmConfigForm.get( 'oauth_token').dirty || mdmConfigForm.get(
+                                'oauth_token').touched) ? '2px solid red' : '1px solid #999'}">
+                            <div *ngIf="mdmConfigForm.get( 'oauth_token').errors && (mdmConfigForm.get( 'oauth_token').dirty || mdmConfigForm.get( 'oauth_token').touched)">
+                                <p [hidden]="!mdmConfigForm.get( 'oauth_token').errors.required" class="invalid_field">oauth_token不能为空</p>
                             </div>
                             <div class="required-icon">
                                 <div class="text">*</div>
                             </div>
                         </div>
                         <div class="right_det required-field-block" *ngIf="mdmConfigForm.value.auth_type=='3'">
-                            <input class="form-control" type="text" formControlName="user_agent" [required]="true" [ngStyle]="{border: mdmConfigForm.get('user_agent').errors && (mdmConfigForm.get('user_agent').dirty || mdmConfigForm.get('user_agent').touched) ? '2px solid red' : '1px solid #999'}">
-                            <div *ngIf="mdmConfigForm.get('user_agent').errors && (mdmConfigForm.get('user_agent').dirty || mdmConfigForm.get('user_agent').touched)">
-                                <p [hidden]="!mdmConfigForm.get('user_agent').errors.required" class="invalid_field">user_agent不能为空</p>
+                            <input class="form-control" type="text" formControlName="user_agent" [required]="true" [ngStyle]="{border: mdmConfigForm.get( 'user_agent').errors && (mdmConfigForm.get( 'user_agent').dirty || mdmConfigForm.get(
+                                'user_agent').touched) ? '2px solid red' : '1px solid #999'}">
+                            <div *ngIf="mdmConfigForm.get( 'user_agent').errors && (mdmConfigForm.get( 'user_agent').dirty || mdmConfigForm.get( 'user_agent').touched)">
+                                <p [hidden]="!mdmConfigForm.get( 'user_agent').errors.required" class="invalid_field">user_agent不能为空</p>
                             </div>
                             <div class="required-icon">
                                 <div class="text">*</div>
@@ -128,9 +137,10 @@
                             <p>消费者URL:</p>
                         </div>
                         <div class="right_det required-field-block" style="width: 88.8%;">
-                            <input class="form-control" type="text" formControlName="consumer_uri" [ngStyle]="{border: mdmConfigForm.get('consumer_uri').errors && (mdmConfigForm.get('consumer_uri').dirty || mdmConfigForm.get('consumer_uri').touched) ? '2px solid red' : '1px solid #999'}">
-                            <div *ngIf="mdmConfigForm.get('consumer_uri').errors && (mdmConfigForm.get('consumer_uri').dirty || mdmConfigForm.get('consumer_uri').touched)">
-                                <p [hidden]="!mdmConfigForm.get('consumer_uri').errors.required" class="invalid_field">消费者URL不能为空</p>
+                            <input class="form-control" type="text" formControlName="consumer_uri" [ngStyle]="{border: mdmConfigForm.get( 'consumer_uri').errors && (mdmConfigForm.get( 'consumer_uri').dirty || mdmConfigForm.get( 'consumer_uri').touched)
+                                ? '2px solid red' : '1px solid #999'}">
+                            <div *ngIf="mdmConfigForm.get( 'consumer_uri').errors && (mdmConfigForm.get( 'consumer_uri').dirty || mdmConfigForm.get( 'consumer_uri').touched)">
+                                <p [hidden]="!mdmConfigForm.get( 'consumer_uri').errors.required" class="invalid_field">消费者URL不能为空</p>
                             </div>
                             <div class="required-icon">
                                 <div class="text">*</div>

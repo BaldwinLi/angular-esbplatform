@@ -33,16 +33,17 @@ import {
 })
 export class MdmConfigFormDialogComponent extends DialogComponent {
 
-  private usr_svcno: string;
+  private consumerInfo: any;
   private persons: any = [];
   private svc_states = SVC_STATES;
   private auth_types = AUTH_TYPES;
   private mdmConfigForm = this.mdmConfigFormBuilder.group({
+    usr_svc_no: ['', Validators.required],
     uuid: '',
     mdm_topic: ['', Validators.required],
     consumer: ['', Validators.required],
     svc_type: ['', Validators.required],
-    is_enabled: ['1', Validators.required],
+    is_enabled: ['', Validators.required],
     svc_version: ['', Validators.required],
     auth_type: ['0', Validators.required],
     http_basic: '',
@@ -76,11 +77,17 @@ export class MdmConfigFormDialogComponent extends DialogComponent {
         id: 'consumer_uri',
         header: "URL",
         type: 'text',
-        displayField: "name"
+        width: 400
+        // displayField: "name"
+      },
+      {
+        id: 'svc_type',
+        header: "服务类型",
+        type: 'text'
       },
       {
         id: 'auth_type',
-        header: "服务类型",
+        header: "认证类型",
         type: 'mapping',
         // inputType: 'select',
         options: 'AUTH_TYPES',
@@ -88,10 +95,11 @@ export class MdmConfigFormDialogComponent extends DialogComponent {
       },
       {
         id: 'is_enabled',
-        header: "服务状态",
-        type: 'mapping',
+        header: "服务状态码",
+        type: 'text',
+        // type: 'mapping',
         // inputType: 'select',
-        options: 'SVC_STATES',
+        // options: 'SVC_STATES',
         width: '70'
       },
       {
@@ -149,14 +157,17 @@ export class MdmConfigFormDialogComponent extends DialogComponent {
 
   private showForm(row: any): void {
     this.formVisable = true;
-    if (!!row) this.mdmConfigForm.patchValue(row);
+    if (!!row) {
+      this.mdmConfigForm.patchValue(row);
+      this.mdmConfigForm.patchValue({ consumer: this.consumerInfo['sub_sys'] });
+    }
     else {
       this.mdmConfigForm.reset({
         uuid: '',
         mdm_topic: '',
-        consumer: '',
+        consumer: this.consumerInfo['sub_sys'],
         svc_type: '',
-        is_enabled: '1',
+        is_enabled: '',
         svc_version: '',
         auth_type: '0',
         http_basic: '',
@@ -189,9 +200,9 @@ export class MdmConfigFormDialogComponent extends DialogComponent {
 
   private refreshData(): void {
     let obj = this;
-    this.mdmSvc.queryMdmConsumersList(this.usr_svcno).subscribe(
+    this.mdmSvc.queryMdmConsumersList(this.consumerInfo['usr_svcno']).subscribe(
       success => {
-        obj.persons = success.body || [];
+        obj.persons = obj.tableConfig.data = success.body || [];
       },
       error => window['esbLayer']({ type: 'error', message: error })
     );
@@ -200,19 +211,22 @@ export class MdmConfigFormDialogComponent extends DialogComponent {
   ngOnInit() {
     let obj = this;
     setTimeout(() => {
-      if (obj.usr_svcno) {
-        obj.refreshData()
+      if (obj.consumerInfo['usr_svcno']) {
+        obj.mdmConfigForm.patchValue({ consumer: obj.consumerInfo['sub_sys'] })
+        obj.refreshData();
       }
     });
   }
 
   private mdm_consumers_post(): void {
-    if(this.cmm.isInvalidForm(this.mdmConfigForm)) return;
+    this.consumerInfo['usr_svcno'] && this.mdmConfigForm.patchValue({ usr_svc_no: this.consumerInfo['usr_svcno'] });
+    if (this.cmm.isInvalidForm(this.mdmConfigForm)) return;
     let obser;
     let obj = this;
     if (!!this.mdmConfigForm.value['uuid']) {
       obser = this.mdmSvc.updateMdmConsumer(this.mdmConfigForm.value);
     } else {
+      // this.mdmConfigForm.patchValue({uuid: this.consumerInfo['usr_svcno']+ '_' + Date.now().toString()});
       obser = this.mdmSvc.createMdmConsumer(this.mdmConfigForm.value);
     }
     obser.subscribe(

@@ -121,7 +121,7 @@ export class AppRequestService {
     }
 
     queryMdmconsumers(usr_svcno?: string, params?: any): Observable<any> {
-        return this.httpService.getRequestObservable(usr_svcno ? `${appContextPath}mdm_consumers/${usr_svcno}` : `${appContextPath}mdm_consumers`, "get", params || {});
+        return this.httpService.getRequestObservable(usr_svcno ? `${appContextPath}mdm_consumers/usr_svc_no/${usr_svcno}` : `${appContextPath}mdm_consumers`, "get", params || {});
     }
 
     queryPublishServicesList(params?: any): Observable<any> {

@@ -25,12 +25,18 @@ export class mdmConfigComponent {
     columns: [
       {
         id: 'usr_svcno',
-        header: "下发服务编号",
+        header: "发布服务编号",
         type: 'text'
       },
       {
         id: 'user_svcname',
-        header: "下发服务名称",
+        header: "发布服务名称",
+        type: 'text',
+        width: 400
+      },
+      {
+        id: 'sub_sys',
+        header: "消费者",
         type: 'text'
       },
       {
@@ -41,7 +47,8 @@ export class mdmConfigComponent {
       {
         id: 'memo',
         header: "备注",
-        type: 'text'
+        type: 'text',
+        width: 400
       },
       {
         header: "配置详细信息",
@@ -70,7 +77,7 @@ export class mdmConfigComponent {
   private openCustomersWin(row: any): void {
     let obj = this;
     let data = {
-      usr_svcno: row.usr_svcno
+      consumerInfo: row
     };
     let dialog = window['esbLayer']({
       type: 'dialog',

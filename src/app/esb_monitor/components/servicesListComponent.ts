@@ -100,7 +100,7 @@ export class servicesListComponent {
         width: 60
       }
     ];
-    this.resendSvc.queryResendSessionHistory().subscribe(
+    this.resendSvc.queryResendSessionHistory(this.params.svc_no).subscribe(
       success => {
         let replayInfoList = [];
         success.body && success.body.forEach(v => {
